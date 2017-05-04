@@ -1,0 +1,20 @@
+.karma-header-menu{
+    float: right;
+}
+
+.karma-branding {
+    float: right;
+}
+
+.main-navigation li {
+    float: right;
+}
+
+.scroll-top{
+    left: 0;
+    right: initial;
+}
+
+#karma-page-jumbotron .entry-title.text-left {
+    text-align: right !important;
+}
