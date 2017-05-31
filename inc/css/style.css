@@ -1572,7 +1572,8 @@ input[type="submit"],
 }
 
 .karma-blog-page,
-.karma-page{
+.karma-page,
+.karma-single-product{
     margin-top: 40px;
  
 }
