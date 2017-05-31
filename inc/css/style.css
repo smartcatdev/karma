@@ -13,20 +13,6 @@ body{
     background: #eef2f5;
 }
 
-.button,
-.product-buttons a{
-    display: inline-block;
-    margin: 0 0 10px !important;
-    border-radius: 2px !important;
-    padding: 10px 18px !important;
-    border: 2px solid #545454 !important;
-    color: #545454 !important;
-    text-decoration: none !important;
-    background: transparent !important;
-    font-size: 16px;
-}
-
-
 body.admin-bar{
     
 }
@@ -1142,6 +1128,9 @@ ul.karma-nav > li.menu-item.menu-item-has-children > a:after{
 }
 
 /*-- ## Buttons --*/
+
+.button,
+.product-buttons a,
 .karma-button,
 a.karma-button,
 button, 
@@ -1149,15 +1138,15 @@ input[type="button"],
 input[type="reset"], 
 input[type="submit"],
 .woocommerce ul.products li.product .button{
-    padding: 10px 15px !important;
-    color: #fff;
-    background: #717171;
-    margin-right: 10px !important;
     display: inline-block;
-    cursor: pointer;
-    transition: 0.2s all ease-in-out;
-    border-radius: 0;
-    border-radius: 20px;
+    margin: 0 0 10px !important;
+    border-radius: 2px !important;
+    padding: 10px 18px !important;
+    border: 2px solid #545454 !important;
+    color: #545454 !important;
+    text-decoration: none !important;
+    background: transparent !important;
+    font-size: 16px;
 }
 
 .karma-button.large{
@@ -1315,7 +1304,7 @@ input[type="submit"],
 /*-- 6. Sidebar --*/
 
 #karma-sidebar{
-    padding: 0;
+    /*padding: 0;*/
     padding-left: 15px;
     margin-bottom: 15px;
 }
@@ -1573,8 +1562,10 @@ input[type="submit"],
 
 .karma-blog-page,
 .karma-page,
-.karma-single-product{
+.karma-single-product,
+.karma-post{
     margin-top: 40px;
+    margin-bottom: 40px;
  
 }
 

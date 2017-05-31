@@ -13,7 +13,7 @@
     
     <?php get_sidebar('left'); ?>
     
-    <div class="col-sm-<?php echo esc_attr( karma_main_width() ); ?>">
+    <div class="col-sm-<?php echo esc_attr( karma_main_width() ); ?> karma-post-container">
 
         <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 
