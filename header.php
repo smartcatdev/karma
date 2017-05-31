@@ -72,17 +72,17 @@
 
                             <div class="karma-header-menu col-sm-9">
 
-                                <?php //if( class_exists( 'WooCommerce' ) ) : ?>
+                                <?php if( class_exists( 'Easy_Digital_Downloads' ) ) : ?>
                                 
                                     <div class="karma-mobile-cart">
-
+                                        
                                         <a class="karma-cart" href="<?php echo edd_get_checkout_uri(); ?>">
                                                 Cart (<span class="header-cart edd-cart-quantity"><?php echo edd_get_cart_quantity(); ?></span>)
                                         </a>
                                         
                                     </div>
                                 
-                                <?php // endif; ?>
+                                <?php endif; ?>
                                 
                                 <nav id="site-navigation" class="main-navigation" role="navigation">
                                     

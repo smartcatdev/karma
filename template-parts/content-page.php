@@ -8,25 +8,6 @@
  */
 ?>
 
-<?php if (get_post_thumbnail_id($post->ID)) : ?>
-    <div id="karma-page-jumbotron" class="parallax-window table-display" data-parallax="scroll" style="background-image: url(<?php echo esc_url( wp_get_attachment_url(get_post_thumbnail_id($post->ID)) ); ?>)">
-        <div class="overlay"></div>
-        
-        <div class="cell-display">
-            <div class="row">
-                <div class="col-sm-12">
-                    <header class="entry-header">
-                        <?php karma_entry_footer(); ?>
-                        <?php the_title('<h1 class="entry-title">', '</h1>'); ?>
-                    </header><!-- .entry-header -->                
-                </div>
-            </div>
-        </div>
-        
-
-
-    </div>
-<?php endif; ?>
 
 <div class="row">
     
@@ -36,16 +17,13 @@
 
         <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 
-
+            <?php karma_entry_footer(); ?>
+            <?php the_title('<h1 class="entry-title">', '</h1>'); ?>
 
             <div class="entry-content">
 
-                <?php if (!get_post_thumbnail_id($post->ID)) : ?>
-
-                    <header class="entry-header">
-                        <?php the_title('<h1 class="entry-title">', '</h1>'); ?>
-                    </header><!-- .entry-header -->
-
+                <?php if ( has_post_thumbnail() ) : ?>
+                    <?php the_post_thumbnail( 'large' ); ?>
                 <?php endif; ?>
 
 

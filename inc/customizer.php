@@ -1,18 +1,10 @@
 <?php
 
-/**
- * Karma Theme Customizer.
- *
- * @package Karma
- */
 
-/**
- * Add refresh support for site title and description for the Theme Customizer.
- *
- * @param WP_Customize_Manager $wp_customize Theme Customizer object.
- */
 function karma_customize_register( $wp_customize ) {
 
+    require get_template_directory() . '/inc/customizer/frontpage.php';
+    
     class KarmaCustomizerPanel extends WP_Customize_Control {
 
         public function render_content() { ?>
@@ -333,237 +325,83 @@ function karma_customize_register( $wp_customize ) {
                 )
             ));
     
-    // *********************************************
-    // ****************** Homepage *****************
-    // *********************************************
-    $wp_customize->add_panel( 'homepage', array (
-        'title'                 => __( 'Frontpage', 'karma' ),
-        'description'           => __( 'Customize the appearance of your homepage', 'karma' ),
-        'priority'              => 10
-    ) );
 
-    $wp_customize->add_section( 'homepage_jumbotron', array (
-        'title'                 => __( 'Jumbotron', 'karma' ),
-        'priority'              => 1
-    ) );
-    
-            $wp_customize->add_setting( 'karma_the_featured_post_toggle', array (
-                'default'               => 'on',
-                'transport'             => 'refresh',
-                'sanitize_callback'     => 'karma_radio_sanitize_onoff'
-            ) );
-
-           $wp_customize->add_control( 'karma_the_featured_post_toggle', array(
-                'label'         => __( 'Display the Jumbotron ?', 'karma' ),
-                'section' => 'homepage_jumbotron',
-                'type'    => 'radio',
-                'priority' => 0,
-                'choices'    => array(
-                    'on'    => __( 'Yes', 'karma' ),
-                    'off'    => __( 'No', 'karma' )
-                )
-            ));
-    
-            $wp_customize->add_setting( 'karma_the_featured_post', array (
-                'default'               => 1,
-                'transport'             => 'refresh',
-                'sanitize_callback'     => 'karma_sanitize_post',
-            ) );
-            $wp_customize->add_control( 'karma_the_featured_post', array(
-                'type'                  => 'select',
-                'section'               => 'homepage_jumbotron',
-                'priority' => 0,
-                'label'                 => __( 'Select the Featured Post', 'karma' ),
-                'description'           => __( 'Select a post, page or one of your WooCommerce products to be featured on the Frontpage. To edit the text that shows up, go to the post and edit it directly.', 'karma' ),
-                'choices'               => karma_all_posts_array(),
-            ) );
-    
-            $wp_customize->add_setting( 'karma_jumbotron_height', array (
-                'default'               => 650,
-                'transport'             => 'refresh',
-                'sanitize_callback'     => 'karma_sanitize_integer',
-            ) );
-            $wp_customize->add_control( 'karma_jumbotron_height', array(
-                'type'                  => 'number',
-                'section'               => 'homepage_jumbotron',
-                'priority' => 0,
-                'label'                 => __( 'Height of Featured Post section', 'karma' ),
-                'input_attrs'           => array(
-                    'min' => 300,
-                    'max' => 1000,
-                    'step' => 50,
-            ) ) );
             
-            $wp_customize->add_setting( 'karma_the_featured_post_button', array (
-                'default'               => __( 'Read More', 'karma' ),
-                'transport'             => 'refresh',
-                'sanitize_callback'     => 'sanitize_text_field',
-            ) );
-            $wp_customize->add_control( 'karma_the_featured_post_button', array(
-                'type'                  => 'text',
-                'section'               => 'homepage_jumbotron',
-                'label'                 => __( 'Button Text', 'karma' ),
-                'priority' => 0,
-            ) );
-            
-            $wp_customize->add_setting( 'karma_the_featured_post_highlight', array (
-                'default'               => false,
-                'transport'             => 'refresh',
-                'sanitize_callback'     => 'karma_sanitize_checkbox',
-            ) );
-            $wp_customize->add_control( 'karma_the_featured_post_highlight', array(
-                'type'                  => 'checkbox',
-                'section'               => 'homepage_jumbotron',
-                'priority' => 0,
-                'label'                 => __( 'Add background color to post title ?', 'karma' ),
-            ) );
-            
-    $wp_customize->add_section( 'homepage_features', array (
-        'title'                 => __( 'Features', 'karma' ),
-        'panel'                 => 'homepage',
-        'priority'              => 3
-    ) );
-    
-    
-        $wp_customize->add_setting( 'homepage_features_toggle', array (
-            'default'               => 'on',
-            'transport'             => 'refresh',
-            'sanitize_callback'     => 'karma_radio_sanitize_onoff'
-        ) );
-
-       $wp_customize->add_control( 'homepage_features_toggle', array(
-            'label'         => __( 'Display the features ?', 'karma' ),
-            'description'   => __( 'This section shows up if you have the Static Front Page set to "A static page" in customizer -> Frontpage -> Static Front Page', 'karma' ),
-            'section' => 'homepage_features',
-            'type'    => 'radio',
-            'choices'    => array(
-                'on'    => __( 'Yes', 'karma' ),
-                'off'    => __( 'No', 'karma' )
-            )
-        ));
-    
-        for( $i = 0; $i <= 3; $i++ ) :
-       
-        $wp_customize->add_setting( 'karma_homepage_feature[' . $i . ']', array (
-            'default'               => 1,
-            'transport'             => 'refresh',
-            'sanitize_callback'     => 'karma_sanitize_post',
-        ) );
-        $wp_customize->add_control( 'karma_homepage_feature[' . $i . ']', array(
-            'type'                  => 'select',
-            'section'               => 'homepage_features',
-            'label'                 => sprintf( __( 'Feature #%s: Select a page or post', 'karma' ), $i+1 ),
-            'description'           => __( 'This is a list of your posts & pages. The feature will link directly to your selection. The title of your post will be the feature name.', 'karma' ),
-            'choices'               => karma_all_posts_array(),
-        ) );
-    
-        $wp_customize->add_setting( 'karma_homepage_feature_icon[' . $i . ']', array (
-            'default'               => 'fa fa-desktop',
-            'transport'             => 'refresh',
-            'sanitize_callback'     => 'karma_sanitize_icon',
-        ) );
-        $wp_customize->add_control( 'karma_homepage_feature_icon[' . $i . ']', array(
-            'type'                  => 'select',
-            'section'               => 'homepage_features',
-            'label'                 => __( 'Select the icon', 'karma' ),
-            'choices'               => karma_icons(),
-        ) );
-
-        endfor;
             
 
-    $wp_customize->add_section( 'homepage_topa', array (
-        'title'                 => __( 'Top A - Featured Page/Post/Product', 'karma' ),
-        'panel'                 => 'homepage',
-    ) );
-    
-            $wp_customize->add_setting( 'karma_the_featured_post2_toggle', array (
-                'default'               => 'on',
-                'transport'             => 'refresh',
-                'sanitize_callback'     => 'karma_radio_sanitize_onoff'
-            ) );
+//    $wp_customize->add_section( 'homepage_topa', array (
+//        'title'                 => __( 'Top A - Featured Page/Post/Product', 'karma' ),
+//        'panel'                 => 'homepage',
+//    ) );
+//    
+//            $wp_customize->add_setting( 'karma_the_featured_post2_toggle', array (
+//                'default'               => 'on',
+//                'transport'             => 'refresh',
+//                'sanitize_callback'     => 'karma_radio_sanitize_onoff'
+//            ) );
+//
+//           $wp_customize->add_control( 'karma_the_featured_post2_toggle', array(
+//                'label'         => __( 'Display the featured post Top A section ?', 'karma' ),
+//                'section' => 'homepage_topa',
+//                'type'    => 'radio',
+//                'choices'    => array(
+//                    'on'    => __( 'Yes', 'karma' ),
+//                    'off'    => __( 'No', 'karma' )
+//                )
+//            ));
+//    
+//            $wp_customize->add_setting( 'karma_the_featured_post2', array (
+//                'default'               => 1,
+//                'transport'             => 'refresh',
+//                'sanitize_callback'     => 'karma_sanitize_post',
+//            ) );
+//            $wp_customize->add_control( 'karma_the_featured_post2', array(
+//                'type'                  => 'select',
+//                'section'               => 'homepage_topa',
+//                'label'                 => __( 'Select the Featured Post', 'karma' ),
+//                'choices'               => karma_all_posts_array(),
+//            ) );
 
-           $wp_customize->add_control( 'karma_the_featured_post2_toggle', array(
-                'label'         => __( 'Display the featured post Top A section ?', 'karma' ),
-                'section' => 'homepage_topa',
-                'type'    => 'radio',
-                'choices'    => array(
-                    'on'    => __( 'Yes', 'karma' ),
-                    'off'    => __( 'No', 'karma' )
-                )
-            ));
-    
-            $wp_customize->add_setting( 'karma_the_featured_post2', array (
-                'default'               => 1,
-                'transport'             => 'refresh',
-                'sanitize_callback'     => 'karma_sanitize_post',
-            ) );
-            $wp_customize->add_control( 'karma_the_featured_post2', array(
-                'type'                  => 'select',
-                'section'               => 'homepage_topa',
-                'label'                 => __( 'Select the Featured Post', 'karma' ),
-                'choices'               => karma_all_posts_array(),
-            ) );
-
-    
-
-    $wp_customize->add_section( 'homepage_widget', array (
-        'title'                 => __( 'Top B - Homepage Widget', 'karma' ),
-        'panel'                 => 'homepage',
-    ) );
     
 
-        $wp_customize->add_setting( 'homepage_widget_bool', array (
-            'default'               => 'on',
-            'transport'             => 'refresh',
-            'sanitize_callback'     => 'karma_radio_sanitize_onoff'
-        ) );
-
-       $wp_customize->add_control( 'homepage_widget_bool', array(
-            'label'         => __( 'Display Homepage Top B Widget ?', 'karma' ),
-            'description'   => __( 'This widget shows up if you have the Static Front Page set to "A static page" in customizer -> Frontpage -> Static Front Page', 'karma' ),
-            'section' => 'homepage_widget',
-            'type'    => 'radio',
-            'choices'    => array(
-                'on'    => __( 'Yes', 'karma' ),
-                'off'    => __( 'No', 'karma' )
-            )
-        ));
-    
-        $wp_customize->add_setting( 'homepage_widget_background', array (
-            'default'               => get_template_directory_uri() . '/inc/images/people.jpg',
-            'transport'             => 'refresh',
-            'sanitize_callback'     => 'esc_url_raw'
-        ) );
-
-        $wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'image_control5', array (
-            'label' =>              __( 'Widget Background', 'karma' ),
-            'section'               => 'homepage_widget',
-            'mime_type'             => 'image',
-            'settings'              => 'homepage_widget_background',
-            'description'           => __( 'Select the image file that you would like to use as the background image', 'karma' ),        
-        ) ) );
+//    $wp_customize->add_section( 'homepage_widget', array (
+//        'title'                 => __( 'Top B - Homepage Widget', 'karma' ),
+//        'panel'                 => 'homepage',
+//    ) );
+//    
+//
+//        $wp_customize->add_setting( 'homepage_widget_bool', array (
+//            'default'               => 'on',
+//            'transport'             => 'refresh',
+//            'sanitize_callback'     => 'karma_radio_sanitize_onoff'
+//        ) );
+//
+//       $wp_customize->add_control( 'homepage_widget_bool', array(
+//            'label'         => __( 'Display Homepage Top B Widget ?', 'karma' ),
+//            'description'   => __( 'This widget shows up if you have the Static Front Page set to "A static page" in customizer -> Frontpage -> Static Front Page', 'karma' ),
+//            'section' => 'homepage_widget',
+//            'type'    => 'radio',
+//            'choices'    => array(
+//                'on'    => __( 'Yes', 'karma' ),
+//                'off'    => __( 'No', 'karma' )
+//            )
+//        ));
+//    
+//        $wp_customize->add_setting( 'homepage_widget_background', array (
+//            'default'               => get_template_directory_uri() . '/inc/images/people.jpg',
+//            'transport'             => 'refresh',
+//            'sanitize_callback'     => 'esc_url_raw'
+//        ) );
+//
+//        $wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'image_control5', array (
+//            'label' =>              __( 'Widget Background', 'karma' ),
+//            'section'               => 'homepage_widget',
+//            'mime_type'             => 'image',
+//            'settings'              => 'homepage_widget_background',
+//            'description'           => __( 'Select the image file that you would like to use as the background image', 'karma' ),        
+//        ) ) );
         
-    $wp_customize->add_section( 'homepage_content', array (
-        'title'                 => __( 'Page content', 'karma' ),
-        'panel'                 => 'homepage',
-    ) );
-    
-        $wp_customize->add_setting( 'homepage_content_toggle', array (
-            'default'               => 'on',
-            'transport'             => 'refresh',
-            'sanitize_callback'     => 'karma_radio_sanitize_onoff'
-        ) );
 
-       $wp_customize->add_control( 'homepage_content_toggle', array(
-            'label'         => __( 'Display Homepage page content ?', 'karma' ),
-            'section' => 'homepage_content',
-            'type'    => 'radio',
-            'choices'    => array(
-                'on'    => __( 'Yes', 'karma' ),
-                'off'    => __( 'No', 'karma' )
-            )
-        ));
     
 //
 //    $wp_customize->add_section( 'homepage_features', array (
@@ -1032,7 +870,16 @@ function karma_checkbox_sanitize($input) {
    }
 }
 
-   
+function karma_product_count_list() {
+    
+    return array(
+        3   => 3,
+        6   => 6,
+        9   => 9,
+    );
+}
+
+
 function karma_fonts() {
 
     $font_family_array = array(
@@ -1090,6 +937,15 @@ function karma_all_posts_array() {
 
     return $posts_array;
 
+}
+
+function karma_sanitize_product_count( $input ) {
+    $valid_keys = karma_product_count_list();
+    if ( array_key_exists( $input, $valid_keys ) ) {
+     return $input;
+   } else {
+     return '';
+   }
 }
 
 function karma_sanitize_icon( $input ) {

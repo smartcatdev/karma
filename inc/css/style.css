@@ -10,6 +10,7 @@ body{
     font-size: 16px;
     font-weight: 400;
     color: #4D5051;
+    background: #eef2f5;
 }
 
 .button,
@@ -71,7 +72,6 @@ body.admin-bar{
 
 #main.karma-page,
 #main.site-main{
-    margin-top: 15px;
     
 }
 
@@ -135,12 +135,14 @@ ul li{
     position: relative;
 }
 
-[data-parallax="scroll"]{ 
-    background-attachment:fixed;
-    background-repeat-x: no-repeat;
-    background-repeat-y: repeat;
-    background-size: cover;
+.karma-post-container {
+    background: #fff;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 0 #D9E1E7;
+    -moz-box-shadow: 0 2px 0 #D9E1E7;
+    -webkit-box-shadow: 0 2px 0 #D9E1E7;
 }
+
 /*-- ## Pre header --*/
 #pre-header {
     height: 28px;
@@ -167,13 +169,11 @@ ul li{
 }
 
 #karma-logo img{
-    max-height: 80px;
-    width: auto;
-    /*padding: 10px 0;*/
+    
 }
 
 
-#karma-header{
+#karma-header.frontpage{
     
     position: fixed;
     top: 0;
@@ -185,8 +185,10 @@ ul li{
     top: 32px;
 }
 
+#content {
+}
 
-#karma-header .header-inner{
+#karma-header.frontpage .header-inner{
     background: transparent;
     padding: 15px 0;
     transition: 0.25s all ease-in-out;
@@ -195,7 +197,8 @@ ul li{
     
 }
 
-#karma-header.shrink .header-inner{
+#karma-header .header-inner,
+#karma-header.frontpage.shrink .header-inner{
     background: #273140;
     padding: 0;
     
@@ -390,8 +393,9 @@ ul li{
     height: 50px;
     border-right: 0px solid transparent;
     border-left: 2000px solid transparent;
-    border-bottom: 80px solid #f4f4f4;
+    border-bottom: 80px solid #eef2f5;
     z-index: 1;
+    display: none;
     
 }
 
@@ -516,8 +520,12 @@ ul li{
     color: #545454;
 }
 
+#karma-features .feature-wrapper > a {
+    display: inline-block;
+}
+
 #karma-homepage-shop {
-    background: #f4f4f4;
+    background: #eef2f5;
     min-height: 100px;
     padding: 60px 0 35px 0;
 }
@@ -528,8 +536,12 @@ ul li{
 
 .product-image {
     position: relative;
-
 }
+
+.product-image img{
+    width: 100%;
+}
+
 
 .edd-product.first {
     clear: both;
@@ -568,7 +580,7 @@ ul li{
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0,0,0,0.65);
+    background: rgba(0,0,0,0.85);
 
 }
 
@@ -590,7 +602,7 @@ ul li{
     text-align: center;
     width: 100%;
     height: 100%;
-    padding-top: 30%;
+    padding-top: 40%;
     z-index: 1;
     display: none;
 
@@ -614,6 +626,24 @@ ul li{
 .edd-product .product-price {
     padding-bottom: 15px;
     margin-bottom: 15px;
+}
+
+.edd-product-icon {
+    width: 100%;
+    height: 300px;
+    background: #e9e9e9;
+    display: table;
+}
+
+.edd-product-icon .fa {
+    font-size: 40px;
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+}
+
+.edd-cart-added-alert {
+    display: none !important;
 }
 
 /*-- ## Navigation --*/
@@ -683,7 +713,6 @@ ul.karma-nav ul {
 .sticky ul.karma-nav ul{
     padding: 9px 0 15px 10px;
     top: 21px;
-        
 }
 
 ul.karma-nav ul ul {
@@ -898,6 +927,7 @@ ul.karma-nav > li.menu-item.menu-item-has-children > a:after{
     border-left: 2000px solid transparent;
     border-bottom: 80px solid #fff;
     z-index: 1;
+    
 /*    background: url('../images/pattern.png');
     content: "";
     display: block;
@@ -1108,7 +1138,7 @@ ul.karma-nav > li.menu-item.menu-item-has-children > a:after{
 
 #karma-topa .wp-post-image{
     width: 50%;
-    border: 4px solid rgba(234, 234, 234, 0.6);
+    
 }
 
 /*-- ## Buttons --*/
@@ -1285,8 +1315,23 @@ input[type="submit"],
 /*-- 6. Sidebar --*/
 
 #karma-sidebar{
-    margin-top: 30px;
-    overflow: hidden;
+    padding: 0;
+    padding-left: 15px;
+    margin-bottom: 15px;
+}
+
+@media( max-width: 767px ) {
+    #karma-sidebar {
+        padding: 0 15px;
+    }
+}
+
+#karma-sidebar #secondary {
+    background: #fff;
+    padding: 25px;
+    box-shadow: 0 2px 0 #D9E1E7;
+    -moz-box-shadow: 0 2px 0 #D9E1E7;
+    -webkit-box-shadow: 0 2px 0 #D9E1E7;
 }
 
 #karma-sidebar .widget-title{
@@ -1304,6 +1349,34 @@ input[type="submit"],
     margin-bottom: 20px;
     border-bottom: 1px solid #e1e1e1;
     padding-bottom: 10px;
+}
+
+#karma-sidebar .price {
+    text-align: center;
+    font-size: 34px;
+    margin-bottom: 25px;
+    margin-top: 0px;
+}
+
+#karma-sidebar .product-buttons {
+    text-align: center;
+}
+
+#karma-sidebar .edd_price_options {
+    text-align: left;
+}
+
+#karma-sidebar .edd_download_purchase_form .edd_price_options li {
+    border-bottom: dotted 1px #D3D8DB;
+    padding-bottom: 10px;
+}
+
+#karma-sidebar .edd_purchase_submit_wrapper {
+    margin: 25px 0;
+}
+
+#karma-sidebar .edd-submit.button {
+    padding: 12px 40px !important;
 }
 
 /*-- 7. Page --*/
@@ -1498,7 +1571,8 @@ input[type="submit"],
     margin-right: 1%;
 }
 
-.karma-blog-page{
+.karma-blog-page,
+.karma-page{
     margin-top: 40px;
  
 }
@@ -1747,8 +1821,6 @@ li.product a.ajax_add_to_cart{
     
     #karma-header .header-inner,
     #karma-header .header-inner{
-        /*background: #1b1b1b;*/
-        height: 70px;
     }
 
     #karma-header .header-inner #karma-logo{
@@ -1759,7 +1831,7 @@ li.product a.ajax_add_to_cart{
     
     #karma-header .header-inner #karma-logo img{
         
-        max-height: 70px;
+        /*max-height: 70px;*/
         
     }
     
@@ -1834,6 +1906,11 @@ li.product a.ajax_add_to_cart{
     
     .links-login,
     .contact-info{
+    }
+    
+    #karma-logo img {
+        width: 50%;
+        height: auto;
     }
     
     

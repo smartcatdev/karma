@@ -1,8 +1,12 @@
 jQuery(document).ready(function ($) {
 
-    particlesJS.load('karma-jumbo-js', karmaObj.particlesLocation, function() {
-        console.log('callback - particles.js config loaded');
-    });
+
+    if( $('#karma-jumbo-js').length ) {
+        particlesJS.load('karma-jumbo-js', karmaObj.particlesLocation, function() {
+            console.log('callback - particles.js config loaded');
+        });        
+    }
+
 
 //    $('#primary-menu').slicknav({
 //        prependTo: $('.karma-header-menu'),
