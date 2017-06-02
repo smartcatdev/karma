@@ -13,6 +13,16 @@ body{
     background: #eef2f5;
 }
 
+input[type="text"],
+input[type="password"],
+input[type="search"],
+input[type="url"],
+input[type="number"],
+textarea {
+    outline: none;
+    border: 1px solid #eef2f5;
+}
+
 body.admin-bar{
     
 }
@@ -89,9 +99,9 @@ ul{
     padding-left: 15px;
 }
 
-ul li{
-    /*list-style: none;*/
-    /*padding-left: 0;*/
+ul.karma-mobile-nav li{
+    list-style: none;
+    padding-left: 0;
 }
 .delay1{
     -webkit-animation-delay: 0.1s;
@@ -121,12 +131,23 @@ ul li{
     position: relative;
 }
 
-.karma-post-container {
+.karma-post-container article,
+.karma-comments-section,
+.karma-blog-content article{
+    padding: 25px;
     background: #fff;
     margin-bottom: 15px;
     box-shadow: 0 2px 0 #D9E1E7;
     -moz-box-shadow: 0 2px 0 #D9E1E7;
     -webkit-box-shadow: 0 2px 0 #D9E1E7;
+}
+
+.karma-post-container article h1 {
+    margin: 0;
+}
+
+.wp-post-image {
+    margin-bottom: 15px;
 }
 
 /*-- ## Pre header --*/
@@ -146,25 +167,22 @@ ul li{
     float: right;
 }
 
-#karma-header #karma-logo img{
-    /*max-height: 150px;*/
-}
-
 #karma-logo{
     line-height: 85px;
 }
 
-#karma-logo img{
-    
-}
 
 
 #karma-header.frontpage{
-    
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
+}
+
+.blog.home #karma-header {
+    position: relative;
+    top: 0 !important;
 }
 
 .logged-in.admin-bar #karma-header {
@@ -184,7 +202,8 @@ ul li{
 }
 
 #karma-header .header-inner,
-#karma-header.frontpage.shrink .header-inner{
+#karma-header.frontpage.shrink .header-inner,
+.home.blog #karma-header .header-inner{
     background: #273140;
     padding: 0;
     
@@ -199,10 +218,18 @@ ul li{
 }
 
 #menu-toggle-trigger {
-    position: fixed;
+    position: absolute;
     right: 15px;
     top: 5px;
     z-index: 9999;
+}
+
+#menu-toggle-trigger.frontpage {
+    position: fixed;
+}
+
+.logged-in.admin-bar #menu-toggle-trigger {
+    top: 32px;
 }
 
 #menu-toggle-trigger .fa {
@@ -262,7 +289,8 @@ ul li{
 #karma-fs-overlay{
     background: #111111;
     background: #273140;
-    background: rgba(39, 49, 64, 0.5);
+    /*background: rgba(39, 49, 64, 0.5);*/
+    background: rgba(50, 50, 50, 0.8);
     position: fixed;
     top: 0;
     left: 0;
@@ -333,7 +361,9 @@ ul li{
 
 .karma-mobile-nav {
     padding-left: 0;
+    animation-duration: 0.75s !important;
 }
+
 
 .karma-mobile-nav ul {
     padding-left: 0;
@@ -351,8 +381,7 @@ ul li{
 }
 
 .karma-mobile-nav a:hover {
-    font-size: 24px;
-    
+    font-size: 24px;   
 }
 
 
@@ -661,9 +690,17 @@ ul li{
     display: none;
     position: absolute;
     right: 0;
-    top: 1px;
-    padding: 10px;
-    font-size: 18px;
+    top: 70px;
+    padding: 0;
+    width: 100%;
+}
+
+#karma-header .slicknav_menu a {
+    
+}
+
+#karma-header .slicknav_menu li a {
+    display: block;
 }
 
 .slicknav_nav .slicknav_row:hover{
@@ -1145,7 +1182,6 @@ input[type="submit"],
     border: 2px solid #545454 !important;
     color: #545454 !important;
     text-decoration: none !important;
-    background: transparent !important;
     font-size: 16px;
 }
 
@@ -1355,9 +1391,15 @@ input[type="submit"],
     text-align: left;
 }
 
-#karma-sidebar .edd_download_purchase_form .edd_price_options li {
+.edd_download_purchase_form .edd_price_options li {
     border-bottom: dotted 1px #D3D8DB;
     padding-bottom: 10px;
+    margin-bottom: 10px;
+}
+
+.entry-content .edd_price_options {
+    border-top: 1px solid #e9e9e9;
+    padding-top: 15px;
 }
 
 #karma-sidebar .edd_purchase_submit_wrapper {
@@ -1366,6 +1408,22 @@ input[type="submit"],
 
 #karma-sidebar .edd-submit.button {
     padding: 12px 40px !important;
+}
+
+.entry-content .edd-submit.button {
+    padding: 12px 40px !important;
+}
+
+#karma-sidebar .download-category,
+#karma-sidebar .download-tag{
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+
+#karma-sidebar .download-category a,
+#karma-sidebar .download-tag a{
+    margin-bottom: 8px;
+    color: #7B8996;
 }
 
 /*-- 7. Page --*/
@@ -1416,7 +1474,7 @@ input[type="submit"],
 }
 
 .entry-meta{
-    margin-top: 30px;
+    margin-top: 0px;
     font-size: 16px;
 }
 
@@ -1424,10 +1482,8 @@ input[type="submit"],
     display: inline-block;
     width: 21px;
     height: 21px;
-    background: #4D5051;
     color: #fff;
-    border-radius: 100%;
-    font-size: 12px;
+    font-size: 14px;
     text-align: center;
     line-height: 21px;
     margin-bottom: 1px;
@@ -1497,32 +1553,25 @@ input[type="submit"],
 
 .karma-blog-post{
     width: 100%;
-    height: 250px;
     margin-bottom: 0;
     border-radius: 2px;
     -moz-border-radius: 2px;
     -webkit-border-radius: 2px;
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
     position: relative;
-    background-size: cover;
-    background-repeat: no-repeat;
-    border: 6px solid #fff;
 }
 
 .karma-blog-post .entry-meta .entry-date{
-    color: #fff;
+    color: #4d5051;
+    font-weight: 300;
+    font-size: 14px;
+}
+
+.karma-author-date {
+    margin-bottom: 15px;
 }
 
 .comment-list{
     margin-left: 0;
-}
-
-
-.karma-blog-post:hover .post-panel-content{
-    display: block;
-    background: rgba(0,0,0,0.2);
 }
 
 .karma-blog-post:nth-of-type(7n+2) .post-panel-content,
@@ -1533,26 +1582,19 @@ input[type="submit"],
 
 
 .karma-blog-post .post-panel-content{
-    padding: 0 15px 15px 15px;
-    background: rgba(0,0,0,0.6);
-    overflow: hidden;
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    left: 0;
-    bottom: 0;
     transition: 0.2s all ease-in-out;
-    color: #fff;
+    color: #4d5051;
 
 }
 
 .karma-blog-post .post-panel-content a{
-    color: #fff;
+    color: #4d5051;
 }
 
 .karma-blog-post .post-panel-content h2.entry-title{
     font-size: 24px;
     line-height: 26px;
+    margin-top: 0;
 }
 
 .karma-blog-post.masonry{
@@ -1563,7 +1605,8 @@ input[type="submit"],
 .karma-blog-page,
 .karma-page,
 .karma-single-product,
-.karma-post{
+.karma-post,
+.karma-store-page{
     margin-top: 40px;
     margin-bottom: 40px;
  
@@ -1822,8 +1865,9 @@ li.product a.ajax_add_to_cart{
     }
     
     #karma-header .header-inner #karma-logo img{
-        
-        /*max-height: 70px;*/
+        width: auto;
+        max-height: 70px;
+        max-width: 50%;
         
     }
     
@@ -1833,16 +1877,13 @@ li.product a.ajax_add_to_cart{
         margin: 0;
     }
     
-    .site-description{
+    .site-description,
+    .karma-header-menu{
         display: none;
     }
     
     #mobile-nav{
         display: block;
-    }
-    
-    #site-navigation{
-        display: none;
     }
     
     .site-branding{
@@ -1899,11 +1940,7 @@ li.product a.ajax_add_to_cart{
     .links-login,
     .contact-info{
     }
-    
-    #karma-logo img {
-        width: 50%;
-        height: auto;
-    }
+
     
     
 }
@@ -1914,3 +1951,63 @@ li.product a.ajax_add_to_cart{
 }
 
 
+/*---------------------------*/
+ul.edd-taxonomy-widget {
+    padding-left: 0;
+}
+
+.edd-taxonomy-widget li {
+    list-style: none;
+}
+
+.karma-post-container .karma-comments-section article {
+    box-shadow: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+}
+
+.karma-post-container .karma-comments-section .comment-body {
+    padding-left: 0;
+}
+
+#comments {
+    background: #fff;
+    padding: 0;
+}
+
+.comments-title {
+    margin-top: 0;
+}
+
+#comments li {
+    list-style: none;
+}
+
+#comments .comment-list {
+    margin-left: 0;
+    padding-left: 0;
+}
+
+#comments .comment-list .children {
+    margin-left: 0;
+    margin-top: 15px;
+}
+
+#comments .comment-list .children .comment-body{
+    margin-bottom: 15px;
+}
+
+#comments .comment-list > .comment{
+    border-bottom: 1px solid #d1d1d1;
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+}
+
+#comments .comment-list > .comment p{
+    margin-bottom: 5px;
+    margin-top: 5px;
+}
+
+#comments .comment-list > .comment .comment-metadata{
+    font-size: 13px;
+}

@@ -44,7 +44,7 @@ function karma_scripts() {
     wp_enqueue_style('animate', get_template_directory_uri() . '/inc/css/animate.css', array(), KARMA_VERSION);
     wp_enqueue_style('slicknav', get_template_directory_uri() . '/inc/css/slicknav.min.css', array(), KARMA_VERSION);
     
-    wp_enqueue_script('jquery-sticky', get_template_directory_uri() . '/inc/js/scrollme.min.js', array('jquery'), KARMA_VERSION, true);
+//    wp_enqueue_script('jquery-sticky', get_template_directory_uri() . '/inc/js/scrollme.min.js', array('jquery'), KARMA_VERSION, true);
     wp_enqueue_script('jquery-sticky', get_template_directory_uri() . '/inc/js/jquery.sticky.js', array('jquery'), KARMA_VERSION, true);
     wp_enqueue_script('jquery-particles', get_template_directory_uri() . '/inc/js/particle.js', array('jquery'), KARMA_VERSION, true);
     wp_enqueue_script('jquery-easing', get_template_directory_uri() . '/inc/js/easing.js', array('jquery'), KARMA_VERSION, true);
@@ -213,15 +213,14 @@ function karma_do_right_sidebar( $args ) {
 }
 add_action('karma-sidebar-right', 'karma_do_right_sidebar');
 
-function karma_main_width(){
+function karma_main_width( $post_id ){
     
     $width = 12;
     
-    if( is_active_sidebar('sidebar-left') && is_active_sidebar('sidebar-right') ) :
-        
+    
+    if( karma_has_left_sidebar( $post_id ) && karma_has_right_sidebar( $post_id ) ) :
         $width = 6;
-        
-    elseif( is_active_sidebar('sidebar-left') || is_active_sidebar('sidebar-right') ) :
+    elseif( karma_has_left_sidebar( $post_id ) || karma_has_right_sidebar( $post_id ) ) :
         $width = 9;
     else:
         $width = 12;
@@ -236,10 +235,6 @@ function karma_customize_nav( $items, $args ) {
 
     if( $args->theme_location != 'primary' ) :
         return $items;
-    endif;
-    
-    if( get_theme_mod('header_search_bool', 'on' ) == 'on' ) :
-        $items .= '<li class="menu-item"><a class="karma-search" href="#search" role="button" data-toggle="modal"><span class="fa fa-search"></span></a></li>';
     endif;
     
     if( class_exists( 'Easy_Digital_Downloads' ) && get_theme_mod('header_cart_bool', 'on' ) == 'on' ) :
@@ -282,13 +277,15 @@ function karma_custom_css() {
             font-size: <?php echo esc_attr( get_theme_mod('menu_font_size', '14px' ) ); ?>;
         }
         
-        #karma-sidebar .edd-submit.button {
+        #karma-sidebar .edd-submit.button,
+        .entry-content .edd-submit.button{
             background: <?php echo $theme_color; ?> !important;
             color: #fff !important;
             border: 2px solid <?php echo $hover_color; ?> !important;
         }
         
-        #karma-sidebar .edd-submit.button:hover{
+        #karma-sidebar .edd-submit.button:hover,
+        .entry-content .edd-submit.button:hover{
             background: <?php echo $hover_color; ?> !important;
         }
         
@@ -306,7 +303,8 @@ function karma_custom_css() {
         a,a:visited,
         ul.karma-nav > li > ul li.current-menu-item > a,
         .woocommerce .woocommerce-message:before,
-        #karma-social a
+        #karma-social a,
+        .entry-meta .fa
         {
             color: <?php echo $theme_color; ?>;
         }
@@ -319,16 +317,6 @@ function karma_custom_css() {
             color: <?php echo $hover_color; ?>;
         }
         
-        /**
-        ul.karma-nav > li.menu-item.current-menu-item a,
-        ul.karma-nav > li.menu-item.current-menu-parent a,
-        ul.karma-nav > li.menu-item a:hover{
-
-            border-bottom: 2px solid <?php //echo $hover_color; ?>;
-
-        }
-        */
-        
         .button,
         button,
         .edd-product-inner .product-buttons a,
@@ -340,9 +328,12 @@ function karma_custom_css() {
         .woocommerce a.button.alt,
         .woocommerce ul.products li.product .button,
         .button.wc-backward,
+        .karma-button.primary,
         #karma-featured-post #karma-social a:hover{
             border: 2px solid <?php echo $theme_color; ?> !important;
-            color: <?php echo $theme_color; ?> !important;
+            background: <?php echo $theme_color; ?> !important;
+            color: #fff !important;
+            outline: none;
             
         }
 
@@ -359,8 +350,7 @@ function karma_custom_css() {
             background: <?php echo $hover_color; ?> !important;
         }
 
-        .entry-meta .fa,
-        .karma-blog-post,
+        
         #karma-featured,
         .woocommerce span.onsale,
         .entry-meta .post-category a,
@@ -411,6 +401,15 @@ function karma_custom_css() {
             background: <?php echo $theme_color; ?>
         }
 
+        input[type="text"]:focus,
+        input[type="password"]:focus,
+        input[type="search"]:focus,
+        input[type="url"]:focus,
+        input[type="number"]:focus,
+        textarea:focus {
+            box-shadow: 0 0 3px <?php echo $theme_color; ?>;
+        }
+        
         
     </style>
     <?php
@@ -591,6 +590,19 @@ function karma_homepage_shop() {
                     <div class="col-md-4 col-sm-6 col-xs-12 edd-product <?php echo $i%3==0 ? ' first' : '';?>">
                         <div class="edd-product-inner">
                             <div class="product-image">
+                                <div class="overlay">
+                                    <?php if ( function_exists( 'edd_price' ) ) { ?>
+                                        <div class="product-buttons animated fadeIn">
+                                            <div class="product-buttons-inner">
+                                                <?php if ( ! edd_has_variable_prices( get_the_ID() ) ) { ?>
+                                                    <?php echo edd_get_purchase_link( get_the_ID(), 'Add to Cart', 'button' ); ?>
+                                                <?php } ?>
+                                                <a href="<?php the_permalink(); ?>"><?php _e( 'Product details', 'karma' ); ?></a>                                                
+                                            </div>
+
+                                        </div><!--end .product-buttons-->
+                                    <?php } ?>                                    
+                                </div>
                                 <a href="<?php the_permalink(); ?>">
                                     <?php if ( has_post_thumbnail() ) : ?>
                                         <?php the_post_thumbnail( 'product-image' ); ?>
@@ -600,17 +612,7 @@ function karma_homepage_shop() {
                                         </div>
                                     <?php endif; ?>
                                 </a>
-                                <?php if ( function_exists( 'edd_price' ) ) { ?>
-                                    <div class="product-buttons animated fadeIn">
-                                        <div class="product-buttons-inner">
-                                            <?php if ( ! edd_has_variable_prices( get_the_ID() ) ) { ?>
-                                                <?php echo edd_get_purchase_link( get_the_ID(), 'Add to Cart', 'button' ); ?>
-                                            <?php } ?>
-                                            <a href="<?php the_permalink(); ?>"><?php _e( 'Product details', 'karma' ); ?></a>                                                
-                                        </div>
 
-                                    </div><!--end .product-buttons-->
-                                <?php } ?>
                             </div>
                             <div class="product-details">
 
@@ -735,25 +737,19 @@ function karma_get_post_thumb( $post_id ) {
 
 
 function karma_render_footer(){ ?>
-        
-    
-    <?php if( get_theme_mod( 'footer_cta_toggle', 'on' ) == 'on') : ?>
+
+    <?php if ( is_active_sidebar( 'sidebar-cta' ) ) : ?>
 
     <div id="karma-cta">
         <div class="row">
             <?php
-                if ( is_active_sidebar( 'sidebar-cta' ) ) {
+                if ( is_active_sidebar( 'sidebar-cta' ) ) :
                     dynamic_sidebar( 'sidebar-cta' );
-                }elseif( current_user_can ( 'edit_theme_options' ) ){ ?>
-                <h2> <?php _e( 'This is the CTA Widget - You can place any widgets here from Appearance - Widgets. You can also hide this or change the image from Customizer - Footer', 'karma' ); ?></h2>
-            <?php } ?>
+                endif;?>
         </div>
     </div>
     
-    
     <?php endif; ?>
-    
-    <?php if( get_theme_mod( 'footer_background_toggle', 'on' ) == 'on') : ?>
     
     <div class="karma-footer">
         <div>
@@ -766,8 +762,7 @@ function karma_render_footer(){ ?>
     </div>
     
     <div class="clear"></div>
-    
-    <?php endif; ?>
+
     
     <div class="site-info">
         
@@ -958,4 +953,123 @@ function karma_get_mobile_nav() {
         endif;
     endif;
     
+}
+
+function karma_has_left_sidebar( $post_id ) {
+    
+    $sidebar_location = get_post_meta( $post_id, 'karma_sidebar_location', true ) ? get_post_meta( $post_id, 'karma_sidebar_location', true ) : '';
+
+    
+    if( $sidebar_location == 'karma_default' || $sidebar_location == 'karma_left' || $sidebar_location == 'karma_leftright' || $sidebar_location == '' ) :
+        
+        return true;
+    
+    endif;
+    
+    return false;
+    
+}
+
+function karma_has_right_sidebar( $post_id ) {
+    
+    $sidebar_location = get_post_meta( $post_id, 'karma_sidebar_location', true ) ? get_post_meta( $post_id, 'karma_sidebar_location', true ) : '';
+
+    
+    if( $sidebar_location == 'karma_default' || $sidebar_location == 'karma_right' || $sidebar_location == 'karma_leftright' || $sidebar_location == '' ) :
+        
+        return true;
+    
+    endif;
+    
+    return false;
+    
+}
+
+
+new Karma_Sidebar_Meta_Box;
+class Karma_Sidebar_Meta_Box {
+
+    public function __construct() {
+
+        if ( is_admin() ) {
+            add_action( 'load-post.php',     array( $this, 'init_metabox' ) );
+            add_action( 'load-post-new.php', array( $this, 'init_metabox' ) );
+        }
+
+    }
+
+    public function init_metabox() {
+
+        add_action( 'add_meta_boxes',        array( $this, 'add_metabox' )         );
+        add_action( 'save_post',             array( $this, 'save_metabox' ), 10, 2 );
+
+    }
+
+    public function add_metabox() {
+
+        add_meta_box(
+            'karma-sidebar',
+            __( 'Sidebar', 'karma' ),
+            array( $this, 'render_metabox' ),
+            array( 'post', 'page' ),
+            'side',
+            'high'
+        );
+
+    }
+
+    public function render_metabox( $post ) {
+
+        // Add nonce for security and authentication.
+        wp_nonce_field( 'karma_nonce_action', 'karma_nonce' );
+
+        // Retrieve an existing value from the database.
+        $karma_sidebar_location = get_post_meta( $post->ID, 'karma_sidebar_location', true );
+
+        // Set default values.
+        if( empty( $karma_sidebar_location ) ) $karma_sidebar_location = '';
+
+        // Form fields.
+        echo '<table class="form-table">';
+
+        echo '  <tr>';
+        echo '      <th><label for="karma_sidebar_location" class="karma_sidebar_location_label">' . __( 'Sidebar Location', 'karma' ) . '</label></th>';
+        echo '      <td>';
+        echo '          <select id="karma_sidebar_location" name="karma_sidebar_location" class="karma_sidebar_location_field">';
+        echo '          <option value="karma_default" ' . esc_attr( selected( $karma_sidebar_location, 'karma_default', false ) ) . '> ' . __( 'Default', 'karma' ) . '</option>';
+        echo '          <option value="karma_left" ' . esc_attr( selected( $karma_sidebar_location, 'karma_left', false ) ) . '> ' . __( 'Left Sidebar', 'karma' ) . '</option>';
+        echo '          <option value="karma_right" ' . esc_attr( selected( $karma_sidebar_location, 'karma_right', false ) ) . '> ' . __( 'Right Sidebar', 'karma' ) . '</option>';
+        echo '          <option value="karma_leftright" ' . esc_attr( selected( $karma_sidebar_location, 'karma_leftright', false ) ) . '> ' . __( 'Left + Right Sidebars', 'karma' ) . '</option>';
+        echo '          <option value="karma_none" ' . esc_attr( selected( $karma_sidebar_location, 'karma_none', false ) ) . '> ' . __( 'No Sidebar', 'karma' ) . '</option>';
+        echo '          </select>';
+        echo '          <p class="description">' . __( 'Do you want to display a sidebar on this post?', 'karma' ) . '</p>';
+        echo '      </td>';
+        echo '  </tr>';
+
+        echo '</table>';
+
+    }
+
+    public function save_metabox( $post_id, $post ) {
+
+        // Add nonce for security and authentication.
+        $nonce_name   = isset( $_POST['karma_nonce'] ) ? $_POST['karma_nonce'] : '';
+        $nonce_action = 'karma_nonce_action';
+
+        // Check if a nonce is set.
+        if ( ! isset( $nonce_name ) )
+            return;
+
+        // Check if a nonce is valid.
+        if ( ! wp_verify_nonce( $nonce_name, $nonce_action ) )
+            return;
+
+        // Sanitize user input.
+        $karma_new_sidebar_location = isset( $_POST[ 'karma_sidebar_location' ] ) ? $_POST[ 'karma_sidebar_location' ] : '';
+
+        // Update the meta field in the database.
+        update_post_meta( $post_id, 'karma_sidebar_location', $karma_new_sidebar_location );
+
+    }
+
 }

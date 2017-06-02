@@ -113,8 +113,3 @@ the menu items will drop to a new line and will not look as good as intended.
     - URL                   https://github.com/garand/sticky
     - License               MIT
     - License URL           http://opensource.org/licenses/MIT    
-
-13. Sticky JS
-    - URL                   https://github.com/nckprsn/scrollme
-    - License               MIT
-    - License URL           http://opensource.org/licenses/MIT    

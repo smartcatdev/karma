@@ -31,7 +31,7 @@
             
         </div>
         
-        <div id="menu-toggle-trigger">
+        <div id="menu-toggle-trigger" class="<?php echo is_front_page() ? 'frontpage' : ''; ?>">
             <i class="fa fa-bars" style="color: rgb(255, 255, 255);"></i>
         </div>
         
@@ -47,7 +47,7 @@
 
                         <div class="row">
 
-                            <div class="karma-branding col-sm-3">
+                            <div class="karma-branding col-md-3">
 
                                 <!-- Logo start -->    
                                 <div id="karma-logo" class="<?php echo function_exists( 'has_custom_logo' ) && has_custom_logo() ? 'show' : 'hidden'; ?>">
@@ -70,7 +70,7 @@
 
                             </div>
 
-                            <div class="karma-header-menu col-sm-9">
+                            <div class="karma-header-menu col-md-9">
 
                                 <?php if( class_exists( 'Easy_Digital_Downloads' ) ) : ?>
                                 

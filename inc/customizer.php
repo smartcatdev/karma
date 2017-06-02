@@ -637,41 +637,6 @@ function karma_customize_register( $wp_customize ) {
         'priority'              => 10
     ) );
     
-        $wp_customize->add_section( 'footer_background', array (
-            'title'                 => __( 'Footer Background', 'karma' ),
-            'panel'                 => 'footer',
-        ) );
-    
-            $wp_customize->add_setting( 'footer_background_toggle', array (
-                'default'               => 'on',
-                'transport'             => 'refresh',
-                'sanitize_callback'     => 'karma_radio_sanitize_onoff'
-            ) );
-
-           $wp_customize->add_control( 'footer_background_toggle', array(
-                'label'         => __( 'Display the footer background ?', 'karma' ),
-                'section' => 'footer_background',
-                'type'    => 'radio',
-                'choices'    => array(
-                    'on'    => __( 'Yes', 'karma' ),
-                    'off'    => __( 'No', 'karma' )
-                )
-            )); 
-        
-        
-            $wp_customize->add_setting( 'footer_background_image', array (
-                'default'               => get_template_directory_uri() . '/inc/images/cab.jpg',
-                'transport'             => 'refresh',
-                'sanitize_callback'     => 'esc_url_raw'
-            ) );
-
-            $wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'image_control3', array (
-                'label' =>              __( 'Footer Background Image ( Parallax )', 'karma' ),
-                'section'               => 'footer_background',
-                'mime_type'             => 'image',
-                'settings'              => 'footer_background_image',
-                'description'           => __( 'Select the image file that you would like to use as the footer background', 'karma' ),        
-            ) ) );
     
     
     $wp_customize->add_section( 'payment_methods', array (

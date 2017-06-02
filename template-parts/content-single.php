@@ -10,9 +10,15 @@
 
 <div class="row">
     
-    <?php get_sidebar('left'); ?>
+    <?php
+        
+    if( karma_has_left_sidebar( get_the_ID() ) ) :
+        get_sidebar('left');
+    endif;
     
-    <div class="col-sm-<?php echo esc_attr( karma_main_width() ); ?> karma-post-container">
+    ?>
+    
+    <div class="col-sm-<?php echo esc_attr( karma_main_width( get_the_ID() ) ); ?> karma-post-container">
 
         <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
             <header class="entry-header">
@@ -58,17 +64,31 @@
             
             <?php the_post_navigation(); ?>
 
+
+
+        </article><!-- #post-## -->
+        
+        
+        <div class="karma-comments-section">
             <?php
             // If comments are open or we have at least one comment, load up the comment template.
             if (comments_open() || get_comments_number()) :
                 comments_template();
             endif;
-            ?>
+            ?>    
 
-        </article><!-- #post-## -->
+        </div>
+
+        
 
     </div>
     
-    <?php get_sidebar('right'); ?>
+    <?php
+        
+    if( karma_has_right_sidebar( get_the_ID() ) ) :
+        get_sidebar('right');
+    endif;
+    
+    ?>
 
 </div>

@@ -32,7 +32,6 @@ $front = get_option('show_on_front');
                         </header>
                     <?php endif; ?>
 
-                    
 
                     <?php echo $front == 'posts' ? '<div class="karma-blog-content">' : ''; ?>
 

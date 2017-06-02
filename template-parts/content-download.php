@@ -9,22 +9,14 @@
 ?>
 <div class="row">
     
-    <div class="col-sm-9 karma-post-container">
+    <div class="col-sm-8 karma-post-container">
 
         <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
             <header class="entry-header">
                 <div class="entry-meta">
                     <div class="meta-detail">
                         
-                        <div class="post-category">
-                            <?php karma_post_category(); ?>
-                        </div>
-                        
                         <?php the_title('<h1 class="text-left entry-title">', '</h1>'); ?>
-                        
-                        <!--<div><span class="fa fa-calendar"></span> </div>-->
-
-                        <div class="author"><?php echo get_the_author() ? esc_html( get_the_author() ) . ' . ' : ''; ?><?php echo karma_posted_on(); ?></div>
                         
                         <div class="single-post-thumbnail">
                         <?php 
@@ -66,7 +58,7 @@
 
     </div>
     
-    <div class="col-sm-3" id="karma-sidebar">
+    <div class="col-sm-4 edd-sidebar" id="karma-sidebar">
         <div id="secondary" class="widget-area" role="complementary">
             <aside class="widget">
                 <?php if ( function_exists( 'edd_price' ) ) { ?>
@@ -85,7 +77,6 @@
                             <?php if ( ! edd_has_variable_prices( get_the_ID() ) ) { ?>
                                 <?php echo edd_get_purchase_link( get_the_ID(), 'Add to Cart', 'button' ); ?>
                             <?php }else {
-                                
                                 edd_append_purchase_link( get_the_ID() );
                             } ?>                                                
                         </div>
@@ -95,6 +86,26 @@
                 
                 
             </aside>
+            
+            <?php $categories = get_the_term_list( $post->ID, 'download_category', '', ', ', '' ); ?>
+            <?php if( $categories ) : ?>
+            <div class="download-category">
+                <span class="fa fa-folder"></span>
+                <?php echo $categories ? $categories : ''; ?>
+                
+            </div>
+            <?php endif;?>
+            
+            <?php $tags = get_the_term_list( $post->ID, 'download_tag', '', ', ', '' ); ?>
+            <?php if( $tags ) : ?>
+            <div class="download-tag">
+                <span class="fa fa-tag"></span>
+            <?php echo $tags ? $tags : ''; ?>
+            </div>
+            <?php endif; ?>
+
+
+            
         </div><!-- #secondary -->
     </div>
 

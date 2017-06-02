@@ -16,9 +16,15 @@ get_header();
 
         <div class="row">
 
-            <?php get_sidebar('left'); ?>
+            <?php
 
-            <div class="karma-blog-content col-sm-<?php echo esc_attr( karma_main_width() ); ?>">
+            if( karma_has_left_sidebar( get_the_ID() ) ) :
+                get_sidebar('left');
+            endif;
+
+            ?>
+
+            <div class="karma-blog-content col-sm-<?php echo esc_attr( karma_main_width( get_the_ID() ) ); ?>">
                 <?php if (have_posts()) : ?>
 
 
@@ -39,7 +45,13 @@ get_header();
                 <?php endif; ?>
             </div>
 
-            <?php get_sidebar('right'); ?>
+            <?php
+
+            if( karma_has_right_sidebar( get_the_ID() ) ) :
+                get_sidebar('right');
+            endif;
+
+            ?>
 
         </div>
         <div class="clear"></div>

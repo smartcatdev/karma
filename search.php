@@ -25,7 +25,7 @@ get_header();
 
             <?php get_sidebar('left'); ?>
 
-            <div class="karma-blog-content col-sm-<?php echo esc_attr( karma_main_width() ); ?>">
+            <div class="karma-blog-content col-sm-<?php echo esc_attr( karma_main_width( get_the_ID() ) ); ?>">
                 <?php if (have_posts()) : ?>
 
                     <?php /* Start the Loop */ ?>

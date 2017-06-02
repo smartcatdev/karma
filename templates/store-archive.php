@@ -24,7 +24,7 @@ get_header();
 
 <div id="primary" class="content-area">
 
-    <main id="main" class="site-main karma-blog-page" role="main">
+    <main id="main" class="site-main karma-store-page" role="main">
 
         <div class="row">
 

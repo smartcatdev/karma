@@ -7,35 +7,39 @@
  * @package Karma
  */
 ?>
-<?php if (get_post_thumbnail_id($post->ID)) : 
-    $image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), array(500,500) );
-    $image_url = esc_url( $image[0] );
-endif; ?>
 
-<article id="post-<?php the_ID(); ?>" <?php post_class('karma-blog-post reveal fadeIn'); ?> style='<?php echo get_post_thumbnail_id( $post->ID ) ? "background-image: url(" . esc_url( $image_url ) . ")" : ""; ?>'>
+
+<article id="post-<?php the_ID(); ?>" <?php post_class('karma-blog-post'); ?>>
     
     <div class="post-panel-content">
         
         <header class="entry-header">
             <?php the_title(sprintf('<h2 class="entry-title"><a href="%s" rel="bookmark">', esc_url(get_permalink())), '</a></h2>'); ?>
             
-            <?php $words = 15; ?>
             <div class="post-content">
-                <?php echo esc_html( wp_trim_words(strip_shortcodes( wp_strip_all_tags ( get_the_excerpt() ) ), $words ) ); ?>
-            </div>
+                
+                <a href="<?php the_permalink(); ?>" alt="<?php the_title(); ?>">
+                    <?php
+                    if( has_post_thumbnail() ) :
+                        the_post_thumbnail( 'large' );
+                    endif;
+                    ?>
+                </a>
             
             <?php if ('post' === get_post_type()) : ?>
-                <div class="entry-meta">
+                <div class="entry-meta karma-author-date">
                     <div class="meta-detail">
-
-                        <div><span class="fa fa-calendar"></span> <?php echo karma_posted_on(); ?></div>
-
-                        <div class="author"><?php echo get_the_author() ? '<span class="fa fa-user"></span> ' . esc_attr( get_the_author() ) : ' '; ?></div>
-
+                        <span class="author"><?php echo get_the_author() ? '<span class="fa fa-user"></span> ' . esc_attr( get_the_author() ) : ' '; ?></span>
+                        <span><span class="fa fa-calendar"></span> <?php echo karma_posted_on(); ?></span>
                     </div>
 
                 </div><!-- .entry-meta -->
             <?php endif; ?>
+                
+                <?php the_excerpt(); ?>
+            </div>
+            
+            
         </header><!-- .entry-header -->
 
         <div class="entry-content">

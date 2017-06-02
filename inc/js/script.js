@@ -1,19 +1,26 @@
 jQuery(document).ready(function ($) {
-
+    
 
     if( $('#karma-jumbo-js').length ) {
         particlesJS.load('karma-jumbo-js', karmaObj.particlesLocation, function() {
             console.log('callback - particles.js config loaded');
         });        
     }
-
-
-//    $('#primary-menu').slicknav({
-//        prependTo: $('.karma-header-menu'),
-//        label: ''
-//    });
     
-//    $('#karma-header').sticky({});
+    if( $( '.edd-sidebar').length ) {
+        
+        var topOfDiv = $('#colophon').offset().top;
+        var bottomOfVisibleWindow = $(document).height();
+        
+        var total = ( bottomOfVisibleWindow - topOfDiv  ) + ( 55 );
+        
+        $('.edd-sidebar #secondary').sticky({
+            topSpacing: 40,
+            bottomSpacing: total
+        });
+    }
+    
+    
 
     $(window).scroll(function() {
       if ($(document).scrollTop() > 50) {
@@ -28,11 +35,11 @@ jQuery(document).ready(function ($) {
         
         if( overlay_open ) {
             $(this).removeClass('open');
-            $('.karma-mobile-nav' ).removeClass('zoomIn').addClass( 'zoomOut' );
+            $('.karma-mobile-nav' ).removeClass('fadeInDown').addClass( 'fadeOutUp' );
             overlay_open = false;
         }else {
             $(this).addClass('open');
-            $('.karma-mobile-nav' ).removeClass('zoomOut').addClass( 'zoomIn' );
+            $('.karma-mobile-nav' ).removeClass('fadeOutUp').addClass( 'fadeInDown' );
             overlay_open = true
         }
         
