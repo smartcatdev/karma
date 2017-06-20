@@ -23,10 +23,12 @@
         
         <div id="karma-fs-overlay" class="noshow">
             
-            <div class="row">
-                
-                <?php karma_get_mobile_nav(); ?>
-       
+            <div class="container">
+                <div class="row">
+
+                    <?php karma_get_mobile_nav(); ?>
+
+                </div>
             </div>
             
         </div>
@@ -44,56 +46,58 @@
                 <div id="karma-header" class="<?php echo is_front_page() ? 'frontpage' : ''; ?>">
 
                     <div class="header-inner">
+                        
+                        <div class="container">
+                            <div class="row">
 
-                        <div class="row">
+                                <div class="karma-branding">
 
-                            <div class="karma-branding col-md-3">
+                                    <!-- Logo start -->    
+                                    <div id="karma-logo" class="<?php echo function_exists( 'has_custom_logo' ) && has_custom_logo() ? 'show' : 'hidden'; ?>">
 
-                                <!-- Logo start -->    
-                                <div id="karma-logo" class="<?php echo function_exists( 'has_custom_logo' ) && has_custom_logo() ? 'show' : 'hidden'; ?>">
+                                        <?php the_custom_logo(); ?>
 
-                                    <?php the_custom_logo(); ?>
+                                    </div>
+                                    <!-- Logo end -->
+
+
+                                    <h1 class="site-title <?php echo ! function_exists( 'has_custom_logo' ) || ! has_custom_logo() ? 'show' : 'hidden'; ?>">
+                                        <a href="<?php echo esc_url(home_url('/')); ?>" rel="home"><?php bloginfo('name'); ?></a>
+                                    </h1>
+
+                                    <p class="site-description <?php echo ! function_exists( 'has_custom_logo' ) || ! has_custom_logo() ? 'show' : 'hidden'; ?>">
+                                        <?php bloginfo('description'); ?>
+                                    </p>
+
+                                    <?php //endif; ?>
 
                                 </div>
-                                <!-- Logo end -->
-                                
-                                
-                                <h1 class="site-title <?php echo ! function_exists( 'has_custom_logo' ) || ! has_custom_logo() ? 'show' : 'hidden'; ?>">
-                                    <a href="<?php echo esc_url(home_url('/')); ?>" rel="home"><?php bloginfo('name'); ?></a>
-                                </h1>
 
-                                <p class="site-description <?php echo ! function_exists( 'has_custom_logo' ) || ! has_custom_logo() ? 'show' : 'hidden'; ?>">
-                                    <?php bloginfo('description'); ?>
-                                </p>
+                                <div class="karma-header-menu">
 
-                                <?php //endif; ?>
+                                    <?php if( class_exists( 'Easy_Digital_Downloads' ) ) : ?>
+
+                                        <div class="karma-mobile-cart">
+
+                                            <a class="karma-cart" href="<?php echo edd_get_checkout_uri(); ?>">
+                                                    Cart (<span class="header-cart edd-cart-quantity"><?php echo edd_get_cart_quantity(); ?></span>)
+                                            </a>
+
+                                        </div>
+
+                                    <?php endif; ?>
+
+                                    <nav id="site-navigation" class="main-navigation" role="navigation">
+
+                                        <?php karma_get_main_nav(); ?>
+
+
+                                    </nav><!-- #site-navigation -->
+
+
+                                </div>
 
                             </div>
-
-                            <div class="karma-header-menu col-md-9">
-
-                                <?php if( class_exists( 'Easy_Digital_Downloads' ) ) : ?>
-                                
-                                    <div class="karma-mobile-cart">
-                                        
-                                        <a class="karma-cart" href="<?php echo edd_get_checkout_uri(); ?>">
-                                                Cart (<span class="header-cart edd-cart-quantity"><?php echo edd_get_cart_quantity(); ?></span>)
-                                        </a>
-                                        
-                                    </div>
-                                
-                                <?php endif; ?>
-                                
-                                <nav id="site-navigation" class="main-navigation" role="navigation">
-                                    
-                                    <?php karma_get_main_nav(); ?>
-
-
-                                </nav><!-- #site-navigation -->
-
-                                
-                            </div>
-
                         </div>
                     </div>
                 </div>

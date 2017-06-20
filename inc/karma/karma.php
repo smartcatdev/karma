@@ -139,15 +139,6 @@ function karma_widgets_init() {
         'after_title' => '</h2>',
     ));
 
-//    register_sidebar(array(
-//        'name' => esc_html__('Top B - Homepage widget', 'karma'),
-//        'id' => 'sidebar-homepage',
-//        'description' => '',
-//        'before_widget' => '<aside id="%1$s" class="widget %2$s col-sm-12">',
-//        'after_widget' => '</aside>',
-//        'before_title' => '<h2 class="widget-title">',
-//        'after_title' => '</h2>',
-//    ));
 }
 
 add_action('widgets_init', 'karma_widgets_init');
@@ -255,7 +246,7 @@ function karma_custom_css() {
     $theme_color_rgba = karma_hex2rgb( $theme_color );
     $hover_color = esc_attr( get_theme_mod('karma_theme_color_hover', '#37ef93' ) );
     $hover_color_rgba = karma_hex2rgb( $hover_color );
-    
+    $logo_height = esc_attr( get_theme_mod( 'custom_logo_height', 70 ) );
     ?>
     <style type="text/css">
 
@@ -293,12 +284,6 @@ function karma_custom_css() {
         #karma-featured-post #slide1 .slide-vert-wrapper{
             height: <?php echo intval( get_theme_mod('karma_jumbotron_height', 650 ) ); ?>px;
         }
-        
-        #masthead.site-header,
-        #karma-header .slicknav_menu{
-            background-color: <?php echo esc_attr( get_theme_mod('karma_header_bg_color', '#f9f9f9' ) ); ?>;
-        }
-
         
         a,a:visited,
         ul.karma-nav > li > ul li.current-menu-item > a,
@@ -397,7 +382,8 @@ function karma_custom_css() {
             border-bottom: 7px solid <?php echo $theme_color; ?>;
         }
         
-        #karma-featured-post #slide1 {
+        #karma-featured-post #slide1,
+        #karma-page-jumbotron{
             background: <?php echo $theme_color; ?>
         }
 
@@ -410,6 +396,15 @@ function karma_custom_css() {
             box-shadow: 0 0 3px <?php echo $theme_color; ?>;
         }
         
+        #karma-logo img {
+            max-height: <?php echo $logo_height; ?>px;
+        }
+/*        
+        #karma-header .header-inner ul#primary-menu, #menu-toggle-trigger {
+            height: <?php echo $logo_height + 20; ?>px;
+            line-height: <?php echo $logo_height + 20; ?>px;
+        }
+        */
         
     </style>
     <?php
@@ -423,12 +418,6 @@ function karma_jumbotron() { ?>
     
     <div id="karma-featured-post">
         
-        <?php
-        if( get_theme_mod( 'karma_social_featured', 'on' ) == 'on' ) :
-            karma_social_icons(); 
-        endif;
-        ?>
-        
         <div id="karma-slider" class="hero">
             
             <?php $post_id = get_theme_mod( 'karma_the_featured_post', 1 ); ?>
@@ -436,59 +425,68 @@ function karma_jumbotron() { ?>
             <?php if( $post_id ) : ?>
                 
             <div id="slide1">
-                <div id="karma-jumbo-js"></div>
-                <div class="overlay"></div>
-                <div class="row">
-                    <div class="col-sm-6 slide-details">
-
-                        <div class="slide-vert-wrapper">
-                         
-                            <div class="slide-vert-inner">
-                            
-                                <a href="<?php echo get_the_permalink( $post_id ) ? esc_url( get_the_permalink( $post_id ) ) : null; ?>">
-                                    <h2 class="header-text slide1-header animated fadeIn delay1">
-                                        <span class="header-inner"><?php echo ( get_the_title( $post_id ) ? esc_attr( get_the_title( $post_id ) ) : '' ); ?></span>
-                                    </h2>
-
-                                    <p class="animated fadeIn delay1">
-                                        <?php echo esc_html( wp_trim_words( strip_tags( get_post_field( 'post_content', $post_id ) ), 25 ) ); ?>
-                                    </p>
-                                </a>
-
-                                <a href="<?php echo get_the_permalink( $post_id ) ? esc_url( get_the_permalink( $post_id ) ) : null; ?>" 
-                                   class="animated fadeIn delay1 karma-jumbotron-button-primary">
-                                    <?php echo esc_attr( get_theme_mod( 'karma_the_featured_post_button', __( 'Continue reading', 'karma' )  ) ); ?>
-                                </a>
-                                
-                                <?php do_action( 'jumbotron_button' ); ?>
-
-                            </div>
-                            
-                        </div>
-
-                    </div>
-                    <div class="col-sm-6 ">
-                        <div class="slide-vert-wrapper scrollme">
-                            <div class="slide-vert-inner animateme" data-when="span"
-                            data-from="0"
-                            data-to="1"
-                            data-opacity="1"
-                            data-rotatey="180"
-                            data-translatey="-100">
-                                <?php echo get_the_post_thumbnail( $post_id, 'large' ); ?>
-                            </div>
-                        </div>
-                        
-                        
-                    </div>
-
-                </div>
                 
+                <div id="karma-jumbo-js"></div>
+                
+                <div class="overlay"></div>
+                
+                <div class="container">
+                    
+                    <div class="row">
+                        
+                        <div class="col-sm-6 slide-details">
+
+                            <div class="slide-vert-wrapper">
+
+                                <div class="slide-vert-inner">
+
+                                    <a href="<?php echo get_the_permalink( $post_id ) ? esc_url( get_the_permalink( $post_id ) ) : null; ?>">
+                                        <h2 class="header-text slide1-header animated fadeIn delay1">
+                                            <span class="header-inner"><?php echo ( get_the_title( $post_id ) ? esc_attr( get_the_title( $post_id ) ) : '' ); ?></span>
+                                        </h2>
+
+                                        <p class="animated fadeIn delay1">
+                                            <?php echo esc_html( wp_trim_words( strip_tags( get_post_field( 'post_content', $post_id ) ), 25 ) ); ?>
+                                        </p>
+                                    </a>
+
+                                    <a href="<?php echo get_the_permalink( $post_id ) ? esc_url( get_the_permalink( $post_id ) ) : null; ?>" 
+                                       class="animated fadeIn delay1 karma-jumbotron-button-primary">
+                                        <?php echo esc_attr( get_theme_mod( 'karma_the_featured_post_button', __( 'Continue reading', 'karma' )  ) ); ?>
+                                    </a>
+
+                                    <?php do_action( 'jumbotron_button' ); ?>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <div class="col-sm-6 ">
+                            <div class="slide-vert-wrapper scrollme">
+                                <div class="slide-vert-inner animateme" data-when="span"
+                                data-from="0"
+                                data-to="1"
+                                data-opacity="1"
+                                data-rotatey="180"
+                                data-translatey="-100">
+                                    <?php echo get_the_post_thumbnail( $post_id, 'large' ); ?>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                    </div>
+                    
+                </div>
 
             </div>
+            
             <?php endif; ?>
             
         </div>
+        
     </div>
 
 
@@ -670,53 +668,6 @@ function karma_render_homepage() {
     endif;
     
     
-    
-    ?>
-    
-    <?php $post_id = get_theme_mod( 'karma_the_featured_post2', 1 ); ?>
-    <?php $the_post = $post_id ? get_post( $post_id ) : null; ?>
-    
-    <!--
-    <?php if( $the_post && get_theme_mod('karma_the_featured_post2_toggle', 'on' ) == 'on' ) : ?>
-    <div id="karma-topa">
-        
-        <div class="row text-center">
-            <div class="col-sm-12">
-                
-                <h3 class="heading"><?php echo esc_html( $the_post->post_title ); ?></h3>
-                
-                <p class="description">
-                    <?php echo esc_html( wp_trim_words( $the_post->post_content, 40 ) ); ?>
-                </p>
-                
-            </div>            
-        </div>
-        
-        <div class="row text-center">
-            <div class="col-sm-12">
-                <a href="<?php echo esc_url( get_the_permalink( $post_id ) ); ?>"><?php echo get_the_post_thumbnail( $post_id ); ?></a>
-            </div>
-        </div>        
-
-    </div>
-    
-    <div class="clear"></div>
-    <?php endif; ?>
-    
-    -->
-    
-    
-    <!--
-    <?php if( get_theme_mod('homepage_widget_bool', 'on' ) == 'on' ) : ?>
-        <div id="karma-topb">
-            <?php get_sidebar('homepage'); ?>
-        </div>
-    <?php endif; ?>
-    -->
-    
-
-    
-    <?php
 }
 
 add_action( 'karma_homepage', 'karma_render_homepage' );
@@ -740,69 +691,81 @@ function karma_render_footer(){ ?>
 
     <?php if ( is_active_sidebar( 'sidebar-cta' ) ) : ?>
 
-    <div id="karma-cta">
-        <div class="row">
-            <?php
-                if ( is_active_sidebar( 'sidebar-cta' ) ) :
-                    dynamic_sidebar( 'sidebar-cta' );
-                endif;?>
+        <div id="karma-cta">
+            <div class="container">
+                <div class="row">
+                    <?php dynamic_sidebar( 'sidebar-cta' ); ?>
+                </div>
+            </div>
         </div>
-    </div>
     
     <?php endif; ?>
-    
-    <div class="karma-footer">
-        <div>
-            <div class="row">
-                <?php get_sidebar('footer'); ?>
-            </div>            
-        </div>
-
-        
-    </div>
     
     <div class="clear"></div>
 
     
-    <div class="site-info">
+    <div class="site-info karma-footer">
         
-        <div class="row">
-            
-            <div class="karma-copyright">
-                <?php echo esc_html( get_theme_mod( 'copyright_text', get_bloginfo( 'name' ) . ' ' . date( 'Y' ) ) ); ?>
-            </div>
-            <?php 
-            if( get_theme_mod( 'karma_social_footer', 'on' ) == 'on' ) :
-                karma_social_icons(); 
-            endif;
-            ?>
-            
-            <div class="payment-icons">
+        <div class="container">
 
-                <?php if ( get_theme_mod( 'karma_include_cc_visa', false ) ) : ?>
-                    <i class="fa fa-cc-visa"></i>
-                <?php endif; ?>
+            <div class="row">
 
-                <?php if ( get_theme_mod( 'karma_include_cc_mastercard', false ) ) : ?>
-                    <i class="fa fa-cc-mastercard"></i>
-                <?php endif; ?>
-
-                <?php if ( get_theme_mod( 'karma_include_cc_amex', false ) ) : ?>
-                    <i class="fa fa-cc-amex"></i>
-                <?php endif; ?>
-
-                <?php if ( get_theme_mod( 'karma_include_cc_paypal', false ) ) : ?>
-                    <i class="fa fa-cc-paypal"></i>
+                <?php if ( is_active_sidebar( 'sidebar-footer' ) ) : ?>
+                    <div class="sidebar-footer">
+                        <?php dynamic_sidebar('sidebar-footer'); ?>
+                    </div>
                 <?php endif; ?>
 
             </div>
             
-            <hr>
+        </div>
+        
+        <hr>
+        
+        <div class="container">
+            <div class="row">
 
-            <a href="https://smartcatdesign.net" rel="designer" style="display: block !important" class="rel">
-                <?php printf( esc_html__( 'Designed by %s', 'karma' ), 'Smartcat' ); ?> 
-                <img src="<?php echo get_template_directory_uri() . '/inc/images/cat_logo_mini.png'?>"/>
-            </a>
+
+                <div class="karma-copyright col-sm-6">
+                    <?php karma_social_icons(); ?>
+                    
+                    <?php echo esc_html( get_theme_mod( 'copyright_text', get_bloginfo( 'name' ) . ' ' . date( 'Y' ) ) ); ?> | 
+                    <a href="https://smartcatdesign.net" rel="designer" style="display: inline-block !important" class="rel">
+                        <?php printf( esc_html__( 'Designed by %s', 'karma' ), 'Smartcat' ); ?> 
+                        <img src="<?php echo get_template_directory_uri() . '/inc/images/cat_logo_mini.png'?>"/>
+                    </a>  
+                    
+                    <div class="payment-icons">
+
+                        <?php if ( get_theme_mod( 'karma_include_cc_visa', false ) ) : ?>
+                            <i class="fa fa-cc-visa"></i>
+                        <?php endif; ?>
+
+                        <?php if ( get_theme_mod( 'karma_include_cc_mastercard', false ) ) : ?>
+                            <i class="fa fa-cc-mastercard"></i>
+                        <?php endif; ?>
+
+                        <?php if ( get_theme_mod( 'karma_include_cc_amex', false ) ) : ?>
+                            <i class="fa fa-cc-amex"></i>
+                        <?php endif; ?>
+
+                        <?php if ( get_theme_mod( 'karma_include_cc_paypal', false ) ) : ?>
+                            <i class="fa fa-cc-paypal"></i>
+                        <?php endif; ?>
+
+                    </div>
+                    
+                </div>
+                
+                <div class="col-sm-6">
+                  
+                </div>
+
+                
+
+
+
+            </div>
             
         </div>
         

@@ -18,50 +18,76 @@ $front = get_option('show_on_front');
         
         
         <?php if( get_theme_mod( 'homepage_content_toggle', 'on' ) == 'on' ) : ?>
-        <div class="row">
-            
-            <?php //get_sidebar('left'); ?>
+        
+        
+        <?php if( $front == 'posts' ) : ?>
+        
+            <div id="karma-page-jumbotron" class="table-display">
+                <div id="karma-jumbo-js"></div>
 
-            <div class="<?php echo $front == 'posts' ? 'frontpage-blog' : ''; ?> homepage-page-content col-sm-12">
-                
-                <?php if (have_posts()) : ?>
+                <div class="cell-display">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <header class="entry-header centered">
+                                    <h1 class="entry-title">
+                                        <?php bloginfo( 'title' ); ?>
+                                    </h1>
+                                </header>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
+        <?php endif; ?>
+        
+        <div class="container">
+        
+            <div class="row">
 
-                    <?php if (is_home() && !is_front_page()) : ?>
-                        <header>
-                            <h1 class="page-title screen-reader-text"><?php single_post_title(); ?></h1>
-                        </header>
+                <div class="<?php echo $front == 'posts' ? 'frontpage-blog' : ''; ?> homepage-page-content col-sm-12">
+
+                    <?php if (have_posts()) : ?>
+
+                        <?php if (is_home() && !is_front_page()) : die('123'); ?>
+                            <header>
+                                <h1 class="page-title screen-reader-text"><?php single_post_title(); ?></h1>
+                            </header>
+                        <?php endif; ?>
+
+
+                        <?php echo $front == 'posts' ? '<div class="karma-blog-content">' : ''; ?>
+
+                        <?php while (have_posts()) : the_post(); ?>
+
+                            <?php
+                            if ('posts' == $front ) :
+                                get_template_part('template-parts/content-blog', get_post_format());
+                            else:
+                                get_template_part('template-parts/content-page-home', get_post_format());
+                            endif;
+                            ?>
+
+                        <?php endwhile; ?>
+                    
+                        <?php echo $front == 'posts' ? '</div>' : ''; ?>
+                    
+                        <div class="karma-pagination">
+                            <?php the_posts_pagination(); ?>
+                        </div>
+
+                    <?php else : ?>
+
+                        <?php get_template_part('template-parts/content', 'none'); ?>
+
                     <?php endif; ?>
 
-
-                    <?php echo $front == 'posts' ? '<div class="karma-blog-content">' : ''; ?>
-
-                    <?php while (have_posts()) : the_post(); ?>
-
-                        <?php
-                        if ('posts' == $front ) :
-                            get_template_part('template-parts/content-blog', get_post_format());
-                        else:
-                            get_template_part('template-parts/content-page-home', get_post_format());
-                        endif;
-                        ?>
-
-                    <?php endwhile; ?>
-                    <?php echo $front == 'posts' ? '</div>' : ''; ?>
-                    <div class="karma-pagination">
-                        <?php the_posts_pagination(); ?>
-                    </div>
-
-                <?php else : ?>
-
-                    <?php get_template_part('template-parts/content', 'none'); ?>
-
-                <?php endif; ?>
+                </div>
 
             </div>
-
-            <?php //get_sidebar('right'); ?>
-
         </div>
+        
         <?php endif; ?>
     </main><!-- #main -->
 </div><!-- #primary -->

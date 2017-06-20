@@ -290,7 +290,8 @@ h6 {
 }
 
 p {
-	margin-bottom: 1.5em;
+    margin-top: 0;
+    margin-bottom: 15px;
 }
 
 dfn,
@@ -498,9 +499,6 @@ a:active {
 	top: 0;
 }
 
-.main-navigation ul ul a {
-	width: 200px;
-}
 
 .main-navigation ul ul li {
 
@@ -694,11 +692,6 @@ a:active {
 	display: inline;
 }
 
-.page-content,
-.entry-content,
-.entry-summary {
-	margin: 1.5em 0 0;
-}
 
 .page-links {
 	clear: both;

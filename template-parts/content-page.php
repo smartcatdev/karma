@@ -9,73 +9,89 @@
 
 ?>
 
+<div id="karma-page-jumbotron" class="table-display">
+    <div id="karma-jumbo-js"></div>
 
-<div class="row">
-    
-    <?php
-        
-    if( karma_has_left_sidebar( get_the_ID() ) ) :
-        get_sidebar('left');
-    endif;
-    
-    ?>
-    
-    <div class="col-sm-<?php echo esc_attr( karma_main_width( get_the_ID() ) ); ?> karma-post-container">
+    <div class="cell-display">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <header class="entry-header centered">
+                        <?php karma_entry_footer(); ?>
+                        <?php the_title('<h1 class="entry-title">', '</h1>'); ?>
+                    </header>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-        <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+<div class="container">
+    <div class="row">
 
-            <?php the_title('<h1 class="entry-title">', '</h1>'); ?>
+        <?php
 
-            <div class="entry-content">
+        if( karma_has_left_sidebar( get_the_ID() ) ) :
+            get_sidebar('left');
+        endif;
 
-                <?php if ( has_post_thumbnail() ) : ?>
-                    <?php the_post_thumbnail( 'large' ); ?>
-                <?php endif; ?>
+        ?>
+
+        <div class="col-sm-<?php echo esc_attr( karma_main_width( get_the_ID() ) ); ?> karma-post-container">
+
+            <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+
+                <div class="entry-content">
+
+                    <?php if ( has_post_thumbnail() ) : ?>
+                        <?php the_post_thumbnail( 'large' ); ?>
+                    <?php endif; ?>
 
 
-                <?php the_content(); ?>
+                    <?php the_content(); ?>
+                    <?php
+                    wp_link_pages(array(
+                        'before' => '<div class="page-links">' . esc_html__('Pages:', 'karma'),
+                        'after' => '</div>',
+                    ));
+                    ?>
+                </div><!-- .entry-content -->
+
+                <footer class="entry-footer">
+                    <?php
+                    edit_post_link(
+                            sprintf(
+                                    /* translators: %s: Name of current post */
+                                    esc_html__('Edit %s', 'karma'), the_title('<span class="screen-reader-text">"', '"</span>', false)
+                            ), '<span class="edit-link">', '</span>'
+                    );
+                    ?>
+                </footer><!-- .entry-footer -->
+
+
+
+            </article><!-- #post-## -->
+
+            <div class="karma-comments-section">
                 <?php
-                wp_link_pages(array(
-                    'before' => '<div class="page-links">' . esc_html__('Pages:', 'karma'),
-                    'after' => '</div>',
-                ));
-                ?>
-            </div><!-- .entry-content -->
+                // If comments are open or we have at least one comment, load up the comment template.
+                if (comments_open() || get_comments_number()) :
+                    comments_template();
+                endif;
+                ?>    
 
-            <footer class="entry-footer">
-                <?php
-                edit_post_link(
-                        sprintf(
-                                /* translators: %s: Name of current post */
-                                esc_html__('Edit %s', 'karma'), the_title('<span class="screen-reader-text">"', '"</span>', false)
-                        ), '<span class="edit-link">', '</span>'
-                );
-                ?>
-            </footer><!-- .entry-footer -->
-
-
-
-        </article><!-- #post-## -->
-        
-        <div class="karma-comments-section">
-            <?php
-            // If comments are open or we have at least one comment, load up the comment template.
-            if (comments_open() || get_comments_number()) :
-                comments_template();
-            endif;
-            ?>    
+            </div>
 
         </div>
-        
+
+        <?php
+
+        if( karma_has_right_sidebar( get_the_ID() ) ) :
+            get_sidebar('right');
+        endif;
+
+        ?>
+
     </div>
-
-    <?php
-        
-    if( karma_has_right_sidebar( get_the_ID() ) ) :
-        get_sidebar('right');
-    endif;
-    
-    ?>
-
 </div>
 

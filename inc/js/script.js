@@ -1,5 +1,24 @@
 jQuery(document).ready(function ($) {
     
+    var link_width = 0;
+    var list_width = 0;
+    var diff_width = 0;
+    $( 'ul#primary-menu > li.menu-item').mouseenter( function() {
+        
+        link_width = $( '> a', this).width();
+        list_width = $( '> ul', this ).width();
+        
+        diff_width = Math.abs ( link_width - list_width ) * -1;
+       
+        
+        $( this ).find( '> ul' ).css( 'left',diff_width/2 ).addClass('show-sub');
+        
+    }).mouseleave( function() {
+
+        $( this ).find( '> ul' ).removeClass('show-sub').stop();
+    
+    });
+
 
     if( $('#karma-jumbo-js').length ) {
         particlesJS.load('karma-jumbo-js', karmaObj.particlesLocation, function() {

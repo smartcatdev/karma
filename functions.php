@@ -19,7 +19,7 @@ function karma_setup() {
     
     
         if( !defined( 'KARMA_VERSION' ) ) :
-            define('KARMA_VERSION', '1.3.0');
+            define('KARMA_VERSION', '0.1');
         endif;
     
         
@@ -42,7 +42,9 @@ function karma_setup() {
 	 */
 	add_theme_support( 'title-tag' );
         add_theme_support('woocommerce');
-        
+        add_theme_support( 'wc-product-gallery-zoom' );
+        add_theme_support( 'wc-product-gallery-lightbox' );
+        add_theme_support( 'wc-product-gallery-slider' );
 	/*
 	 * Enable support for Post Thumbnails on posts and pages.
 	 *
@@ -73,37 +75,8 @@ function karma_setup() {
 	 * Enable support for Post Formats.
 	 * See https://developer.wordpress.org/themes/functionality/post-formats/
 	 */
-	add_theme_support( 'post-formats', array(
-                'gallery',
-	) );
-
         add_theme_support( 'custom-logo' );
         
-        add_theme_support( 'custom-header', array( 
-            'default-image'          => get_template_directory_uri() . '/inc/images/karma.jpg',
-            'width'                  => 1200,
-            'height'                 => 800,
-            'flex-height'            => true,
-            'flex-width'             => true,
-            'uploads'                => true,
-            'random-default'         => false,
-            'header-text'            => false,
-            'default-text-color'     => '',
-            'wp-head-callback'       => '',
-            'admin-head-callback'    => '',
-            'admin-preview-callback' => '',
-            'video'                  => false
-        ) );
-        
-        register_default_headers( array(
-            'karma' => array(
-                'url'   => get_template_directory_uri() . '/inc/images/karma.jpg',
-                'thumbnail_url'   => get_template_directory_uri() . '/inc/images/karma.jpg',
-                'description'   => __('Karma', 'karma' )
-            )
-        ) );
-        
-        add_filter('widget_text','do_shortcode');
 }
 endif; // karma_setup
 add_action( 'after_setup_theme', 'karma_setup' );
