@@ -13,31 +13,31 @@ $wp_customize->add_panel( 'appearance', array (
         'panel'                 => 'appearance',
     ) );
     
-        $wp_customize->add_setting( 'karma_theme_color', array (
-            'default'               => '#4cef9e',
+        $wp_customize->add_setting( Karma_Options::$theme_color, array (
+            'default'               => Karma_Options::$theme_color_default,
             'transport'             => 'refresh',
             'sanitize_callback'     => 'sanitize_hex_color',
         ) );
 
         $wp_customize->add_control( 
-            new WP_Customize_Color_Control( $wp_customize, 'karma_theme_color', array(
+            new WP_Customize_Color_Control( $wp_customize, Karma_Options::$theme_color, array(
                 'label'      => __( 'Theme primary color', 'karma' ),
                 'section'    => 'color',
-                'settings'   => 'karma_theme_color',
+                'settings'   => Karma_Options::$theme_color,
             ) ) 
         );
 
-        $wp_customize->add_setting( 'karma_theme_color_hover', array (
-            'default'               => '#37ef93',
+        $wp_customize->add_setting( Karma_Options::$hover_color, array (
+            'default'               => Karma_Options::$hover_color_default,
             'transport'             => 'refresh',
             'sanitize_callback'     => 'sanitize_hex_color',
         ) );
 
         $wp_customize->add_control( 
-            new WP_Customize_Color_Control( $wp_customize, 'karma_theme_color_hover', array(
+            new WP_Customize_Color_Control( $wp_customize, Karma_Options::$hover_color, array(
                 'label'      => __( 'Hover color', 'karma' ),
                 'section'    => 'color',
-                'settings'   => 'karma_theme_color_hover',
+                'settings'   => Karma_Options::$hover_color,
             ) ) 
         );
 
@@ -47,13 +47,13 @@ $wp_customize->add_panel( 'appearance', array (
         'panel'                 => 'appearance',
     ) );
 
-        $wp_customize->add_setting( 'header_font', array (
-            'default'               => 'Oswald, sans-serif',
+        $wp_customize->add_setting( Karma_Options::$header_font, array (
+            'default'               => Karma_Options::$header_font_default,
             'transport'             => 'refresh',
             'sanitize_callback'     => 'karma_sanitize_font'
         ) );
 
-        $wp_customize->add_control( 'header_font', array(
+        $wp_customize->add_control( Karma_Options::$header_font, array(
             'type'                  => 'select',
             'section'               => 'font',
             'label'                 => __( 'Headers Font', 'karma' ),
@@ -62,13 +62,13 @@ $wp_customize->add_panel( 'appearance', array (
 
         ) );
 
-        $wp_customize->add_setting( 'theme_font', array (
-            'default'               => 'Lato, sans-serif',
+        $wp_customize->add_setting( Karma_Options::$theme_font, array (
+            'default'               => Karma_Options::$theme_font_default,
             'transport'             => 'refresh',
             'sanitize_callback'     => 'karma_sanitize_font'
         ) );
 
-        $wp_customize->add_control( 'theme_font', array(
+        $wp_customize->add_control( Karma_Options::$theme_font, array(
             'type'                  => 'select',
             'section'               => 'font',
             'label'                 => __( 'General font for the site body', 'karma' ),
@@ -77,30 +77,30 @@ $wp_customize->add_panel( 'appearance', array (
         ) );
 
 
-        $wp_customize->add_setting( 'menu_font_size', array (
-            'default'               => '14px',
+        $wp_customize->add_setting( Karma_Options::$menu_font_size, array (
+            'default'               => Karma_Options::$menu_font_size_default,
             'transport'             => 'refresh',
             'sanitize_callback'     => 'karma_sanitize_font_size'
         ) );
 
-        $wp_customize->add_control( 'menu_font_size', array(
+        $wp_customize->add_control( Karma_Options::$menu_font_size, array(
             'type'                  => 'select',
             'section'               => 'font',
             'label'                 => __( 'Menu Font Size', 'karma' ),
-            'choices'               => karma_font_sizes()
+            'choices'               => Karma_Options::font_sizes()
 
         ) );
 
-        $wp_customize->add_setting( 'theme_font_size', array (
-            'default'               => '16px',
+        $wp_customize->add_setting( Karma_Options::$theme_font_size, array (
+            'default'               => Karma_Options::$theme_font_size_default,
             'transport'             => 'refresh',
             'sanitize_callback'     => 'karma_sanitize_font_size'
         ) );
 
-        $wp_customize->add_control( 'theme_font_size', array(
+        $wp_customize->add_control( Karma_Options::$theme_font_size, array(
             'type'                  => 'select',
             'section'               => 'font',
             'label'                 => __( 'Content Font Size', 'karma' ),
-            'choices'               => karma_font_sizes()
+            'choices'               => Karma_Options::font_sizes()()
 
         ) );

@@ -41,13 +41,13 @@ jQuery(document).ready(function ($) {
     
     
 
-    $(window).scroll(function() {
-      if ($(document).scrollTop() > 50) {
-        $('#karma-header').addClass('shrink');
-      } else {
-        $('#karma-header').removeClass('shrink');
-      }
-    });
+//    $(window).scroll(function() {
+//      if ($(document).scrollTop() > 50) {
+//        $('#karma-header').addClass('shrink');
+//      } else {
+//        $('#karma-header').removeClass('shrink');
+//      }
+//    });
 
     var overlay_open = false;
     $('#menu-toggle-trigger').click(function () {

@@ -242,9 +242,9 @@ add_filter('wp_nav_menu_items', 'karma_customize_nav', 10, 2);
 
 function karma_custom_css() {
     
-    $theme_color = esc_attr( get_theme_mod('karma_theme_color', '#4cef9e' ) );
+    $theme_color = esc_attr( get_theme_mod( Karma_Options::$theme_color, Karma_Options::$theme_color_default ) );
     $theme_color_rgba = karma_hex2rgb( $theme_color );
-    $hover_color = esc_attr( get_theme_mod('karma_theme_color_hover', '#37ef93' ) );
+    $hover_color = esc_attr( get_theme_mod( Karma_Options::$hover_color, Karma_Options::$hover_color_default ) );
     $hover_color_rgba = karma_hex2rgb( $hover_color );
     $logo_height = esc_attr( get_theme_mod( 'custom_logo_height', 70 ) );
     ?>
@@ -399,12 +399,7 @@ function karma_custom_css() {
         #karma-logo img {
             max-height: <?php echo $logo_height; ?>px;
         }
-/*        
-        #karma-header .header-inner ul#primary-menu, #menu-toggle-trigger {
-            height: <?php echo $logo_height + 20; ?>px;
-            line-height: <?php echo $logo_height + 20; ?>px;
-        }
-        */
+
         
     </style>
     <?php
@@ -720,21 +715,23 @@ function karma_render_footer(){ ?>
             
         </div>
         
-        <hr>
+        <div class="seperator"></div>
         
-        <div class="container">
+        <div class="container karma-post-footer">
+            
             <div class="row">
 
 
                 <div class="karma-copyright col-sm-6">
-                    <?php karma_social_icons(); ?>
+                    <?php // karma_social_icons(); ?>
                     
-                    <?php echo esc_html( get_theme_mod( 'copyright_text', get_bloginfo( 'name' ) . ' ' . date( 'Y' ) ) ); ?> | 
+                    <?php //echo esc_html( get_theme_mod( 'copyright_text', get_bloginfo( 'name' ) . ' ' . date( 'Y' ) ) ); ?>
                     <a href="https://smartcatdesign.net" rel="designer" style="display: inline-block !important" class="rel">
-                        <?php printf( esc_html__( 'Designed by %s', 'karma' ), 'Smartcat' ); ?> 
-                        <img src="<?php echo get_template_directory_uri() . '/inc/images/cat_logo_mini.png'?>"/>
+                        <?php printf( esc_html__( 'Karma Theme - Designed by ', 'karma' ), 'Smartcat' ); ?> 
+                        <img src="<?php echo get_template_directory_uri() . '/inc/images/smartcat.png'?>" style="height: 20px;"/>
                     </a>  
                     
+                    <!--
                     <div class="payment-icons">
 
                         <?php if ( get_theme_mod( 'karma_include_cc_visa', false ) ) : ?>
@@ -754,16 +751,12 @@ function karma_render_footer(){ ?>
                         <?php endif; ?>
 
                     </div>
-                    
+                    -->
                 </div>
                 
                 <div class="col-sm-6">
-                  
+                    <?php karma_get_footer_nav(); ?>
                 </div>
-
-                
-
-
 
             </div>
             
@@ -889,6 +882,20 @@ function karma_get_main_nav() {
         if( current_user_can( 'edit_theme_options' ) ) :
             echo '<div id="karma-add-menu"><a class="karma-cart" href="' . esc_url( admin_url( 'nav-menus.php' ) ) . '">' . __( 'Add a Primary Menu', 'karma' ) . '</a></div>';
         endif;
+    endif;
+    
+}
+
+function karma_get_footer_nav() {
+    
+    if( has_nav_menu( 'footer' ) ) :
+
+        $menu = wp_nav_menu(array(
+            'theme_location' => 'footer',
+            'menu_id' => 'footer-menu',
+            'menu_class' => 'karma-footer-nav',
+        ));
+    
     endif;
     
 }

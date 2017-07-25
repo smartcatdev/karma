@@ -102,22 +102,6 @@ function karma_icons(){
     
 }
 
-function karma_font_sizes(){
-    
-    $font_size_array = array(
-        '10px' => '10 px',
-        '12px' => '12 px',
-        '14px' => '14 px',
-        '16px' => '16 px',
-        '18px' => '18 px',
-        '20px' => '20 px',
-        '24px' => '24 px',
-    );
-    
-    return $font_size_array;
-    
-}
-
    function karma_slider_transition_sanitize($input) {
       $valid_keys = array(
         'true' => __('Fade', 'karma'),
@@ -282,7 +266,7 @@ function karma_sanitize_font( $input ){
 }
 
 function karma_sanitize_font_size( $input ){
-    $valid_keys = karma_font_sizes();
+    $valid_keys = Karma_Options::font_sizes()();
     if ( array_key_exists( $input, $valid_keys ) ) {
      return $input;
    } else {

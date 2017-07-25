@@ -94,9 +94,7 @@ function karma_content_width() {
 add_action( 'after_setup_theme', 'karma_content_width', 0 );
 
 
-/**
- * Implement the Custom Header feature.
- */
+require get_template_directory() . '/inc/karma/Karma_Defaults.php';
 
 /**
  * Custom template tags for this theme.
