@@ -105,3 +105,6 @@
             </header><!-- #masthead -->
 
             <div id="content" class="site-content">
+                
+                
+                <?php karma_custom_header(); ?>

@@ -266,7 +266,7 @@ function karma_sanitize_font( $input ){
 }
 
 function karma_sanitize_font_size( $input ){
-    $valid_keys = Karma_Options::font_sizes()();
+    $valid_keys = Karma_Options::font_sizes();
     if ( array_key_exists( $input, $valid_keys ) ) {
      return $input;
    } else {

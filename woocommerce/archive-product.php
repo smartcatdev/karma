@@ -27,7 +27,7 @@ get_header( 'shop' );
     <main id="main" class="site-main karma-store-page" role="main">
 
 
-        <div id="karma-page-jumbotron" class="table-display">
+<!--        <div id="karma-page-jumbotron" class="table-display">
             <div id="karma-jumbo-js"></div>
 
             <div class="cell-display">
@@ -43,7 +43,7 @@ get_header( 'shop' );
                     </div>
                 </div>
             </div>
-        </div>
+        </div>-->
         
         
         <div class="container">

@@ -20,6 +20,54 @@ Class Karma_Options {
     public static $theme_font_size = 'theme_font_size';
     public static $theme_font_size_default = '16px';
     
+    public static $visa_display = 'karma_include_cc_visa';
+    public static $visa_display_default = false;
+    
+    public static $mastercard_display = 'karma_include_cc_mastercard';
+    public static $mastercard_display_default = false;
+    
+    public static $amex_display = 'karma_include_cc_amex';
+    public static $amex_display_default = false;
+    
+    public static $paypal_display = 'karma_include_cc_paypal';
+    public static $paypal_display_default = false;
+    
+    public static $copyright_text = 'copyright_text';
+    
+    public static $facebook_url = 'facebook_url';
+    public static $facebook_url_default = '';    
+    
+    public static $gplus_url = 'gplus_url';
+    public static $gplus_url_default = '';    
+    
+    public static $instagram_url = 'instagram_url';
+    public static $instagram_url_default = '';    
+    
+    public static $linkedin_url = 'linkedin_url';
+    public static $linkedin_url_default = '';    
+    
+    public static $pinterest_url = 'pinterest_url';
+    public static $pinterest_url_default = '';    
+    
+    public static $twitter_url = 'twitter_url';
+    public static $twitter_url_default = '';    
+    
+    public static $vimeo_url = 'vimeo_url';
+    public static $vimeo_url_default = '';    
+    
+    public static $spotify_url = 'spotify_url';
+    public static $spotify_url_default = '';  
+    
+    public static $apple_url = 'apple_url';
+    public static $apple_url_default = '';
+    
+    public static $github_url = 'github_url';
+    public static $github_url_default = '';
+    
+    public static $vine_url = 'vine_url';
+    public static $vine_url_default = '';
+    
+    
     
     public static function font_sizes() {
  

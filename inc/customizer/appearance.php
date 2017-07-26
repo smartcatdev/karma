@@ -101,6 +101,6 @@ $wp_customize->add_panel( 'appearance', array (
             'type'                  => 'select',
             'section'               => 'font',
             'label'                 => __( 'Content Font Size', 'karma' ),
-            'choices'               => Karma_Options::font_sizes()()
+            'choices'               => Karma_Options::font_sizes()
 
         ) );

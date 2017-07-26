@@ -9,7 +9,7 @@
 
 ?>
 
-<div id="karma-page-jumbotron" class="table-display">
+<!--<div id="karma-page-jumbotron" class="table-display">
     <div id="karma-jumbo-js"></div>
 
     <div class="cell-display">
@@ -24,7 +24,7 @@
             </div>
         </div>
     </div>
-</div>
+</div>-->
 
 <div class="container">
     <div class="row">

@@ -21,7 +21,7 @@ $front = get_option('show_on_front');
         
         
         <?php if( $front == 'posts' ) : ?>
-        
+<!--        
             <div id="karma-page-jumbotron" class="table-display">
                 <div id="karma-jumbo-js"></div>
 
@@ -38,7 +38,7 @@ $front = get_option('show_on_front');
                         </div>
                     </div>
                 </div>
-            </div>
+            </div>-->
         
         <?php endif; ?>
         

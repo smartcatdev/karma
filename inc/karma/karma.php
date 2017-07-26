@@ -240,6 +240,34 @@ function karma_customize_nav( $items, $args ) {
 add_filter('wp_nav_menu_items', 'karma_customize_nav', 10, 2);
 
 
+function karma_custom_header() { 
+    
+    $front = get_option('show_on_front');
+    
+    if( is_front_page() && $front != 'posts' ) {
+        return;
+    }
+    
+    ?>
+    
+    <div id="karma-page-jumbotron" class="table-display">
+        <div id="karma-jumbo-js"></div>
+
+        <div class="cell-display">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <header class="entry-header centered">
+                            <?php single_post_title('<h1 class="entry-title">', '</h1>'); ?>
+                        </header>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+<?php }
+
 function karma_custom_css() {
     
     $theme_color = esc_attr( get_theme_mod( Karma_Options::$theme_color, Karma_Options::$theme_color_default ) );
