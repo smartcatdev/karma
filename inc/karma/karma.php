@@ -258,7 +258,17 @@ function karma_custom_header() {
                 <div class="row">
                     <div class="col-sm-12">
                         <header class="entry-header centered">
-                            <?php single_post_title('<h1 class="entry-title">', '</h1>'); ?>
+                            
+                            <?php if( is_archive() ) : ?>
+                                
+                                <?php the_archive_title('<h1 class="entry-title">', '</h1>'); ?>
+                            
+                            <?php else : ?>
+                            
+                                <?php single_post_title('<h1 class="entry-title">', '</h1>'); ?>
+                            
+                            <?php endif; ?>
+                            
                         </header>
                     </div>
                 </div>
@@ -267,6 +277,12 @@ function karma_custom_header() {
     </div>
     
 <?php }
+
+add_filter( 'get_the_archive_title', function( $title ) {
+
+    return single_cat_title( '', false );
+
+});
 
 function karma_custom_css() {
     
