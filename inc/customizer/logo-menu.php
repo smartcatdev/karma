@@ -22,8 +22,23 @@ $wp_customize->add_panel( 'logo', array (
             'label'                 => __( 'Custom Logo Height', 'karma' ),
             'description'           => __( 'Set in pixels. Width will automatically maintain the image aspect ratio.', 'karma' ),
             'input_attrs'           => array(
-                'min' => 60,
-                'max' => 100,
+                'min' => 20,
+                'max' => 200,
+                'step' => 5,
+        ) ) );
+
+        $wp_customize->add_setting( 'mobile_logo_height', array (
+            'default'               => 70,
+            'transport'             => 'refresh',
+            'sanitize_callback'     => 'karma_sanitize_integer',
+        ) );
+        $wp_customize->add_control( 'mobile_logo_height', array(
+            'type'                  => 'number',
+            'section'               => 'title_tagline',
+            'label'                 => __( 'Mobile Logo Height', 'karma' ),
+            'input_attrs'           => array(
+                'min' => 20,
+                'max' => 200,
                 'step' => 5,
         ) ) );
     

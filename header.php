@@ -21,21 +21,18 @@
 
     <body <?php body_class(); ?>>
         
-        <div id="karma-fs-overlay" class="noshow">
-            
-            <div class="container">
-                <div class="row">
-
-                    <?php karma_get_mobile_nav(); ?>
-
-                </div>
-            </div>
-            
+        
+        <a href="#mobile-menu" id="menu-toggle-trigger" class="menu-trigger <?php //echo is_front_page() ? 'frontpage' : ''; ?>">
+            <i class="fa fa-bars" style="color: rgb(255, 255, 255);"></i>
+        </a>
+        
+        <div id="karma-mobile-wrapper">
+            <?php karma_get_mobile_nav(); ?>
+            <a href="#mobile-menu" id="menu-panel-close" class="menu-trigger">
+                <img src="http://gixo.com/wp-content/themes/gixo-us-site/inc/images/xmobile-menu-close.png.pagespeed.ic.kzx00XZ2DT.png">
+            </a>
         </div>
         
-        <div id="menu-toggle-trigger" class="<?php echo is_front_page() ? 'frontpage' : ''; ?>">
-            <i class="fa fa-bars" style="color: rgb(255, 255, 255);"></i>
-        </div>
         
         <div id="page" class="hfeed site <?php echo has_post_thumbnail() ? 'has-thumb' : ''; ?>">
 
@@ -43,7 +40,7 @@
             
             <header id="masthead" class="site-header" role="banner">
 
-                <div id="karma-header" class="<?php echo is_front_page() ? 'frontpage' : ''; ?>">
+                <div id="karma-header" class="<?php echo is_front_page() && ! is_home() ? 'frontpage' : ''; ?>">
 
                     <div class="header-inner">
                         
@@ -69,7 +66,6 @@
                                         <?php bloginfo('description'); ?>
                                     </p>
 
-                                    <?php //endif; ?>
 
                                 </div>
 

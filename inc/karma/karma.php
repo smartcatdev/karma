@@ -44,13 +44,13 @@ function karma_scripts() {
     wp_enqueue_style('animate', get_template_directory_uri() . '/inc/css/animate.css', array(), KARMA_VERSION);
     wp_enqueue_style('slicknav', get_template_directory_uri() . '/inc/css/slicknav.min.css', array(), KARMA_VERSION);
     
-//    wp_enqueue_script('jquery-sticky', get_template_directory_uri() . '/inc/js/scrollme.min.js', array('jquery'), KARMA_VERSION, true);
     wp_enqueue_script('jquery-sticky', get_template_directory_uri() . '/inc/js/jquery.sticky.js', array('jquery'), KARMA_VERSION, true);
     wp_enqueue_script('jquery-particles', get_template_directory_uri() . '/inc/js/particle.js', array('jquery'), KARMA_VERSION, true);
     wp_enqueue_script('jquery-easing', get_template_directory_uri() . '/inc/js/easing.js', array('jquery'), KARMA_VERSION, true);
     wp_enqueue_script('jquery-slicknav', get_template_directory_uri() . '/inc/js/slicknav.min.js', array('jquery'), KARMA_VERSION, true);
     wp_enqueue_script('jquery-wow', get_template_directory_uri() . '/inc/js/wow.min.js', array('jquery'), KARMA_VERSION, true);
-    wp_enqueue_script('karma-script', get_template_directory_uri() . '/inc/js/script.js', array('jquery', 'jquery-ui-core', 'jquery-masonry'), KARMA_VERSION);
+    wp_enqueue_script('jquery-bigslide', get_template_directory_uri() . '/inc/js/bigslide.min.js', array('jquery'), KARMA_VERSION, true);
+    wp_enqueue_script('karma-script', get_template_directory_uri() . '/inc/js/script.js', array('jquery', 'jquery-ui-core', 'jquery-masonry'), KARMA_VERSION, true );
     
     $localized_array = array(
         'particlesLocation'     => get_template_directory_uri() . '/inc/js/particles.json'
@@ -309,6 +309,7 @@ function karma_custom_css() {
     $hover_color = esc_attr( get_theme_mod( Karma_Options::$hover_color, Karma_Options::$hover_color_default ) );
     $hover_color_rgba = karma_hex2rgb( $hover_color );
     $logo_height = esc_attr( get_theme_mod( 'custom_logo_height', 70 ) );
+    $mobile_logo = esc_attr( get_theme_mod( 'mobile_logo_height', 70 ) );
     ?>
     <style type="text/css">
 
@@ -351,8 +352,7 @@ function karma_custom_css() {
         ul.karma-nav > li > ul li.current-menu-item > a,
         .woocommerce .woocommerce-message:before,
         #karma-social a,
-        .entry-meta .fa
-        {
+        .entry-meta .fa{
             color: <?php echo $theme_color; ?>;
         }
 
@@ -360,8 +360,9 @@ function karma_custom_css() {
         a:focus,
         .site-info a:hover,
         ul.karma-nav ul li a:hover,
-        #karma-social a:hover{
-            color: <?php echo $hover_color; ?>;
+        #karma-social a:hover,
+        .karma-mobile-nav a:hover{
+            color: <?php echo $hover_color; ?> !important;
         }
         
         .button,
@@ -460,6 +461,12 @@ function karma_custom_css() {
         
         #karma-logo img {
             max-height: <?php echo $logo_height; ?>px;
+        }
+        
+        @media( max-width: 768px ) {
+            #karma-logo img {
+                max-height: <?php echo $mobile_logo; ?>px;
+            }            
         }
 
         
@@ -969,14 +976,17 @@ function karma_get_mobile_nav() {
         $menu = wp_nav_menu(array(
             'theme_location' => 'mobile',
             'menu_id' => 'mobile-menu',
-            'menu_class' => 'karma-mobile-nav animated',
+            'menu_class' => 'karma-mobile-nav',
+            'container' => '',
+            
         ));
     elseif( has_nav_menu( 'primary' ) ) :
 
         $menu = wp_nav_menu(array(
             'theme_location' => 'primary',
             'menu_id' => 'mobile-menu',
-            'menu_class' => 'karma-mobile-nav animated',
+            'menu_class' => 'karma-mobile-nav',
+            'container' => '',
         ));
     else :
 
