@@ -263,8 +263,16 @@ function karma_custom_header() {
                                 
                                 <?php the_archive_title('<h1 class="entry-title">', '</h1>'); ?>
                             
-                            <?php else : ?>
+                            <?php elseif( is_search() ) : ?>
                             
+                                <h1 class="entry-title"><?php printf( esc_html__('Search Results for: %s', 'karma'), '<span>' . get_search_query() . '</span>' ); ?></h1>
+                            
+                            <?php elseif( is_home() ) : ?>
+                            
+                                <h1 class="entry-title"><?php bloginfo( 'name' ); ?></h1>
+                                
+                            <?php else : ?>
+                                
                                 <?php single_post_title('<h1 class="entry-title">', '</h1>'); ?>
                             
                             <?php endif; ?>
@@ -280,8 +288,18 @@ function karma_custom_header() {
 
 add_filter( 'get_the_archive_title', function( $title ) {
 
-    return single_cat_title( '', false );
-
+    if( is_category() ) :
+        $title = single_cat_title( '', false );
+    elseif( is_tag() ) :
+        $title = single_tag_title( '', false );
+    elseif( is_author() ) :
+        $title = get_the_author();
+    else :
+        $title = single_cat_title( '', false );
+    endif;
+    
+    return $title;
+    
 });
 
 function karma_custom_css() {
