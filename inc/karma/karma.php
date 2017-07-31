@@ -267,10 +267,14 @@ function karma_custom_header() {
                             
                                 <h1 class="entry-title"><?php printf( esc_html__('Search Results for: %s', 'karma'), '<span>' . get_search_query() . '</span>' ); ?></h1>
                             
-                            <?php elseif( is_home() ) : ?>
+                            <?php elseif( is_home() && !is_front_page() ) : ?>
                             
-                                <h1 class="entry-title"><?php bloginfo( 'name' ); ?></h1>
+                                <?php single_post_title('<h1 class="entry-title">', '</h1>'); ?>
                                 
+                            <?php elseif( is_home() ) : ?>
+
+                                <h1 class="entry-title"><?php bloginfo( 'name' ); ?></h1>
+
                             <?php else : ?>
                                 
                                 <?php single_post_title('<h1 class="entry-title">', '</h1>'); ?>

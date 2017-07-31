@@ -284,6 +284,10 @@ ul.karma-mobile-nav li{
     line-height: 20px;
 }
 
+#karma-header .header-inner ul.sub-menu a:hover{
+    background: rgba( 0,0,0, 0.3 );
+}
+
 
 #masthead.site-header{
     z-index: 99;
@@ -409,7 +413,7 @@ ul.karma-mobile-nav li{
     padding-left: 0;
     list-style: none;
     list-style-type: none;
-    margin-left: 0;
+    margin-left: 15px;
 }
 
 .karma-mobile-nav a {

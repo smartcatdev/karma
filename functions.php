@@ -77,6 +77,21 @@ function karma_setup() {
 	 */
         add_theme_support( 'custom-logo' );
         
+        add_theme_support( 'custom-header', array(
+            'default-image'          => '',
+            'width'                  => 0,
+            'height'                 => 0,
+            'flex-height'            => false,
+            'flex-width'             => false,
+            'uploads'                => true,
+            'random-default'         => false,
+            'header-text'            => true,
+            'default-text-color'     => '',
+            'wp-head-callback'       => '',
+            'admin-head-callback'    => '',
+            'admin-preview-callback' => '',
+        ) );
+        
 }
 endif; // karma_setup
 add_action( 'after_setup_theme', 'karma_setup' );
