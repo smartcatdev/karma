@@ -19,29 +19,6 @@ $front = get_option('show_on_front');
         
         <?php if( get_theme_mod( 'homepage_content_toggle', 'on' ) == 'on' ) : ?>
         
-        
-        <?php if( $front == 'posts' ) : ?>
-<!--        
-            <div id="karma-page-jumbotron" class="table-display">
-                <div id="karma-jumbo-js"></div>
-
-                <div class="cell-display">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <header class="entry-header centered">
-                                    <h1 class="entry-title">
-                                        <?php bloginfo( 'title' ); ?>
-                                    </h1>
-                                </header>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>-->
-        
-        <?php endif; ?>
-        
         <div class="container">
         
             <div class="row">
