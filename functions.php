@@ -19,65 +19,19 @@ function karma_setup() {
     
     
         if( !defined( 'KARMA_VERSION' ) ) :
-            define('KARMA_VERSION', '0.1');
+            define('KARMA_VERSION', '1.0.0');
         endif;
-    
         
-	/*
-	 * Make theme available for translation.
-	 * Translations can be filed in the /languages/ directory.
-	 * If you're building a theme based on Karma, use a find and replace
-	 * to change 'karma' to the name of your theme in all the template files.
-	 */
 	load_theme_textdomain( 'karma', get_template_directory() . '/languages' );
-
-	// Add default posts and comments RSS feed links to head.
 	add_theme_support( 'automatic-feed-links' );
-
-	/*
-	 * Let WordPress manage the document title.
-	 * By adding theme support, we declare that this theme does not use a
-	 * hard-coded <title> tag in the document head, and expect WordPress to
-	 * provide it for us.
-	 */
 	add_theme_support( 'title-tag' );
         add_theme_support('woocommerce');
         add_theme_support( 'wc-product-gallery-zoom' );
         add_theme_support( 'wc-product-gallery-lightbox' );
         add_theme_support( 'wc-product-gallery-slider' );
-	/*
-	 * Enable support for Post Thumbnails on posts and pages.
-	 *
-	 * @link https://developer.wordpress.org/themes/functionality/featured-images-post-thumbnails/
-	 */
 	add_theme_support( 'post-thumbnails' );
-
-	// This theme uses wp_nav_menu() in one location.
-	register_nav_menus( array(
-		'primary' => esc_html__( 'Primary Menu', 'karma' ),
-		'mobile' => esc_html__( 'Mobile Menu', 'karma' ),
-		'footer' => esc_html__( 'Footer Menu', 'karma' ),
-            
-	) );
-
-	/*
-	 * Switch default core markup for search form, comment form, and comments
-	 * to output valid HTML5.
-	 */
-	add_theme_support( 'html5', array(
-		'search-form',
-		'comment-form',
-		'comment-list',
-		'caption',
-	) );
-
-	/*
-	 * Enable support for Post Formats.
-	 * See https://developer.wordpress.org/themes/functionality/post-formats/
-	 */
-        add_theme_support( 'custom-logo' );
-        
-        add_theme_support( 'custom-header', array(
+        add_theme_support( 'custom-logo' );        
+        add_theme_support( 'custom-header', apply_filters( 'karma_custom_header_args', array(
             'default-image'          => '',
             'width'                  => 0,
             'height'                 => 0,
@@ -89,8 +43,34 @@ function karma_setup() {
             'default-text-color'     => '',
             'wp-head-callback'       => '',
             'admin-head-callback'    => '',
-            'admin-preview-callback' => '',
-        ) );
+            'admin-preview-callback' => ''
+        ) ) );
+
+        
+	add_theme_support( 'custom-header', apply_filters( 'karma_custom_header_args', array(
+		'default-image'          => '',
+		'default-text-color'     => '000000',
+		'width'                  => 1000,
+		'height'                 => 250,
+		'flex-height'            => true,
+		'wp-head-callback'       => 'karma_header_style',
+	) ) );
+        
+	register_nav_menus( array(
+		'primary' => esc_html__( 'Primary Menu', 'karma' ),
+		'mobile' => esc_html__( 'Mobile Menu', 'karma' ),
+		'footer' => esc_html__( 'Footer Menu', 'karma' ),
+            
+	) );
+
+	add_theme_support( 'html5', array(
+		'search-form',
+		'comment-form',
+		'comment-list',
+		'caption',
+	) );
+
+
         
 }
 endif; // karma_setup
