@@ -2,9 +2,6 @@
 /**
  * Template name: EDD - Store page
  */
-
-
-
 if ( is_tax( 'download_category' ) || is_tax( 'download_tag' ) ) :
     $the_query = $wp_query;
 else :
@@ -19,37 +16,25 @@ else :
 endif;
 
 get_header();
-
 ?>
 
 <div id="primary" class="content-area">
 
     <main id="main" class="site-main karma-store-page" role="main">
-        
-<!--        <div id="karma-page-jumbotron" class="table-display">
-            <div id="karma-jumbo-js"></div>
-
-            <div class="cell-display">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <header class="entry-header centered">
-                                <?php single_post_title('<h1 class="entry-title">', '</h1>'); ?>
-                            </header>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>-->
 
         <div class="container">
             <div class="row">
 
-                <?php get_sidebar('shop'); ?>
+                <?php get_sidebar( 'shop' ); ?>
 
                 <div class="karma-blog-content col-sm-<?php echo is_active_sidebar( 'sidebar-shop' ) ? 9 : 12 ?>">
-                    
 
+                    <div class="col-sm-12">
+                        
+                        
+                        
+                    </div>
+                    
                     <?php if ( $the_query->have_posts() ) : ?>
 
                         <?php $i = 0; ?>
@@ -101,14 +86,14 @@ get_header();
                                     </div>
                                 </div>
                             </div><!--end .product-->
-                            <?php $i+=1; ?>
+                            <?php $i += 1; ?>
                         <?php endwhile; ?>
 
                         <?php wp_reset_postdata(); ?>
 
                     <?php else : ?>
 
-                        <?php get_template_part('template-parts/content', 'none'); ?>
+                        <?php get_template_part( 'template-parts/content', 'none' ); ?>
 
                     <?php endif; ?>
 
@@ -119,18 +104,18 @@ get_header();
             </div>
         </div>
         <div class="clear"></div>
-        
+
         <div class="karma-pagination">
             <div>
                 <div class="pagination-links"> 
-                    <?php 
+                    <?php
                     previous_posts_link( 'Load previous' );
-                    next_posts_link( 'Load more', $the_query->max_num_pages ); 
+                    next_posts_link( 'Load more', $the_query->max_num_pages );
                     ?>
                 </div>
             </div>
         </div>
-        
+
     </main><!-- #main -->
 </div><!-- #primary -->
 

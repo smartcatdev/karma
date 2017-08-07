@@ -451,9 +451,18 @@ function karma_custom_css() {
         
         #karma-featured-post #slide1,
         #karma-page-jumbotron{
-            background: <?php echo $theme_color; ?>
+            background-color: <?php echo $theme_color; ?>;
         }
-
+        
+        <?php if( get_header_image() ) : ?>
+        
+        #karma-page-jumbotron {
+            background-image: url( <?php echo esc_url( get_header_image() ); ?> );
+        }
+        
+        <?php endif; ?>
+        
+        
         input[type="text"]:focus,
         input[type="password"]:focus,
         input[type="search"]:focus,
@@ -482,146 +491,13 @@ add_action('wp_head', 'karma_custom_css');
 
 
 
-function karma_jumbotron() { ?>
-    
-    <div id="karma-featured-post">
-        
-        <div id="karma-slider" class="hero">
-            
-            <?php $post_id = get_theme_mod( 'karma_the_featured_post', 1 ); ?>
-            
-            <?php if( $post_id ) : ?>
-                
-            <div id="slide1">
-                
-                <div id="karma-jumbo-js"></div>
-                
-                <div class="overlay"></div>
-                
-                <div class="container">
-                    
-                    <div class="row">
-                        
-                        <div class="col-sm-6 slide-details">
+function karma_jumbotron() {
+    include_once get_template_directory() . '/template-parts/jumbotron.php';
+}
 
-                            <div class="slide-vert-wrapper">
-
-                                <div class="slide-vert-inner">
-
-                                    <a href="<?php echo get_the_permalink( $post_id ) ? esc_url( get_the_permalink( $post_id ) ) : null; ?>">
-                                        <h2 class="header-text slide1-header animated fadeIn delay1">
-                                            <span class="header-inner"><?php echo ( get_the_title( $post_id ) ? esc_attr( get_the_title( $post_id ) ) : '' ); ?></span>
-                                        </h2>
-
-                                        <p class="animated fadeIn delay1">
-                                            <?php echo esc_html( wp_trim_words( strip_tags( get_post_field( 'post_content', $post_id ) ), 25 ) ); ?>
-                                        </p>
-                                    </a>
-
-                                    <a href="<?php echo get_the_permalink( $post_id ) ? esc_url( get_the_permalink( $post_id ) ) : null; ?>" 
-                                       class="animated fadeIn delay1 karma-jumbotron-button-primary">
-                                        <?php echo esc_attr( get_theme_mod( 'karma_the_featured_post_button', __( 'Continue reading', 'karma' )  ) ); ?>
-                                    </a>
-
-                                    <?php do_action( 'jumbotron_button' ); ?>
-
-                                </div>
-
-                            </div>
-
-                        </div>
-                        <div class="col-sm-6 ">
-                            <div class="slide-vert-wrapper scrollme">
-                                <div class="slide-vert-inner animateme" data-when="span"
-                                data-from="0"
-                                data-to="1"
-                                data-opacity="1"
-                                data-rotatey="180"
-                                data-translatey="-100">
-                                    <?php echo get_the_post_thumbnail( $post_id, 'large' ); ?>
-                                </div>
-                            </div>
-
-
-                        </div>
-
-                    </div>
-                    
-                </div>
-
-            </div>
-            
-            <?php endif; ?>
-            
-        </div>
-        
-    </div>
-
-
-    <div class="clear"></div>
-    
-<?php }
-
-function karma_homepage_features() { ?>
-   
-    
-    <div id="karma-features">
-        
-        <div class="overlay-before"></div>
-        <div class="container">
-            <div class="row text-center">
-                <?php
-                    if ( is_active_sidebar( 'sidebar-features' ) ) {
-                        dynamic_sidebar( 'sidebar-features' );
-                    }?>                
-            </div>
-
-            
-            <?php 
-            $posts = get_theme_mod( 'karma_homepage_feature', array( null, null, null, null ) );
-            $icons = get_theme_mod( 'karma_homepage_feature_icon', array( 'fa fa-desktop' ) );
-            $ctr = 0;
-            
-            for( $i = 0; $i <= 3; $i++ ) :
-                
-                if( ! isset( $posts[ $i ] ) ) : ?>
-                
-                <div class="col-sm-3 karma-feature">
-                    <div class="feature-wrapper">
-                            <span class="fa fa-desktop"></span>
-                        </div>
-                        <h3 class="feature-title"><?php echo esc_attr( get_bloginfo( 'name' ) ); ?></h3>    
-                    </div>
-                </div>
-            
-            
-            
-                <?php else : ?>
-                <div class="col-sm-3 karma-feature ">
-                    <div class="feature-wrapper">
-                        <a href="<?php echo esc_url( get_the_permalink( $posts[ $i ] ) ); ?>">
-                            <div class="icon-wrap">
-                                <span class="<?php echo isset( $icons[$i] ) ? esc_attr( $icons[$i] ) : 'fa fa-desktop'; ?>"></span>
-                            </div>
-                        </a>
-                        <h3 class="feature-title">
-                            <a href="<?php echo esc_url( get_the_permalink( $posts[ $i ] ) ); ?>">
-                                <?php echo esc_attr( get_the_title( $posts[ $i ] ) ); ?>
-                            </a>
-                        </h3>                        
-                    </div>
-                </div>
-            
-                <?php endif; ?>
-            
-                <?php endfor; ?>
-        </div>
-        <div class="overlay-after"></div>
-    </div>
-    
-    
-    
-<?php }
+function karma_homepage_features() {
+    include_once get_template_directory() . '/template-parts/features.php';
+}
 
 
 function karma_homepage_shop() { 

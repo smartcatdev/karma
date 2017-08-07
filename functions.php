@@ -30,30 +30,17 @@ function karma_setup() {
         add_theme_support( 'wc-product-gallery-lightbox' );
         add_theme_support( 'wc-product-gallery-slider' );
 	add_theme_support( 'post-thumbnails' );
-        add_theme_support( 'custom-logo' );        
-        add_theme_support( 'custom-header', apply_filters( 'karma_custom_header_args', array(
-            'default-image'          => '',
-            'width'                  => 0,
-            'height'                 => 0,
-            'flex-height'            => false,
-            'flex-width'             => false,
-            'uploads'                => true,
-            'random-default'         => false,
-            'header-text'            => true,
-            'default-text-color'     => '',
-            'wp-head-callback'       => '',
-            'admin-head-callback'    => '',
-            'admin-preview-callback' => ''
-        ) ) );
-
+        add_theme_support( 'custom-logo' );
         
+
 	add_theme_support( 'custom-header', apply_filters( 'karma_custom_header_args', array(
-		'default-image'          => '',
-		'default-text-color'     => '000000',
-		'width'                  => 1000,
-		'height'                 => 250,
-		'flex-height'            => true,
-		'wp-head-callback'       => 'karma_header_style',
+		'default-image'         => '',
+                'header-text'           => false,
+		'default-text-color'    => false,
+		'width'                 => 1200,
+		'height'                => 300,
+		'flex-height'           => true,
+		'wp-head-callback'      => '',
 	) ) );
         
 	register_nav_menus( array(

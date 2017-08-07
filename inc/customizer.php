@@ -63,6 +63,8 @@ function karma_customize_register( $wp_customize ) {
     
     $wp_customize->get_setting( 'blogname' )->transport             = 'refresh';
     $wp_customize->get_setting( 'blogdescription' )->transport      = 'refresh';
+//    $wp_customize->get_section( 'header_image' )->title = __( 'Header ' );
+    $wp_customize->get_section( 'header_image' )->panel = 'header';
 
     
 

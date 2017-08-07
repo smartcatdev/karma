@@ -1,14 +1,14 @@
 <?php
     
-$wp_customize->add_panel( 'logo', array (
-    'title' => __( 'Logo & Menu bar', 'karma' ),
-    'description' => __( 'set the logo image, site title, description and site icon favicon', 'karma' ),
+$wp_customize->add_panel( 'header', array (
+    'title' => __( 'Header', 'karma' ),
+    'description' => __( 'Logo, favicon, header image and menu controls', 'karma' ),
     'priority' => 10
 ) );
 
     
     $wp_customize->get_section('title_tagline')->title = __( 'Logo & Title', 'karma' );
-    $wp_customize->get_section('title_tagline')->panel = 'logo';
+    $wp_customize->get_section('title_tagline')->panel = 'header';
 
 
         $wp_customize->add_setting( 'custom_logo_height', array (
@@ -42,10 +42,12 @@ $wp_customize->add_panel( 'logo', array (
                 'step' => 5,
         ) ) );
     
+    if( class_exists( 'Easy_Digital_Downloads' ) ) :
+        
     $wp_customize->add_section( 'karma_header_cart', array (
         'title'                 => __( 'Shopping cart', 'karma' ),
         'Description'           => __( 'This setting works if you have WooCommerce active', 'karma' ),
-        'panel'                 => 'logo',
+        'panel'                 => 'header',
     ) );
 
         $wp_customize->add_setting( 'header_cart_bool', array (
@@ -64,3 +66,5 @@ $wp_customize->add_panel( 'logo', array (
                 'off'    => __( 'No', 'karma' )
             )
         ));
+       
+endif;

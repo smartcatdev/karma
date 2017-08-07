@@ -107,6 +107,8 @@ $wp_customize->add_panel( 'homepage', array (
 
         endfor;
 
+    if( class_exists( 'Easy_Digital_Downloads' ) ) :
+        
     $wp_customize->add_section( 'homepage_products', array (
         'title'                 => __( 'Products', 'karma' ),
         'panel'                 => 'homepage',
@@ -147,6 +149,8 @@ $wp_customize->add_panel( 'homepage', array (
 
             ) );
         endif;
+        
+    endif;
         
     $wp_customize->add_section( 'homepage_content', array (
         'title'                 => __( 'Page content', 'karma' ),
