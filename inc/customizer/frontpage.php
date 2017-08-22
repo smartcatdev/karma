@@ -12,12 +12,12 @@ $wp_customize->add_panel( 'homepage', array (
         'priority'              => 1
     ) );
     
-        $wp_customize->add_setting( 'karma_the_featured_post', array (
-            'default'               => 1,
+        $wp_customize->add_setting( Karma_Options::$featured_post, array (
+            'default'               => Karma_Options::$featured_post_default,
             'transport'             => 'refresh',
             'sanitize_callback'     => 'karma_sanitize_post',
         ) );
-        $wp_customize->add_control( 'karma_the_featured_post', array(
+        $wp_customize->add_control( Karma_Options::$featured_post, array(
             'type'                  => 'select',
             'section'               => 'homepage_jumbotron',
             'priority' => 0,
@@ -26,12 +26,12 @@ $wp_customize->add_panel( 'homepage', array (
             'choices'               => karma_all_posts_array(),
         ) );
 
-        $wp_customize->add_setting( 'karma_jumbotron_height', array (
-            'default'               => 650,
+        $wp_customize->add_setting( Karma_Options::$jumbotron_height, array (
+            'default'               => Karma_Options::$jumbotron_height_default,
             'transport'             => 'refresh',
             'sanitize_callback'     => 'karma_sanitize_integer',
         ) );
-        $wp_customize->add_control( 'karma_jumbotron_height', array(
+        $wp_customize->add_control( Karma_Options::$jumbotron_height, array(
             'type'                  => 'number',
             'section'               => 'homepage_jumbotron',
             'priority' => 0,
@@ -41,13 +41,29 @@ $wp_customize->add_panel( 'homepage', array (
                 'max' => 1000,
                 'step' => 50,
         ) ) );
+//        karma_the_featured_post_toggle
+        $wp_customize->add_setting( Karma_Options::$featured_post_toggle, array (
+                'default'               => Karma_Options::$featured_post_toggle_default,
+                'transport'             => 'refresh',
+                'sanitize_callback'     => 'karma_radio_sanitize_onoff'
+            ) );
 
-        $wp_customize->add_setting( 'karma_the_featured_post_button', array (
-            'default'               => __( 'Read More', 'karma' ),
+           $wp_customize->add_control( Karma_Options::$featured_post_toggle, array(
+                'label'         => __( 'Display Products on Homepage ?', 'karma' ),
+                'section' => 'homepage_jumbotron',
+                'type'    => 'radio',
+                'choices'    => array(
+                    'on'    => __( 'Yes', 'karma' ),
+                    'off'    => __( 'No', 'karma' )
+                )
+            ));
+
+        $wp_customize->add_setting( Karma_Options::$featured_post_button, array (
+            'default'               => Karma_Options::$featured_post_button_default,
             'transport'             => 'refresh',
             'sanitize_callback'     => 'sanitize_text_field',
         ) );
-        $wp_customize->add_control( 'karma_the_featured_post_button', array(
+        $wp_customize->add_control( Karma_Options::$featured_post_button, array(
             'type'                  => 'text',
             'section'               => 'homepage_jumbotron',
             'label'                 => __( 'Button Text', 'karma' ),
@@ -61,13 +77,13 @@ $wp_customize->add_panel( 'homepage', array (
     ) );
     
     
-        $wp_customize->add_setting( 'homepage_features_toggle', array (
-            'default'               => 'on',
+        $wp_customize->add_setting( Karma_Options::$features_toggle, array (
+            'default'               => Karma_Options::$features_toggle_default,
             'transport'             => 'refresh',
             'sanitize_callback'     => 'karma_radio_sanitize_onoff'
         ) );
 
-       $wp_customize->add_control( 'homepage_features_toggle', array(
+       $wp_customize->add_control( Karma_Options::$features_toggle, array(
             'label'         => __( 'Display the features ?', 'karma' ),
             'description'   => __( 'This section shows up if you have the Static Front Page set to "A static page" in customizer -> Frontpage -> Static Front Page', 'karma' ),
             'section' => 'homepage_features',
@@ -80,12 +96,12 @@ $wp_customize->add_panel( 'homepage', array (
     
         for( $i = 0; $i <= 3; $i++ ) :
        
-        $wp_customize->add_setting( 'karma_homepage_feature[' . $i . ']', array (
-            'default'               => 1,
+        $wp_customize->add_setting( Karma_Options::$homepage_feature[$i], array (
+            'default'               => Karma_Options::$homepage_feature_default,
             'transport'             => 'refresh',
             'sanitize_callback'     => 'karma_sanitize_post',
         ) );
-        $wp_customize->add_control( 'karma_homepage_feature[' . $i . ']', array(
+        $wp_customize->add_control( Karma_Options::$homepage_feature[$i], array(
             'type'                  => 'select',
             'section'               => 'homepage_features',
             'label'                 => sprintf( __( 'Feature #%s: Select a page or post', 'karma' ), $i+1 ),
@@ -93,12 +109,12 @@ $wp_customize->add_panel( 'homepage', array (
             'choices'               => karma_all_posts_array(),
         ) );
     
-        $wp_customize->add_setting( 'karma_homepage_feature_icon[' . $i . ']', array (
-            'default'               => 'fa fa-desktop',
+        $wp_customize->add_setting( Karma_Options::$homepage_feature_icon[$i], array (
+            'default'               =>  Karma_Options::$homepage_feature_icon_default,
             'transport'             => 'refresh',
             'sanitize_callback'     => 'karma_sanitize_icon',
         ) );
-        $wp_customize->add_control( 'karma_homepage_feature_icon[' . $i . ']', array(
+        $wp_customize->add_control( Karma_Options::$homepage_feature_icon[$i], array(
             'type'                  => 'select',
             'section'               => 'homepage_features',
             'label'                 => __( 'Select the icon', 'karma' ),
@@ -118,14 +134,14 @@ $wp_customize->add_panel( 'homepage', array (
         // Frontpage products only enabled if EDD is installed & active
         if( class_exists( 'Easy_Digital_Downloads' ) ) :
 
-            $wp_customize->add_setting( 'homepage_products_toggle', array (
-                'default'               => 'on',
+            $wp_customize->add_setting( Karma_Options::$products_toggle, array (
+                'default'               => Karma_Options::$products_toggle_default,
                 'transport'             => 'refresh',
                 'sanitize_callback'     => 'karma_radio_sanitize_onoff'
             ) );
 
-           $wp_customize->add_control( 'homepage_products_toggle', array(
-                'label'         => __( 'Display Products on Homeapge ?', 'karma' ),
+           $wp_customize->add_control( Karma_Options::$products_toggle, array(
+                'label'         => __( 'Display Products on Homepage ?', 'karma' ),
                 'section' => 'homepage_products',
                 'type'    => 'radio',
                 'choices'    => array(
@@ -134,18 +150,18 @@ $wp_customize->add_panel( 'homepage', array (
                 )
             ));
 
-            $wp_customize->add_setting( 'homepage_products_count', array (
-                'default'               => 6,
+            $wp_customize->add_setting( Karma_Options::$products_count, array (
+                'default'               => Karma_Options::$products_count_default,
                 'transport'             => 'refresh',
                 'sanitize_callback'     => 'karma_sanitize_product_count'
             ) );
 
-            $wp_customize->add_control( 'homepage_products_count', array(
+            $wp_customize->add_control(  Karma_Options::$products_count, array(
                 'type'                  => 'select',
                 'section'               => 'homepage_products',
                 'label'                 => __( 'Product count', 'karma' ),
                 'description'           => __( 'How many products do you want to show ?', 'karma' ),
-                'choices'               => karma_product_count_list()
+                'choices'               => Karma_Options::karma_product_count_list()
 
             ) );
         endif;
@@ -158,13 +174,13 @@ $wp_customize->add_panel( 'homepage', array (
         'priority'                 => 4,
     ) );
     
-        $wp_customize->add_setting( 'homepage_content_toggle', array (
-            'default'               => 'on',
+        $wp_customize->add_setting( Karma_Options::$homepage_content_toggle, array (
+            'default'               => Karma_Options::$homepage_content_toggle_default,
             'transport'             => 'refresh',
             'sanitize_callback'     => 'karma_radio_sanitize_onoff'
         ) );
 
-       $wp_customize->add_control( 'homepage_content_toggle', array(
+       $wp_customize->add_control( Karma_Options::$homepage_content_toggle, array(
             'label'         => __( 'Display Homepage page content ?', 'karma' ),
             'section' => 'homepage_content',
             'type'    => 'radio',

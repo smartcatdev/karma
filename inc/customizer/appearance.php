@@ -58,7 +58,7 @@ $wp_customize->add_panel( 'appearance', array (
             'section'               => 'font',
             'label'                 => __( 'Headers Font', 'karma' ),
             'description'           => __( 'Applies to the slider header, callouts headers, post page & widget titles etc..', 'karma' ),
-            'choices'               => karma_fonts()
+            'choices'               => Karma_Options::karma_fonts()
 
         ) );
 
@@ -72,7 +72,7 @@ $wp_customize->add_panel( 'appearance', array (
             'type'                  => 'select',
             'section'               => 'font',
             'label'                 => __( 'General font for the site body', 'karma' ),
-            'choices'               => karma_fonts()
+            'choices'               => Karma_Options::karma_fonts()
 
         ) );
 

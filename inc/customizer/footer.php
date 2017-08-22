@@ -48,7 +48,7 @@ $wp_customize->add_panel( 'footer', array (
             'label' => __( 'Display American Express Icon?', 'karma' ),
         ) );
 
-        // Payment Icons - PayPal
+       // Payment Icons - Paypal
         $wp_customize->add_setting( Karma_Options::$paypal_display, array (
             'default' => Karma_Options::$paypal_display_default,
             'transport' => 'refresh',
@@ -57,7 +57,7 @@ $wp_customize->add_panel( 'footer', array (
         $wp_customize->add_control( Karma_Options::$paypal_display, array (
             'type' => 'checkbox',
             'section' => 'payment_methods',
-            'label' => __( 'Display PayPal Icon?', 'karma' ),
+            'label' => __( 'Display Paypal Icon?', 'karma' ),
         ) );
 
     $wp_customize->add_section( 'footer_text', array (
@@ -65,13 +65,13 @@ $wp_customize->add_panel( 'footer', array (
         'panel' => 'footer',
     ) );
 
-        $wp_customize->add_setting( Karma_Options::$paypal_display, array (
+        $wp_customize->add_setting( Karma_Options::$copyright_text, array (
             'default' => get_bloginfo( 'name' ) . ' ' . date_i18n( __( 'Y', 'karma' ) ),
             'transport' => 'refresh',
             'sanitize_callback' => 'sanitize_text_field'
         ) );
 
-        $wp_customize->add_control( Karma_Options::$paypal_display, array (
+        $wp_customize->add_control( Karma_Options::$copyright_text, array (
             'type' => 'text',
             'section' => 'footer_text',
             'label' => __( 'Copyright Text', 'karma' )

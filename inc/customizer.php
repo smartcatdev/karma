@@ -162,51 +162,6 @@ function karma_checkbox_sanitize($input) {
    }
 }
 
-function karma_product_count_list() {
-    
-    return array(
-        3   => 3,
-        6   => 6,
-        9   => 9,
-    );
-}
-
-
-function karma_fonts() {
-
-    $font_family_array = array(
-        'Bad Script, cursive' => 'Bad+Script',
-        'Lobster Two, cursive' => 'Lobster+Two',
-        'Josefin Sans, sans-serif' => 'Josefin',
-        'Open Sans, sans-serif' => 'Open Sans',
-        'Palatino Linotype, Book Antiqua, Palatino, serif' => 'Palatino Linotype',
-        'Source Sans Pro, sans-serif' => 'Source Sans Pro',
-        'Abel, sans-serif' => 'Abel',
-        'Bangers, cursive' => 'Bangers',
-        'Lobster Two, cursive' => 'Lobster+Two',
-        'Josefin Sans, sans-serif' => 'Josefin+Sans:300,400,600,700',
-        'Montserrat, sans-serif' => 'Montserrat:400,700',
-        'Poiret One, cursive' => 'Poiret+One',
-        'Source Sans Pro, sans-serif' => 'Source+Sans+Pro:200,400,600',
-        'Lato, sans-serif' => 'Lato:100,300,400,700,900,300italic,400italic',
-        'Raleway, sans-serif' => 'Raleway:400,300,500,700',
-        'Russo One, sans-serif' => 'Russo+One',
-        'Shadows Into Light, cursive' => 'Shadows+Into+Light',
-        'Orbitron, sans-serif' => 'Orbitron',
-        'Old Standard TT, serif' => 'Old+Standard+TT',
-        'Oswald, sans-serif' => 'Oswald',
-        'PT Sans Narrow, sans-serif' => 'PT+Sans+Narrow',
-        'Playfair Display, serif' => 'Playfair+Display:400,700',
-        'Lora, serif' => 'Lora',
-        'Abel, sans-serif' => 'Abel',
-        'Yellowtail, cursive' => 'Yellowtail',
-        'Corben, cursive' => 'Corben'
-    );
-
-    return $font_family_array;
-    
-
-}
 function karma_all_posts_array() {
 
     $posts = get_posts( array(
@@ -232,7 +187,7 @@ function karma_all_posts_array() {
 }
 
 function karma_sanitize_product_count( $input ) {
-    $valid_keys = karma_product_count_list();
+    $valid_keys = Karma_Options::karma_product_count_list();
     if ( array_key_exists( $input, $valid_keys ) ) {
      return $input;
    } else {

@@ -2,7 +2,7 @@
 
     <div id="karma-slider" class="hero">
 
-        <?php $post_id = get_theme_mod( 'karma_the_featured_post', 1 ); ?>
+        <?php $post_id = get_theme_mod( Karma_Options::$featured_post, Karma_Options::$featured_post_default ); ?>
 
         <?php if ( $post_id ) : ?>
 
@@ -34,7 +34,7 @@
 
                                     <a href="<?php echo get_the_permalink( $post_id ) ? esc_url( get_the_permalink( $post_id ) ) : null; ?>" 
                                        class="animated fadeIn delay1 karma-jumbotron-button-primary">
-                                           <?php echo esc_attr( get_theme_mod( 'karma_the_featured_post_button', __( 'Continue reading', 'karma' ) ) ); ?>
+                                           <?php echo esc_attr( get_theme_mod( Karma_Options::$featured_post_button, Karma_Options::$featured_post_button_default ) ); ?>
                                     </a>
 
                                     <?php do_action( 'jumbotron_button' ); ?>

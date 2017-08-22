@@ -717,6 +717,9 @@ ul.karma-mobile-nav li{
 #karma-add-menu a{
     color: #fff;
 }
+#karma-mobile-wrapper #karma-add-menu {
+    display: none;
+}
 
 .karma-mobile-cart{
     display: none;
