@@ -7,6 +7,7 @@ function karma_customize_register( $wp_customize ) {
     require get_template_directory() . '/inc/customizer/frontpage.php';
     require get_template_directory() . '/inc/customizer/appearance.php';
     require get_template_directory() . '/inc/customizer/footer.php';
+    require get_template_directory() . '/inc/customizer/jumbotron.php';
     
     class KarmaCustomizerPanel extends WP_Customize_Control {
 
