@@ -2166,3 +2166,25 @@ ul.products li.product .woocommerce-loop-product__title {
 #menu-toggle-trigger.menu-trigger #menu-panel-close{
     display: none;
 }
+
+#edd-categories-bar {
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 30px;
+}
+
+#edd-categories-bar li.cat-item {
+    display: inline-block;
+}
+
+#edd-categories-bar li.cat-item a{
+    background: #fff;
+    display: inline-block;
+    padding: 7px 12px;
+    margin-right: 7px;    
+}
+
+#edd-categories-bar li.cat-item a:hover,
+#edd-categories-bar li.cat-item.current-cat a{
+    color: #fff !important;
+}

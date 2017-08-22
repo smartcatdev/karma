@@ -244,7 +244,7 @@ function karma_custom_header() {
     
     $front = get_option('show_on_front');
     
-    if( is_front_page() && $front != 'posts' ) {
+    if( ( is_front_page() && $front != 'posts' ) || is_page_template( 'templates/frontpage.php' )) {
         return;
     }
     
@@ -398,7 +398,9 @@ function karma_custom_css() {
         .woocommerce button.button.alt:hover, 
         .woocommerce input.button.alt:hover,
         .woocommerce #respond input#submit.alt:hover, 
-        .woocommerce a.button.alt:hover{
+        .woocommerce a.button.alt:hover,
+        #edd-categories-bar li.cat-item a:hover,
+        #edd-categories-bar li.cat-item.current-cat a{
             background: <?php echo $hover_color; ?> !important;
         }
 
@@ -904,6 +906,31 @@ function karma_has_right_sidebar( $post_id ) {
     endif;
     
     return false;
+    
+}
+
+function karma_edd_categories() {
+    
+    $categories = karma_get_edd_categories();
+    
+    if ( is_tax( 'download_category' ) ) {
+    }
+    
+    if( $categories ) : ?>
+        
+        <ul id="edd-categories-bar">
+    
+            <?php wp_list_categories( 'title_li=&taxonomy=download_category&show_count=0&hide_empty=0' ); ?>
+           
+        </ul>
+    <?php endif;
+    
+}
+
+function karma_get_edd_categories() {
+    
+    $taxonomy = 'download_category';
+    return get_terms( $taxonomy ) ? get_terms( $taxonomy ) : false;
     
 }
 

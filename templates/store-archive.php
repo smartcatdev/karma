@@ -31,7 +31,7 @@ get_header();
 
                     <div class="col-sm-12">
                         
-                        
+                        <?php karma_edd_categories(); ?>
                         
                     </div>
                     
@@ -108,10 +108,7 @@ get_header();
         <div class="karma-pagination">
             <div>
                 <div class="pagination-links"> 
-                    <?php
-                    previous_posts_link( 'Load previous' );
-                    next_posts_link( 'Load more', $the_query->max_num_pages );
-                    ?>
+                    <?php the_posts_pagination(); ?>
                 </div>
             </div>
         </div>
