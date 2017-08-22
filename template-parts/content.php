@@ -8,8 +8,9 @@
  */
 ?>
 
+CONTENT
 
-<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+<!--<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 
     <?php if (get_post_thumbnail_id($post->ID)) : ?>
         <div id="karma-posts-image">
@@ -36,9 +37,9 @@
 
                 </div>
 
-            </div><!-- .entry-meta -->
+            </div> .entry-meta 
         <?php endif; ?>
-    </header><!-- .entry-header -->
+    </header> .entry-header 
 
     <div class="entry-content">
         <?php the_excerpt(); ?>
@@ -49,7 +50,7 @@
             'after' => '</div>',
         ));
         ?>
-    </div><!-- .entry-content -->
+    </div> .entry-content 
     
     <?php if ('post' === get_post_type()) : ?>
     <div class="continue-reading">
@@ -59,5 +60,5 @@
 
     <footer class="entry-footer">
         <?php //karma_entry_footer(); ?>
-    </footer><!-- .entry-footer -->
-</article><!-- #post-## -->
+    </footer> .entry-footer 
+</article> #post-## -->

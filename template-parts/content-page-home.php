@@ -1,15 +1,22 @@
+<?php
+/*
+ * 
+ * Content Page Home
+ * Displays the page content for static frontpage
+ * 
+ * 
+ */
+
+?>
+
 <!-- Content Page Home -->
 
-<div class="col-sm-12">
 
     <div class="karma-post-container">
 
         <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 
-
-
             <div class="entry-content">
-
 
                 <header class="entry-header">
                     <?php the_title('<h1 class="entry-title">', '</h1>'); ?>
@@ -37,8 +44,5 @@
                 ?>
             </footer><!-- .entry-footer -->
 
-
-
         </article><!-- #post-## -->
     </div>
-</div>

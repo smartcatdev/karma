@@ -13,13 +13,6 @@ get_header();
 <div id="primary" class="content-area">
 
     <main id="main" class="site-main karma-blog-page" role="main">
-
-        <div class="row">
-            <div class="col-sm-12">
-                <h1 class="page-title"><?php printf(esc_html__('Search Results for: %s', 'karma'), '<span>' . get_search_query() . '</span>'); ?></h1>
-            </div>
-            
-        </div>
         
         <div class="row">
 

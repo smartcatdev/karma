@@ -44,13 +44,13 @@ function karma_scripts() {
     wp_enqueue_style('animate', get_template_directory_uri() . '/inc/css/animate.css', array(), KARMA_VERSION);
     wp_enqueue_style('slicknav', get_template_directory_uri() . '/inc/css/slicknav.min.css', array(), KARMA_VERSION);
     
-//    wp_enqueue_script('jquery-sticky', get_template_directory_uri() . '/inc/js/scrollme.min.js', array('jquery'), KARMA_VERSION, true);
     wp_enqueue_script('jquery-sticky', get_template_directory_uri() . '/inc/js/jquery.sticky.js', array('jquery'), KARMA_VERSION, true);
     wp_enqueue_script('jquery-particles', get_template_directory_uri() . '/inc/js/particle.js', array('jquery'), KARMA_VERSION, true);
     wp_enqueue_script('jquery-easing', get_template_directory_uri() . '/inc/js/easing.js', array('jquery'), KARMA_VERSION, true);
     wp_enqueue_script('jquery-slicknav', get_template_directory_uri() . '/inc/js/slicknav.min.js', array('jquery'), KARMA_VERSION, true);
     wp_enqueue_script('jquery-wow', get_template_directory_uri() . '/inc/js/wow.min.js', array('jquery'), KARMA_VERSION, true);
-    wp_enqueue_script('karma-script', get_template_directory_uri() . '/inc/js/script.js', array('jquery', 'jquery-ui-core', 'jquery-masonry'), KARMA_VERSION);
+    wp_enqueue_script('jquery-bigslide', get_template_directory_uri() . '/inc/js/bigslide.min.js', array('jquery'), KARMA_VERSION, true);
+    wp_enqueue_script('karma-script', get_template_directory_uri() . '/inc/js/script.js', array('jquery', 'jquery-ui-core', 'jquery-masonry'), KARMA_VERSION, true );
     
     $localized_array = array(
         'particlesLocation'     => get_template_directory_uri() . '/inc/js/particles.json'
@@ -139,15 +139,6 @@ function karma_widgets_init() {
         'after_title' => '</h2>',
     ));
 
-//    register_sidebar(array(
-//        'name' => esc_html__('Top B - Homepage widget', 'karma'),
-//        'id' => 'sidebar-homepage',
-//        'description' => '',
-//        'before_widget' => '<aside id="%1$s" class="widget %2$s col-sm-12">',
-//        'after_widget' => '</aside>',
-//        'before_title' => '<h2 class="widget-title">',
-//        'after_title' => '</h2>',
-//    ));
 }
 
 add_action('widgets_init', 'karma_widgets_init');
@@ -249,13 +240,80 @@ function karma_customize_nav( $items, $args ) {
 add_filter('wp_nav_menu_items', 'karma_customize_nav', 10, 2);
 
 
+function karma_custom_header() { 
+    
+    $front = get_option('show_on_front');
+    
+    if( ( is_front_page() && $front != 'posts' ) || is_page_template( 'templates/frontpage.php' )) {
+        return;
+    }
+    
+    ?>
+    
+    <div id="karma-page-jumbotron" class="table-display">
+        <div id="karma-jumbo-js"></div>
+
+        <div class="cell-display">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <header class="entry-header centered">
+                            
+                            <?php if( is_archive() ) : ?>
+                                
+                                <?php the_archive_title('<h1 class="entry-title">', '</h1>'); ?>
+                            
+                            <?php elseif( is_search() ) : ?>
+                            
+                                <h1 class="entry-title"><?php printf( esc_html__('Search Results for: %s', 'karma'), '<span>' . get_search_query() . '</span>' ); ?></h1>
+                            
+                            <?php elseif( is_home() && !is_front_page() ) : ?>
+                            
+                                <?php single_post_title('<h1 class="entry-title">', '</h1>'); ?>
+                                
+                            <?php elseif( is_home() ) : ?>
+
+                                <h1 class="entry-title"><?php bloginfo( 'name' ); ?></h1>
+
+                            <?php else : ?>
+                                
+                                <?php single_post_title('<h1 class="entry-title">', '</h1>'); ?>
+                            
+                            <?php endif; ?>
+                            
+                        </header>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+<?php }
+
+add_filter( 'get_the_archive_title', function( $title ) {
+
+    if( is_category() ) :
+        $title = single_cat_title( '', false );
+    elseif( is_tag() ) :
+        $title = single_tag_title( '', false );
+    elseif( is_author() ) :
+        $title = get_the_author();
+    else :
+        $title = single_cat_title( '', false );
+    endif;
+    
+    return $title;
+    
+});
+
 function karma_custom_css() {
     
-    $theme_color = esc_attr( get_theme_mod('karma_theme_color', '#4cef9e' ) );
+    $theme_color = esc_attr( get_theme_mod( Karma_Options::$theme_color, Karma_Options::$theme_color_default ) );
     $theme_color_rgba = karma_hex2rgb( $theme_color );
-    $hover_color = esc_attr( get_theme_mod('karma_theme_color_hover', '#37ef93' ) );
+    $hover_color = esc_attr( get_theme_mod( Karma_Options::$hover_color, Karma_Options::$hover_color_default ) );
     $hover_color_rgba = karma_hex2rgb( $hover_color );
-    
+    $logo_height = esc_attr( get_theme_mod( 'custom_logo_height', 70 ) );
+    $mobile_logo = esc_attr( get_theme_mod( 'mobile_logo_height', 70 ) );
     ?>
     <style type="text/css">
 
@@ -294,18 +352,11 @@ function karma_custom_css() {
             height: <?php echo intval( get_theme_mod('karma_jumbotron_height', 650 ) ); ?>px;
         }
         
-        #masthead.site-header,
-        #karma-header .slicknav_menu{
-            background-color: <?php echo esc_attr( get_theme_mod('karma_header_bg_color', '#f9f9f9' ) ); ?>;
-        }
-
-        
         a,a:visited,
         ul.karma-nav > li > ul li.current-menu-item > a,
         .woocommerce .woocommerce-message:before,
         #karma-social a,
-        .entry-meta .fa
-        {
+        .entry-meta .fa{
             color: <?php echo $theme_color; ?>;
         }
 
@@ -313,8 +364,9 @@ function karma_custom_css() {
         a:focus,
         .site-info a:hover,
         ul.karma-nav ul li a:hover,
-        #karma-social a:hover{
-            color: <?php echo $hover_color; ?>;
+        #karma-social a:hover,
+        .karma-mobile-nav a:hover{
+            color: <?php echo $hover_color; ?> !important;
         }
         
         .button,
@@ -346,7 +398,9 @@ function karma_custom_css() {
         .woocommerce button.button.alt:hover, 
         .woocommerce input.button.alt:hover,
         .woocommerce #respond input#submit.alt:hover, 
-        .woocommerce a.button.alt:hover{
+        .woocommerce a.button.alt:hover,
+        #edd-categories-bar li.cat-item a:hover,
+        #edd-categories-bar li.cat-item.current-cat a{
             background: <?php echo $hover_color; ?> !important;
         }
 
@@ -397,10 +451,20 @@ function karma_custom_css() {
             border-bottom: 7px solid <?php echo $theme_color; ?>;
         }
         
-        #karma-featured-post #slide1 {
-            background: <?php echo $theme_color; ?>
+        #karma-featured-post #slide1,
+        #karma-page-jumbotron{
+            background-color: <?php echo $theme_color; ?>;
         }
-
+        
+        <?php if( get_header_image() ) : ?>
+        
+        #karma-page-jumbotron {
+            background-image: url( <?php echo esc_url( get_header_image() ); ?> );
+        }
+        
+        <?php endif; ?>
+        
+        
         input[type="text"]:focus,
         input[type="password"]:focus,
         input[type="search"]:focus,
@@ -410,6 +474,16 @@ function karma_custom_css() {
             box-shadow: 0 0 3px <?php echo $theme_color; ?>;
         }
         
+        #karma-logo img {
+            max-height: <?php echo $logo_height; ?>px;
+        }
+        
+        @media( max-width: 768px ) {
+            #karma-logo img {
+                max-height: <?php echo $mobile_logo; ?>px;
+            }            
+        }
+
         
     </style>
     <?php
@@ -419,143 +493,13 @@ add_action('wp_head', 'karma_custom_css');
 
 
 
-function karma_jumbotron() { ?>
-    
-    <div id="karma-featured-post">
-        
-        <?php
-        if( get_theme_mod( 'karma_social_featured', 'on' ) == 'on' ) :
-            karma_social_icons(); 
-        endif;
-        ?>
-        
-        <div id="karma-slider" class="hero">
-            
-            <?php $post_id = get_theme_mod( 'karma_the_featured_post', 1 ); ?>
-            
-            <?php if( $post_id ) : ?>
-                
-            <div id="slide1">
-                <div id="karma-jumbo-js"></div>
-                <div class="overlay"></div>
-                <div class="row">
-                    <div class="col-sm-6 slide-details">
+function karma_jumbotron() {
+    include_once get_template_directory() . '/template-parts/jumbotron.php';
+}
 
-                        <div class="slide-vert-wrapper">
-                         
-                            <div class="slide-vert-inner">
-                            
-                                <a href="<?php echo get_the_permalink( $post_id ) ? esc_url( get_the_permalink( $post_id ) ) : null; ?>">
-                                    <h2 class="header-text slide1-header animated fadeIn delay1">
-                                        <span class="header-inner"><?php echo ( get_the_title( $post_id ) ? esc_attr( get_the_title( $post_id ) ) : '' ); ?></span>
-                                    </h2>
-
-                                    <p class="animated fadeIn delay1">
-                                        <?php echo esc_html( wp_trim_words( strip_tags( get_post_field( 'post_content', $post_id ) ), 25 ) ); ?>
-                                    </p>
-                                </a>
-
-                                <a href="<?php echo get_the_permalink( $post_id ) ? esc_url( get_the_permalink( $post_id ) ) : null; ?>" 
-                                   class="animated fadeIn delay1 karma-jumbotron-button-primary">
-                                    <?php echo esc_attr( get_theme_mod( 'karma_the_featured_post_button', __( 'Continue reading', 'karma' )  ) ); ?>
-                                </a>
-                                
-                                <?php do_action( 'jumbotron_button' ); ?>
-
-                            </div>
-                            
-                        </div>
-
-                    </div>
-                    <div class="col-sm-6 ">
-                        <div class="slide-vert-wrapper scrollme">
-                            <div class="slide-vert-inner animateme" data-when="span"
-                            data-from="0"
-                            data-to="1"
-                            data-opacity="1"
-                            data-rotatey="180"
-                            data-translatey="-100">
-                                <?php echo get_the_post_thumbnail( $post_id, 'large' ); ?>
-                            </div>
-                        </div>
-                        
-                        
-                    </div>
-
-                </div>
-                
-
-            </div>
-            <?php endif; ?>
-            
-        </div>
-    </div>
-
-
-    <div class="clear"></div>
-    
-<?php }
-
-function karma_homepage_features() { ?>
-   
-    
-    <div id="karma-features">
-        
-        <div class="overlay-before"></div>
-        <div class="container">
-            <div class="row text-center">
-                <?php
-                    if ( is_active_sidebar( 'sidebar-features' ) ) {
-                        dynamic_sidebar( 'sidebar-features' );
-                    }?>                
-            </div>
-
-            
-            <?php 
-            $posts = get_theme_mod( 'karma_homepage_feature', array( null, null, null, null ) );
-            $icons = get_theme_mod( 'karma_homepage_feature_icon', array( 'fa fa-desktop' ) );
-            $ctr = 0;
-            
-            for( $i = 0; $i <= 3; $i++ ) :
-                
-                if( ! isset( $posts[ $i ] ) ) : ?>
-                
-                <div class="col-sm-3 karma-feature">
-                    <div class="feature-wrapper">
-                            <span class="fa fa-desktop"></span>
-                        </div>
-                        <h3 class="feature-title"><?php echo esc_attr( get_bloginfo( 'name' ) ); ?></h3>    
-                    </div>
-                </div>
-            
-            
-            
-                <?php else : ?>
-                <div class="col-sm-3 karma-feature ">
-                    <div class="feature-wrapper">
-                        <a href="<?php echo esc_url( get_the_permalink( $posts[ $i ] ) ); ?>">
-                            <div class="icon-wrap">
-                                <span class="<?php echo isset( $icons[$i] ) ? esc_attr( $icons[$i] ) : 'fa fa-desktop'; ?>"></span>
-                            </div>
-                        </a>
-                        <h3 class="feature-title">
-                            <a href="<?php echo esc_url( get_the_permalink( $posts[ $i ] ) ); ?>">
-                                <?php echo esc_attr( get_the_title( $posts[ $i ] ) ); ?>
-                            </a>
-                        </h3>                        
-                    </div>
-                </div>
-            
-                <?php endif; ?>
-            
-                <?php endfor; ?>
-        </div>
-        <div class="overlay-after"></div>
-    </div>
-    
-    
-    
-<?php }
+function karma_homepage_features() {
+    include_once get_template_directory() . '/template-parts/features.php';
+}
 
 
 function karma_homepage_shop() { 
@@ -670,53 +614,6 @@ function karma_render_homepage() {
     endif;
     
     
-    
-    ?>
-    
-    <?php $post_id = get_theme_mod( 'karma_the_featured_post2', 1 ); ?>
-    <?php $the_post = $post_id ? get_post( $post_id ) : null; ?>
-    
-    <!--
-    <?php if( $the_post && get_theme_mod('karma_the_featured_post2_toggle', 'on' ) == 'on' ) : ?>
-    <div id="karma-topa">
-        
-        <div class="row text-center">
-            <div class="col-sm-12">
-                
-                <h3 class="heading"><?php echo esc_html( $the_post->post_title ); ?></h3>
-                
-                <p class="description">
-                    <?php echo esc_html( wp_trim_words( $the_post->post_content, 40 ) ); ?>
-                </p>
-                
-            </div>            
-        </div>
-        
-        <div class="row text-center">
-            <div class="col-sm-12">
-                <a href="<?php echo esc_url( get_the_permalink( $post_id ) ); ?>"><?php echo get_the_post_thumbnail( $post_id ); ?></a>
-            </div>
-        </div>        
-
-    </div>
-    
-    <div class="clear"></div>
-    <?php endif; ?>
-    
-    -->
-    
-    
-    <!--
-    <?php if( get_theme_mod('homepage_widget_bool', 'on' ) == 'on' ) : ?>
-        <div id="karma-topb">
-            <?php get_sidebar('homepage'); ?>
-        </div>
-    <?php endif; ?>
-    -->
-    
-
-    
-    <?php
 }
 
 add_action( 'karma_homepage', 'karma_render_homepage' );
@@ -740,69 +637,79 @@ function karma_render_footer(){ ?>
 
     <?php if ( is_active_sidebar( 'sidebar-cta' ) ) : ?>
 
-    <div id="karma-cta">
-        <div class="row">
-            <?php
-                if ( is_active_sidebar( 'sidebar-cta' ) ) :
-                    dynamic_sidebar( 'sidebar-cta' );
-                endif;?>
+        <div id="karma-cta">
+            <div class="container">
+                <div class="row">
+                    <?php dynamic_sidebar( 'sidebar-cta' ); ?>
+                </div>
+            </div>
         </div>
-    </div>
     
     <?php endif; ?>
-    
-    <div class="karma-footer">
-        <div>
-            <div class="row">
-                <?php get_sidebar('footer'); ?>
-            </div>            
-        </div>
-
-        
-    </div>
     
     <div class="clear"></div>
 
     
-    <div class="site-info">
+    <div class="site-info karma-footer">
         
-        <div class="row">
-            
-            <div class="karma-copyright">
-                <?php echo esc_html( get_theme_mod( 'copyright_text', get_bloginfo( 'name' ) . ' ' . date( 'Y' ) ) ); ?>
-            </div>
-            <?php 
-            if( get_theme_mod( 'karma_social_footer', 'on' ) == 'on' ) :
-                karma_social_icons(); 
-            endif;
-            ?>
-            
-            <div class="payment-icons">
+        <div class="container">
 
-                <?php if ( get_theme_mod( 'karma_include_cc_visa', false ) ) : ?>
-                    <i class="fa fa-cc-visa"></i>
-                <?php endif; ?>
+            <div class="row">
 
-                <?php if ( get_theme_mod( 'karma_include_cc_mastercard', false ) ) : ?>
-                    <i class="fa fa-cc-mastercard"></i>
-                <?php endif; ?>
-
-                <?php if ( get_theme_mod( 'karma_include_cc_amex', false ) ) : ?>
-                    <i class="fa fa-cc-amex"></i>
-                <?php endif; ?>
-
-                <?php if ( get_theme_mod( 'karma_include_cc_paypal', false ) ) : ?>
-                    <i class="fa fa-cc-paypal"></i>
+                <?php if ( is_active_sidebar( 'sidebar-footer' ) ) : ?>
+                    <div class="sidebar-footer">
+                        <?php dynamic_sidebar('sidebar-footer'); ?>
+                    </div>
                 <?php endif; ?>
 
             </div>
             
-            <hr>
+        </div>
+        
+        <div class="seperator"></div>
+        
+        <div class="container karma-post-footer">
+            
+            <div class="row">
 
-            <a href="https://smartcatdesign.net" rel="designer" style="display: block !important" class="rel">
-                <?php printf( esc_html__( 'Designed by %s', 'karma' ), 'Smartcat' ); ?> 
-                <img src="<?php echo get_template_directory_uri() . '/inc/images/cat_logo_mini.png'?>"/>
-            </a>
+
+                <div class="karma-copyright col-sm-6">
+                    <?php // karma_social_icons(); ?>
+                    
+                    <?php //echo esc_html( get_theme_mod( 'copyright_text', get_bloginfo( 'name' ) . ' ' . date( 'Y' ) ) ); ?>
+                    <a href="https://smartcatdesign.net" rel="designer" style="display: inline-block !important" class="rel">
+                        <?php printf( esc_html__( 'Karma Theme - Designed by ', 'karma' ), 'Smartcat' ); ?> 
+                        <img src="<?php echo get_template_directory_uri() . '/inc/images/smartcat.png'?>" style="height: 20px;"/>
+                    </a>  
+                    
+                    <!--
+                    <div class="payment-icons">
+
+                        <?php if ( get_theme_mod( 'karma_include_cc_visa', false ) ) : ?>
+                            <i class="fa fa-cc-visa"></i>
+                        <?php endif; ?>
+
+                        <?php if ( get_theme_mod( 'karma_include_cc_mastercard', false ) ) : ?>
+                            <i class="fa fa-cc-mastercard"></i>
+                        <?php endif; ?>
+
+                        <?php if ( get_theme_mod( 'karma_include_cc_amex', false ) ) : ?>
+                            <i class="fa fa-cc-amex"></i>
+                        <?php endif; ?>
+
+                        <?php if ( get_theme_mod( 'karma_include_cc_paypal', false ) ) : ?>
+                            <i class="fa fa-cc-paypal"></i>
+                        <?php endif; ?>
+
+                    </div>
+                    -->
+                </div>
+                
+                <div class="col-sm-6">
+                    <?php karma_get_footer_nav(); ?>
+                </div>
+
+            </div>
             
         </div>
         
@@ -930,6 +837,20 @@ function karma_get_main_nav() {
     
 }
 
+function karma_get_footer_nav() {
+    
+    if( has_nav_menu( 'footer' ) ) :
+
+        $menu = wp_nav_menu(array(
+            'theme_location' => 'footer',
+            'menu_id' => 'footer-menu',
+            'menu_class' => 'karma-footer-nav',
+        ));
+    
+    endif;
+    
+}
+
 function karma_get_mobile_nav() {
     
     if( has_nav_menu( 'mobile' ) ) :
@@ -937,14 +858,17 @@ function karma_get_mobile_nav() {
         $menu = wp_nav_menu(array(
             'theme_location' => 'mobile',
             'menu_id' => 'mobile-menu',
-            'menu_class' => 'karma-mobile-nav animated',
+            'menu_class' => 'karma-mobile-nav',
+            'container' => '',
+            
         ));
     elseif( has_nav_menu( 'primary' ) ) :
 
         $menu = wp_nav_menu(array(
             'theme_location' => 'primary',
             'menu_id' => 'mobile-menu',
-            'menu_class' => 'karma-mobile-nav animated',
+            'menu_class' => 'karma-mobile-nav',
+            'container' => '',
         ));
     else :
 
@@ -982,6 +906,31 @@ function karma_has_right_sidebar( $post_id ) {
     endif;
     
     return false;
+    
+}
+
+function karma_edd_categories() {
+    
+    $categories = karma_get_edd_categories();
+    
+    if ( is_tax( 'download_category' ) ) {
+    }
+    
+    if( $categories ) : ?>
+        
+        <ul id="edd-categories-bar">
+    
+            <?php wp_list_categories( 'title_li=&taxonomy=download_category&show_count=0&hide_empty=0' ); ?>
+           
+        </ul>
+    <?php endif;
+    
+}
+
+function karma_get_edd_categories() {
+    
+    $taxonomy = 'download_category';
+    return get_terms( $taxonomy ) ? get_terms( $taxonomy ) : false;
     
 }
 

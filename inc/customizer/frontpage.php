@@ -5,76 +5,59 @@ $wp_customize->add_panel( 'homepage', array (
     'priority'              => 10
 ) );
 
-
+    
     $wp_customize->add_section( 'homepage_jumbotron', array (
         'title'                 => __( 'Jumbotron', 'karma' ),
         'panel'                 => 'homepage',
         'priority'              => 1
     ) );
     
-            $wp_customize->add_setting( 'karma_the_featured_post_toggle', array (
-                'default'               => 'on',
-                'transport'             => 'refresh',
-                'sanitize_callback'     => 'karma_radio_sanitize_onoff'
-            ) );
+        $wp_customize->add_setting( 'karma_the_featured_post', array (
+            'default'               => 1,
+            'transport'             => 'refresh',
+            'sanitize_callback'     => 'karma_sanitize_post',
+        ) );
+        $wp_customize->add_control( 'karma_the_featured_post', array(
+            'type'                  => 'select',
+            'section'               => 'homepage_jumbotron',
+            'priority' => 0,
+            'label'                 => __( 'Select the Featured Post', 'karma' ),
+            'description'           => __( 'Select a post, page or one of your WooCommerce products to be featured on the Frontpage. To edit the text that shows up, go to the post and edit it directly.', 'karma' ),
+            'choices'               => karma_all_posts_array(),
+        ) );
 
-           $wp_customize->add_control( 'karma_the_featured_post_toggle', array(
-                'label'         => __( 'Display the Jumbotron ?', 'karma' ),
-                'section' => 'homepage_jumbotron',
-                'type'    => 'radio',
-                'priority' => 0,
-                'choices'    => array(
-                    'on'    => __( 'Yes', 'karma' ),
-                    'off'    => __( 'No', 'karma' )
-                )
-            ));
-    
-            $wp_customize->add_setting( 'karma_the_featured_post', array (
-                'default'               => 1,
-                'transport'             => 'refresh',
-                'sanitize_callback'     => 'karma_sanitize_post',
-            ) );
-            $wp_customize->add_control( 'karma_the_featured_post', array(
-                'type'                  => 'select',
-                'section'               => 'homepage_jumbotron',
-                'priority' => 0,
-                'label'                 => __( 'Select the Featured Post', 'karma' ),
-                'description'           => __( 'Select a post, page or one of your WooCommerce products to be featured on the Frontpage. To edit the text that shows up, go to the post and edit it directly.', 'karma' ),
-                'choices'               => karma_all_posts_array(),
-            ) );
-    
-            $wp_customize->add_setting( 'karma_jumbotron_height', array (
-                'default'               => 650,
-                'transport'             => 'refresh',
-                'sanitize_callback'     => 'karma_sanitize_integer',
-            ) );
-            $wp_customize->add_control( 'karma_jumbotron_height', array(
-                'type'                  => 'number',
-                'section'               => 'homepage_jumbotron',
-                'priority' => 0,
-                'label'                 => __( 'Height of Featured Post section', 'karma' ),
-                'input_attrs'           => array(
-                    'min' => 300,
-                    'max' => 1000,
-                    'step' => 50,
-            ) ) );
-            
-            $wp_customize->add_setting( 'karma_the_featured_post_button', array (
-                'default'               => __( 'Read More', 'karma' ),
-                'transport'             => 'refresh',
-                'sanitize_callback'     => 'sanitize_text_field',
-            ) );
-            $wp_customize->add_control( 'karma_the_featured_post_button', array(
-                'type'                  => 'text',
-                'section'               => 'homepage_jumbotron',
-                'label'                 => __( 'Button Text', 'karma' ),
-                'priority' => 0,
-            ) );
+        $wp_customize->add_setting( 'karma_jumbotron_height', array (
+            'default'               => 650,
+            'transport'             => 'refresh',
+            'sanitize_callback'     => 'karma_sanitize_integer',
+        ) );
+        $wp_customize->add_control( 'karma_jumbotron_height', array(
+            'type'                  => 'number',
+            'section'               => 'homepage_jumbotron',
+            'priority' => 0,
+            'label'                 => __( 'Height of Featured Post section', 'karma' ),
+            'input_attrs'           => array(
+                'min' => 300,
+                'max' => 1000,
+                'step' => 50,
+        ) ) );
+
+        $wp_customize->add_setting( 'karma_the_featured_post_button', array (
+            'default'               => __( 'Read More', 'karma' ),
+            'transport'             => 'refresh',
+            'sanitize_callback'     => 'sanitize_text_field',
+        ) );
+        $wp_customize->add_control( 'karma_the_featured_post_button', array(
+            'type'                  => 'text',
+            'section'               => 'homepage_jumbotron',
+            'label'                 => __( 'Button Text', 'karma' ),
+            'priority' => 0,
+        ) );
 
     $wp_customize->add_section( 'homepage_features', array (
         'title'                 => __( 'Features', 'karma' ),
         'panel'                 => 'homepage',
-        'priority'              => 3
+        'priority'              => 2
     ) );
     
     
@@ -124,9 +107,12 @@ $wp_customize->add_panel( 'homepage', array (
 
         endfor;
 
+    if( class_exists( 'Easy_Digital_Downloads' ) ) :
+        
     $wp_customize->add_section( 'homepage_products', array (
         'title'                 => __( 'Products', 'karma' ),
         'panel'                 => 'homepage',
+        'priority'              => 3,
     ) );
        
         // Frontpage products only enabled if EDD is installed & active
@@ -164,9 +150,12 @@ $wp_customize->add_panel( 'homepage', array (
             ) );
         endif;
         
+    endif;
+        
     $wp_customize->add_section( 'homepage_content', array (
         'title'                 => __( 'Page content', 'karma' ),
         'panel'                 => 'homepage',
+        'priority'                 => 4,
     ) );
     
         $wp_customize->add_setting( 'homepage_content_toggle', array (
@@ -184,3 +173,6 @@ $wp_customize->add_panel( 'homepage', array (
                 'off'    => __( 'No', 'karma' )
             )
         ));
+    
+       
+    $wp_customize->get_section( 'static_front_page' )->panel = 'homepage';

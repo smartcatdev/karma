@@ -4,7 +4,7 @@ Theme URI: https://smartcatdesign.net/smartcat-products/karma-wordpress-theme/
 Author: Smartcat
 Author URI: https://smartcatdesign.net/
 Description: Karma is a clean & responsive multi-purpose theme that is easy to use by users of all levels. Karma allows you to utilize your content into creating a powerful site for your business. This theme can be used to create a website or a landing page for your business, online store or product. Additionally it is very convinient for a start-up company.
-Version: 1.3.0
+Version: 1.0.0
 License: GNU General Public License v3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.txt
 Text Domain: karma
@@ -290,7 +290,8 @@ h6 {
 }
 
 p {
-	margin-bottom: 1.5em;
+    margin-top: 0;
+    margin-bottom: 15px;
 }
 
 dfn,
@@ -498,9 +499,6 @@ a:active {
 	top: 0;
 }
 
-.main-navigation ul ul a {
-	width: 200px;
-}
 
 .main-navigation ul ul li {
 
@@ -694,11 +692,6 @@ a:active {
 	display: inline;
 }
 
-.page-content,
-.entry-content,
-.entry-summary {
-	margin: 1.5em 0 0;
-}
 
 .page-links {
 	clear: both;

@@ -4,8 +4,8 @@ Contributors: smartcat
 Tags: one-column, two-columns, three-columns, left-sidebar, right-sidebar, grid-layout, custom-colors, featured-images, full-width-template, theme-options, translation-ready, blog, e-commerce, portfolio, custom-header, rtl-language-support
 
 Requires at least: 4.4
-Tested up to: 4.7.3
-Stable tag: 1.3.0
+Tested up to: 4.8.1
+Stable tag: 1.0.0
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 

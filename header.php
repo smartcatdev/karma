@@ -21,19 +21,18 @@
 
     <body <?php body_class(); ?>>
         
-        <div id="karma-fs-overlay" class="noshow">
-            
-            <div class="row">
-                
-                <?php karma_get_mobile_nav(); ?>
-       
-            </div>
-            
+        
+        <a href="#mobile-menu" id="menu-toggle-trigger" class="menu-trigger <?php //echo is_front_page() ? 'frontpage' : ''; ?>">
+            <i class="fa fa-bars" style="color: rgb(255, 255, 255);"></i>
+        </a>
+        
+        <div id="karma-mobile-wrapper">
+            <?php karma_get_mobile_nav(); ?>
+            <a href="#mobile-menu" id="menu-panel-close" class="menu-trigger">
+                <img src="http://gixo.com/wp-content/themes/gixo-us-site/inc/images/xmobile-menu-close.png.pagespeed.ic.kzx00XZ2DT.png">
+            </a>
         </div>
         
-        <div id="menu-toggle-trigger" class="<?php echo is_front_page() ? 'frontpage' : ''; ?>">
-            <i class="fa fa-bars" style="color: rgb(255, 255, 255);"></i>
-        </div>
         
         <div id="page" class="hfeed site <?php echo has_post_thumbnail() ? 'has-thumb' : ''; ?>">
 
@@ -41,59 +40,60 @@
             
             <header id="masthead" class="site-header" role="banner">
 
-                <div id="karma-header" class="<?php echo is_front_page() ? 'frontpage' : ''; ?>">
+                <div id="karma-header" class="<?php echo is_front_page() && ! is_home() ? 'frontpage' : ''; ?>">
 
                     <div class="header-inner">
+                        
+                        <div class="container">
+                            <div class="row">
 
-                        <div class="row">
+                                <div class="karma-branding">
 
-                            <div class="karma-branding col-md-3">
+                                    <!-- Logo start -->    
+                                    <div id="karma-logo" class="<?php echo function_exists( 'has_custom_logo' ) && has_custom_logo() ? 'show' : 'hidden'; ?>">
 
-                                <!-- Logo start -->    
-                                <div id="karma-logo" class="<?php echo function_exists( 'has_custom_logo' ) && has_custom_logo() ? 'show' : 'hidden'; ?>">
+                                        <?php the_custom_logo(); ?>
 
-                                    <?php the_custom_logo(); ?>
+                                    </div>
+                                    <!-- Logo end -->
+
+
+                                    <h1 class="site-title <?php echo ! function_exists( 'has_custom_logo' ) || ! has_custom_logo() ? 'show' : 'hidden'; ?>">
+                                        <a href="<?php echo esc_url(home_url('/')); ?>" rel="home"><?php bloginfo('name'); ?></a>
+                                    </h1>
+
+                                    <p class="site-description <?php echo ! function_exists( 'has_custom_logo' ) || ! has_custom_logo() ? 'show' : 'hidden'; ?>">
+                                        <?php bloginfo('description'); ?>
+                                    </p>
+
 
                                 </div>
-                                <!-- Logo end -->
-                                
-                                
-                                <h1 class="site-title <?php echo ! function_exists( 'has_custom_logo' ) || ! has_custom_logo() ? 'show' : 'hidden'; ?>">
-                                    <a href="<?php echo esc_url(home_url('/')); ?>" rel="home"><?php bloginfo('name'); ?></a>
-                                </h1>
 
-                                <p class="site-description <?php echo ! function_exists( 'has_custom_logo' ) || ! has_custom_logo() ? 'show' : 'hidden'; ?>">
-                                    <?php bloginfo('description'); ?>
-                                </p>
+                                <div class="karma-header-menu">
 
-                                <?php //endif; ?>
+                                    <?php if( class_exists( 'Easy_Digital_Downloads' ) ) : ?>
+
+                                        <div class="karma-mobile-cart">
+
+                                            <a class="karma-cart" href="<?php echo edd_get_checkout_uri(); ?>">
+                                                    Cart (<span class="header-cart edd-cart-quantity"><?php echo edd_get_cart_quantity(); ?></span>)
+                                            </a>
+
+                                        </div>
+
+                                    <?php endif; ?>
+
+                                    <nav id="site-navigation" class="main-navigation" role="navigation">
+
+                                        <?php karma_get_main_nav(); ?>
+
+
+                                    </nav><!-- #site-navigation -->
+
+
+                                </div>
 
                             </div>
-
-                            <div class="karma-header-menu col-md-9">
-
-                                <?php if( class_exists( 'Easy_Digital_Downloads' ) ) : ?>
-                                
-                                    <div class="karma-mobile-cart">
-                                        
-                                        <a class="karma-cart" href="<?php echo edd_get_checkout_uri(); ?>">
-                                                Cart (<span class="header-cart edd-cart-quantity"><?php echo edd_get_cart_quantity(); ?></span>)
-                                        </a>
-                                        
-                                    </div>
-                                
-                                <?php endif; ?>
-                                
-                                <nav id="site-navigation" class="main-navigation" role="navigation">
-                                    
-                                    <?php karma_get_main_nav(); ?>
-
-
-                                </nav><!-- #site-navigation -->
-
-                                
-                            </div>
-
                         </div>
                     </div>
                 </div>
@@ -101,3 +101,6 @@
             </header><!-- #masthead -->
 
             <div id="content" class="site-content">
+                
+                
+                <?php karma_custom_header(); ?>
