@@ -12,8 +12,8 @@
 
 
         <?php
-        $posts = get_theme_mod( Karma_Options::$homepage_feature, Karma_Options::$homepage_feature_default /*array ( null, null, null, null )*/ );
-        $icons = get_theme_mod( Karma_Options::$homepage_feature_icon, Karma_Options::$homepage_feature_icon_default /*array ( 'fa fa-desktop' ) */);
+        $posts = get_theme_mod( 'karma_homepage_feature', array ( null, null, null, null ) );
+        $icons = get_theme_mod( 'karma_homepage_feature_icon', array ( 'fa fa-desktop' ) );
         $ctr = 0;
 
         for ( $i = 0; $i <= 3; $i++ ) :

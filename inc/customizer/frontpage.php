@@ -96,12 +96,12 @@ $wp_customize->add_panel( 'homepage', array (
     
         for( $i = 0; $i <= 3; $i++ ) :
        
-        $wp_customize->add_setting( Karma_Options::$homepage_feature[$i], array (
-            'default'               => Karma_Options::$homepage_feature_default,
+        $wp_customize->add_setting( 'karma_homepage_feature[' . $i . ']', array (
+            'default'               => 1,
             'transport'             => 'refresh',
             'sanitize_callback'     => 'karma_sanitize_post',
         ) );
-        $wp_customize->add_control( Karma_Options::$homepage_feature[$i], array(
+        $wp_customize->add_control( 'karma_homepage_feature[' . $i . ']', array(
             'type'                  => 'select',
             'section'               => 'homepage_features',
             'label'                 => sprintf( __( 'Feature #%s: Select a page or post', 'karma' ), $i+1 ),
@@ -109,12 +109,12 @@ $wp_customize->add_panel( 'homepage', array (
             'choices'               => karma_all_posts_array(),
         ) );
     
-        $wp_customize->add_setting( Karma_Options::$homepage_feature_icon[$i], array (
-            'default'               =>  Karma_Options::$homepage_feature_icon_default,
+        $wp_customize->add_setting( 'karma_homepage_feature_icon[' . $i . ']', array (
+            'default'               => 'fa fa-desktop',
             'transport'             => 'refresh',
             'sanitize_callback'     => 'karma_sanitize_icon',
         ) );
-        $wp_customize->add_control( Karma_Options::$homepage_feature_icon[$i], array(
+        $wp_customize->add_control( 'karma_homepage_feature_icon[' . $i . ']', array(
             'type'                  => 'select',
             'section'               => 'homepage_features',
             'label'                 => __( 'Select the icon', 'karma' ),
