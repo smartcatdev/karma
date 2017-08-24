@@ -52,6 +52,7 @@ function karma_scripts() {
     wp_enqueue_script('jquery-bigslide', get_template_directory_uri() . '/inc/js/bigslide.min.js', array('jquery'), KARMA_VERSION, true);
     wp_enqueue_script('karma-script', get_template_directory_uri() . '/inc/js/script.js', array('jquery', 'jquery-ui-core', 'jquery-masonry'), KARMA_VERSION, true );
     
+        
     $localized_array = array(
         'particlesLocation'     => get_template_directory_uri() . '/inc/js/particles.json'
     );
@@ -309,12 +310,29 @@ add_filter( 'get_the_archive_title', function( $title ) {
 function karma_custom_css() {
     
     $theme_color = esc_attr( get_theme_mod( Karma_Options::$theme_color, Karma_Options::$theme_color_default ) );
+    
+    if ( !function_exists('karma_pro_init') ) :
+    
+        $theme_color = '#' . $theme_color;
+        
+    endif;
+        
     $theme_color_rgba = karma_hex2rgb( $theme_color );
-    $hover_color = esc_attr( get_theme_mod( Karma_Options::$hover_color, Karma_Options::$hover_color_default ) );
-    $hover_color_rgba = karma_hex2rgb( $hover_color );
+    
     $logo_height = esc_attr( get_theme_mod( Karma_Options::$custom_logo_height, Karma_Options::$custom_logo_height_default ) );
     $mobile_logo = esc_attr( get_theme_mod( Karma_Options::$mobile_logo_height, Karma_Options::$mobile_logo_height_default ) );
     ?>
+
+    <?php
+    
+        if ( function_exists( 'karma_pro_init' ) && strpbrk( $theme_color, '#' ) == false ):
+                        
+            $theme_color = '#' . $theme_color;
+            
+        endif;
+        
+    ?>
+
     <style type="text/css">
 
 
@@ -334,39 +352,19 @@ function karma_custom_css() {
         ul.karma-nav > li.menu-item a{
             font-size: <?php echo esc_attr( get_theme_mod( Karma_Options::$menu_font_size, Karma_Options::$menu_font_size_default ) ); ?>;
         }
-        
-        #karma-sidebar .edd-submit.button,
-        .entry-content .edd-submit.button{
-            background: <?php echo $theme_color; ?> !important;
-            color: #fff !important;
-            border: 2px solid <?php echo $hover_color; ?> !important;
-        }
-        
-        #karma-sidebar .edd-submit.button:hover,
-        .entry-content .edd-submit.button:hover{
-            background: <?php echo $hover_color; ?> !important;
-        }
-        
+                       
+        <?php if ( !function_exists( 'karma_pro_init' ) ) : ?>
         #karma-featured-post #slide1,
         #karma-featured-post #slide1 .slide-vert-wrapper{
             height: <?php echo intval( get_theme_mod(Karma_Options::$jumbotron_height, Karma_Options::$jumbotron_height_default ) ); ?>px;
         }
-        
+        <?php endif; ?>
         a,a:visited,
         ul.karma-nav > li > ul li.current-menu-item > a,
         .woocommerce .woocommerce-message:before,
         #karma-social a,
         .entry-meta .fa{
             color: <?php echo $theme_color; ?>;
-        }
-
-        a:hover,
-        a:focus,
-        .site-info a:hover,
-        ul.karma-nav ul li a:hover,
-        #karma-social a:hover,
-        .karma-mobile-nav a:hover{
-            color: <?php echo $hover_color; ?> !important;
         }
         
         .button,
@@ -389,22 +387,6 @@ function karma_custom_css() {
             
         }
 
-        button:hover, 
-        input[type="button"]:hover, 
-        input[type="submit"]:hover,
-        .karma-button.primary:hover,
-        .button.wc-backward:hover,
-        .woocommerce ul.products li.product .button:hover,
-        .woocommerce button.button.alt:hover, 
-        .woocommerce input.button.alt:hover,
-        .woocommerce #respond input#submit.alt:hover, 
-        .woocommerce a.button.alt:hover,
-        #edd-categories-bar li.cat-item a:hover,
-        #edd-categories-bar li.cat-item.current-cat a{
-            background: <?php echo $hover_color; ?> !important;
-        }
-
-        
         #karma-featured,
         .woocommerce span.onsale,
         .entry-meta .post-category a,
@@ -442,11 +424,7 @@ function karma_custom_css() {
         #karma-featured .fa{
             color: #fff;
         }
-
-        .scroll-top:hover {
-            background: <?php echo $hover_color; ?>;
-        }
-        
+                
         .woocommerce ul.products li.product a img{
             border-bottom: 7px solid <?php echo $theme_color; ?>;
         }
@@ -490,12 +468,10 @@ function karma_custom_css() {
 }
 
 add_action('wp_head', 'karma_custom_css');
-
-
-
+ 
 function karma_jumbotron() {
     include_once get_template_directory() . '/template-parts/jumbotron.php';
-}
+} 
 
 function karma_homepage_features() {
     include_once get_template_directory() . '/template-parts/features.php';
@@ -595,8 +571,12 @@ function karma_render_homepage() {
     
     if( get_theme_mod( Karma_Options::$featured_post_toggle, Karma_Options::$featured_post_toggle_default ) == 'on' ) :
     
-        karma_jumbotron();
-    
+        if ( !function_exists( 'karma_pro_init' ) ) :
+            karma_jumbotron();
+        else:
+            karma_pro_jumbotron();
+        endif;
+            
     endif;
     
     if( get_theme_mod( Karma_Options::$features_toggle, Karma_Options::$features_toggle_default ) == 'on' ) :

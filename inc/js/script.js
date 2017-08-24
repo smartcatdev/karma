@@ -54,8 +54,6 @@ jQuery(document).ready(function ($) {
             bottomSpacing: total
         });
     }
-    
-    
 
 //    $(window).scroll(function() {
 //      if ($(document).scrollTop() > 50) {

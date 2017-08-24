@@ -2,9 +2,7 @@
 
     <div id="karma-slider" class="hero">
         
-        <?php if ( get_theme_mod( Karma_Options::$jumbotron_static_slider, Karma_Options::$jumbotron_static_slider_default ) == 'on' ) : ?>
-
-            <?php $post_id = get_theme_mod( Karma_Options::$featured_post, Karma_Options::$featured_post_default ); ?>
+        <?php $post_id = get_theme_mod( Karma_Options::$featured_post, Karma_Options::$featured_post_default ); ?>
 
             <?php if ( $post_id ) : ?>
 
@@ -68,15 +66,9 @@
                 </div>
 
             <?php endif; ?>
+            
         
-        <?php else : ?> 
-        
-        
-        
-        
-        <?php endif; ?>
-
-    </div>
+    </div>    
 
 </div>
 

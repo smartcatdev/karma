@@ -1,12 +1,10 @@
 <?php
 
-Class Karma_Options {
+if (! class_exists('Karma_Options') ) :
+    Class Karma_Options {
     
     public static $theme_color = 'karma_theme_color';
-    public static $theme_color_default = '#4cef9e';
-    
-    public static $hover_color = 'karma_theme_color_hover';
-    public static $hover_color_default = '#37ef93';
+    public static $theme_color_default = '4cef9e';
     
     public static $header_font = 'header_font';
     public static $header_font_default = 'Oswald, sans-serif';
@@ -105,44 +103,6 @@ Class Karma_Options {
     
     public static $header_cart_bool = 'header_cart_bool';
     public static $header_cart_bool_default = 'on';
-           
-    //JUMBOTRON VARIABLES-------------------------------------------------------
-    
-    public static $jumbotron_static_slider = 'karma_jumbotron_static_slider_toggle';
-    public static $jumbotron_static_slider_default = 'on';
-
-    public static $jumbotron_slider_height = 'karma_jumbotron_slider_height';
-    public static $jumbotron_slider_height_default = 100;
-    
-    public static $jumbotron_mobile_height = 'karma_jumbotron_mobile_height';
-    public static $jumbotron_mobile_height_default = 50;
-    
-    public static $jumbotron_tablet_height = 'karma_jumbotron_tablet_height';
-    public static $jumbotron_tablet_height_default = 50;
-    
-    public static $jumbotron_slide_timer = 'slide_timer';
-    public static $jumbotron_slide_timer_default = '4000';
-    
-    public static $jumbotron_transition_timer = 'slide_transition_timer';
-    public static $jumbotron_transition_timer_default = '1500';
-    
-    public static $jumbotron_transition = 'slide_transition';
-    public static $jumbotron_transition_default = 'random';
-    
-    public static $jumbotron_navigation = 'slide_navigation';
-    public static $jumbotron_navigation_default = true;
-    
-    public static $jumbotron_pagination = 'slide_pagination';
-    public static $jumbotron_pagination_default = true;
-  
-    public static $jumbotron_hover = 'slide_hover';
-    public static $jumbotron_hover_default = true;
-   
-    public static $jumbotron_loader = 'slide_loader';
-    public static $jumbotron_loader_default = 'bar';
-
-    public static $jumbotron_text_color = 'slide_text_color';
-    public static $jumbotron_text_color_default = '#ffffff';
 
     public static function font_sizes() {
  
@@ -214,4 +174,4 @@ Class Karma_Options {
     }
     
 }
-    
+endif; 
