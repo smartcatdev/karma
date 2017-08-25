@@ -657,11 +657,6 @@ function karma_render_footer(){ ?>
                     <?php // karma_social_icons(); ?>
                     
                     <p><?php echo esc_html( get_theme_mod( Karma_Options::$copyright_text, get_bloginfo( 'name' ) . ' ' . date( 'Y' ) ) ); ?></p>
-                    <a href="https://smartcatdesign.net" rel="designer" style="display: inline-block !important" class="rel">
-                        <?php printf( esc_html__( 'Karma Theme - Designed by ', 'karma' ), 'Smartcat' ); ?> 
-                        <img src="<?php echo get_template_directory_uri() . '/inc/images/smartcat.png'?>" style="height: 20px;"/>
-                    </a>  
-                    
                     
                     <div class="payment-icons">
 
@@ -683,6 +678,11 @@ function karma_render_footer(){ ?>
 
                     </div>
                     
+                    <a href="https://smartcatdesign.net" rel="designer" style="display: inline-block !important" class="rel">
+                        <?php printf( esc_html__( 'Karma Theme - Designed by ', 'karma' ), 'Smartcat' ); ?> 
+                        <img src="<?php echo get_template_directory_uri() . '/inc/images/smartcat.png'?>" style="height: 20px;"/>
+                    </a>  
+                                        
                 </div>
                 
                 <div class="col-sm-6">
@@ -935,15 +935,29 @@ class Karma_Sidebar_Meta_Box {
     }
 
     public function add_metabox() {
+        
+        if( function_exists( 'karma_pro_init' ) ) {
+            
+            add_meta_box(
+                'karma-sidebar',
+                __( 'Sidebar', 'karma' ),
+                array( $this, 'render_metabox' ),
+                array( 'post', 'page', 'service', 'project' ),
+                'side',
+                'high'
+            );
+        }else {
+            add_meta_box(
+                'karma-sidebar',
+                __( 'Sidebar', 'karma' ),
+                array( $this, 'render_metabox' ),
+                array( 'post', 'page' ),
+                'side',
+                'high'
+            );            
+        }
+        
 
-        add_meta_box(
-            'karma-sidebar',
-            __( 'Sidebar', 'karma' ),
-            array( $this, 'render_metabox' ),
-            array( 'post', 'page' ),
-            'side',
-            'high'
-        );
 
     }
 
