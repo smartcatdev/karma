@@ -260,6 +260,8 @@ function karma_custom_header() {
                     <div class="col-sm-12">
                         <header class="entry-header centered">
                             
+                            <?php global $post; ?>
+                            
                             <?php if( is_archive() ) : ?>
                                 
                                 <?php the_archive_title('<h1 class="entry-title">', '</h1>'); ?>
@@ -276,6 +278,11 @@ function karma_custom_header() {
 
                                 <h1 class="entry-title"><?php bloginfo( 'name' ); ?></h1>
 
+                            <?php elseif( is_single() && $post->post_type == 'service' ): ?>
+                                    
+                                <?php $service_icon = get_post_meta( get_the_ID(), 'karma_service_icon', true ); ?>
+                                <h1 class="entry-title"><i class="<?php echo esc_attr( $service_icon ); ?>"></i>   <?php single_post_title()?></h1>
+                                
                             <?php else : ?>
                                 
                                 <?php single_post_title('<h1 class="entry-title">', '</h1>'); ?>
@@ -336,7 +343,7 @@ function karma_custom_css() {
     <style type="text/css">
 
 
-        body{
+        body, p {
             font-size: <?php echo esc_attr( get_theme_mod( Karma_Options::$theme_font_size, Karma_Options::$theme_font_size_default ) ); ?>;
         }
         
@@ -877,7 +884,6 @@ function karma_has_left_sidebar( $post_id ) {
 function karma_has_right_sidebar( $post_id ) {
     
     $sidebar_location = get_post_meta( $post_id, 'karma_sidebar_location', true ) ? get_post_meta( $post_id, 'karma_sidebar_location', true ) : '';
-
     
     if( $sidebar_location == 'karma_default' || $sidebar_location == 'karma_right' || $sidebar_location == 'karma_leftright' || $sidebar_location == '' ) :
         
@@ -940,7 +946,7 @@ class Karma_Sidebar_Meta_Box {
             
             add_meta_box(
                 'karma-sidebar',
-                __( 'Sidebar', 'karma' ),
+                __( 'Sidebar and Widgets', 'karma' ),
                 array( $this, 'render_metabox' ),
                 array( 'post', 'page', 'service', 'project' ),
                 'side',
@@ -949,7 +955,7 @@ class Karma_Sidebar_Meta_Box {
         }else {
             add_meta_box(
                 'karma-sidebar',
-                __( 'Sidebar', 'karma' ),
+                __( 'Sidebar and Widgets', 'karma' ),
                 array( $this, 'render_metabox' ),
                 array( 'post', 'page' ),
                 'side',
@@ -968,9 +974,11 @@ class Karma_Sidebar_Meta_Box {
 
         // Retrieve an existing value from the database.
         $karma_sidebar_location = get_post_meta( $post->ID, 'karma_sidebar_location', true );
+        $karma_bottom_widget_area = get_post_meta( $post->ID, 'karma_bottom_widget_area', true );
 
         // Set default values.
         if( empty( $karma_sidebar_location ) ) $karma_sidebar_location = '';
+        if( empty( $karma_bottom_widget_area ) ) $karma_bottom_widget_area = '';
 
         // Form fields.
         echo '<table class="form-table">';
@@ -986,6 +994,18 @@ class Karma_Sidebar_Meta_Box {
         echo '          <option value="karma_none" ' . esc_attr( selected( $karma_sidebar_location, 'karma_none', false ) ) . '> ' . __( 'No Sidebar', 'karma' ) . '</option>';
         echo '          </select>';
         echo '          <p class="description">' . __( 'Do you want to display a sidebar on this post?', 'karma' ) . '</p>';
+        echo '      </td>';
+        echo '  </tr>';
+        echo '  <tr>';
+        echo '      <th><label for="karma_bottom_widget_area" class="karma_bottom_widget_area_label">' . __( 'Bottom Widget Area', 'karma' ) . '</label></th>';
+        echo '      <td>';
+        echo '          <select id="karma_bottom_widget_area" name="karma_bottom_widget_area" class="karma_bottom_widget_area_field">';
+        echo '          <option value="karma_none" ' . esc_attr( selected( $karma_bottom_widget_area, 'karma_none', false ) ) . '> ' . __( 'None', 'karma' ) . '</option>';
+        echo '          <option value="widget_area_a" ' . esc_attr( selected( $karma_bottom_widget_area, 'widget_area_a', false ) ) . '> ' . __( 'Widget Area A', 'karma' ) . '</option>';
+        echo '          <option value="widget_area_b" ' . esc_attr( selected( $karma_bottom_widget_area, 'widget_area_b', false ) ) . '> ' . __( 'Widget Area B', 'karma' ) . '</option>';
+        echo '          <option value="widget_area_c" ' . esc_attr( selected( $karma_bottom_widget_area, 'widget_area_c', false ) ) . '> ' . __( 'Widget Area C', 'karma' ) . '</option>';
+        echo '          </select>';
+        echo '          <p class="description">' . __( 'Which widget area do you want at the bottom?', 'karma' ) . '</p>';
         echo '      </td>';
         echo '  </tr>';
 
@@ -1009,10 +1029,36 @@ class Karma_Sidebar_Meta_Box {
 
         // Sanitize user input.
         $karma_new_sidebar_location = isset( $_POST[ 'karma_sidebar_location' ] ) ? $_POST[ 'karma_sidebar_location' ] : '';
+        $karma_new_bottom_widget_area = isset( $_POST[ 'karma_bottom_widget_area' ] ) ? $_POST[ 'karma_bottom_widget_area' ] : '';
 
         // Update the meta field in the database.
         update_post_meta( $post_id, 'karma_sidebar_location', $karma_new_sidebar_location );
+        update_post_meta( $post_id, 'karma_bottom_widget_area', $karma_new_bottom_widget_area );
 
     }
 
 }
+register_sidebar(array(
+    'name' => 'Widget Area A',
+    'id' => 'widget_area_a',
+    'before_widget' => "<div class='col-sm-4'><aside>",
+    'after_widget' => '</aside></div>',
+    'before_title' => '<h3>',
+    'after_title' => '</h3>',
+  ));
+register_sidebar(array(
+    'name' => 'Widget Area B',
+    'id' => 'widget_area_b',
+    'before_widget' => "<div class='col-sm-4'><aside>",
+    'after_widget' => '</aside>',
+    'before_title' => '<h3>',
+    'after_title' => '</h3>',
+  ));
+register_sidebar(array(
+    'name' => 'Widget Area C',
+    'id' => 'widget_area_c',
+    'before_widget' => "<div class='col-sm-4'><aside>",
+    'after_widget' => '</aside>',
+    'before_title' => '<h3>',
+    'after_title' => '</h3>',
+  ));

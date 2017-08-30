@@ -47,7 +47,7 @@ $wp_customize->add_panel( 'jumbotron', array (
             ) );
 
            $wp_customize->add_control( Karma_Options::$featured_post_toggle, array(
-                'label'         => __( 'Display Products on Homepage ?', 'karma' ),
+                'label'         => __( 'Display Jumbotron on Homepage ?', 'karma' ),
                 'section' => 'homepage_jumbotron',
                 'type'    => 'radio',
                 'choices'    => array(

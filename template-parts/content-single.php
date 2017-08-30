@@ -46,8 +46,6 @@
                                 <?php karma_post_category(); ?>
                             </div>
 
-                            <?php the_title('<h1 class="text-left entry-title">', '</h1>'); ?>
-
                             <!--<div><span class="fa fa-calendar"></span> </div>-->
 
                             <div class="author"><?php echo get_the_author() ? esc_html( get_the_author() ) . ' . ' : ''; ?><?php echo karma_posted_on(); ?></div>

@@ -6,7 +6,7 @@ if ( ! is_active_sidebar( 'sidebar-footer' ) ) {
 ?>
 
 <div id="secondary" class="widget-area" role="complementary">
-    
+            
     <?php
                 if ( is_active_sidebar( 'sidebar-footer' ) ) {
                     dynamic_sidebar( 'sidebar-footer' );
