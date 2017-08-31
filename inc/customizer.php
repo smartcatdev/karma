@@ -215,7 +215,7 @@ function karma_sanitize_post( $input ) {
 }
 
 function karma_sanitize_font( $input ){
-    $valid_keys = karma_fonts();
+    $valid_keys = Karma_Options::karma_fonts();
     if ( array_key_exists( $input, $valid_keys ) ) {
      return $input;
    } else {

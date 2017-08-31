@@ -8,22 +8,6 @@
  */
 ?>
 
-<!--<div id="karma-page-jumbotron" class="table-display">
-    <div id="karma-jumbo-js"></div>
-
-    <div class="cell-display">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-12">
-                    <header class="entry-header centered">
-                        <?php the_title('<h1 class="entry-title">', '</h1>'); ?>
-                    </header>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>-->
-
 <div class="container">
     <div class="row">
 
@@ -45,11 +29,7 @@
                             <div class="post-category">
                                 <?php karma_post_category(); ?>
                             </div>
-
-                            <!--<div><span class="fa fa-calendar"></span> </div>-->
-
-                            <div class="author"><?php echo get_the_author() ? esc_html( get_the_author() ) . ' . ' : ''; ?><?php echo karma_posted_on(); ?></div>
-
+                            
                             <div class="single-post-thumbnail">
                             <?php 
                             if( has_post_thumbnail() ) :
@@ -76,6 +56,8 @@
                 </div><!-- .entry-content -->
 
                 <?php karma_post_tags(); ?>
+                
+                <div class="author"><?php echo karma_posted_on(); ?></div>
 
                 <?php the_post_navigation(); ?>
 
@@ -83,17 +65,16 @@
 
             </article><!-- #post-## -->
 
-
+            <?php if (comments_open() || get_comments_number()) : ?>
             <div class="karma-comments-section">
                 <?php
                 // If comments are open or we have at least one comment, load up the comment template.
-                if (comments_open() || get_comments_number()) :
+                
                     comments_template();
-                endif;
+                    
                 ?>    
-
             </div>
-
+            <?php endif; ?>
 
 
         </div>

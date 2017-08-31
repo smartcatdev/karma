@@ -38,15 +38,15 @@ function karma_scripts() {
     
 
     wp_enqueue_style('bootstrap', get_template_directory_uri() . '/inc/css/bootstrap.min.css', array(), KARMA_VERSION);
-    wp_enqueue_style('bootstrap-theme', get_template_directory_uri() . '/inc/css/bootstrap-theme.min.css', array(), KARMA_VERSION);
+//    wp_enqueue_style('bootstrap-theme', get_template_directory_uri() . '/inc/css/bootstrap-theme.min.css', array(), KARMA_VERSION);
     wp_enqueue_style('font-awesome', get_template_directory_uri() . '/inc/css/font-awesome.min.css', array(), KARMA_VERSION);
     wp_enqueue_style('karma-main-style', get_template_directory_uri() . '/inc/css/style.css', array(), KARMA_VERSION);
     wp_enqueue_style('animate', get_template_directory_uri() . '/inc/css/animate.css', array(), KARMA_VERSION);
-    wp_enqueue_style('slicknav', get_template_directory_uri() . '/inc/css/slicknav.min.css', array(), KARMA_VERSION);
+//    wp_enqueue_style('slicknav', get_template_directory_uri() . '/inc/css/slicknav.min.css', array(), KARMA_VERSION);
     
     wp_enqueue_script('jquery-sticky', get_template_directory_uri() . '/inc/js/jquery.sticky.js', array('jquery'), KARMA_VERSION, true);
     wp_enqueue_script('jquery-particles', get_template_directory_uri() . '/inc/js/particle.js', array('jquery'), KARMA_VERSION, true);
-    wp_enqueue_script('jquery-easing', get_template_directory_uri() . '/inc/js/easing.js', array('jquery'), KARMA_VERSION, true);
+//    wp_enqueue_script('jquery-easing', get_template_directory_uri() . '/inc/js/easing.js', array('jquery'), KARMA_VERSION, true);
     wp_enqueue_script('jquery-slicknav', get_template_directory_uri() . '/inc/js/slicknav.min.js', array('jquery'), KARMA_VERSION, true);
     wp_enqueue_script('jquery-wow', get_template_directory_uri() . '/inc/js/wow.min.js', array('jquery'), KARMA_VERSION, true);
     wp_enqueue_script('jquery-bigslide', get_template_directory_uri() . '/inc/js/bigslide.min.js', array('jquery'), KARMA_VERSION, true);
@@ -346,14 +346,16 @@ function karma_custom_css() {
         body, p {
             font-size: <?php echo esc_attr( get_theme_mod( Karma_Options::$theme_font_size, Karma_Options::$theme_font_size_default ) ); ?>;
         }
-        
+        .site-title > a:hover {
+            color: white !important;
+        }
         body,
         #karma-features .karma-feature h3.feature-title{
             font-family: <?php echo esc_attr( get_theme_mod( Karma_Options::$theme_font, Karma_Options::$theme_font_default ) ); ?>;
         }
         
-        h1,h2,h3,h4,h5,h6,.slide2-header,.slide1-header,.karma-title, .widget-title,.entry-title, .product_title{
-            font-family: <?php echo esc_attr( get_theme_mod( Karma_Options::$header_font, Karma_Options::$header_font_default ) ); ?>;
+        h1,h2,h3,h4,h5,h6,.slide2-header,.slide1-header,.karma-title, .widget-title,.entry-title, .product_title {
+            font-family: <?php echo esc_attr( get_theme_mod( Karma_Options::$header_font, Karma_Options::$header_font_default ) ); ?> !important;
         }
         
         ul.karma-nav > li.menu-item a{
@@ -370,7 +372,7 @@ function karma_custom_css() {
         ul.karma-nav > li > ul li.current-menu-item > a,
         .woocommerce .woocommerce-message:before,
         #karma-social a,
-        .entry-meta .fa{
+        .entry-meta .fa, .scroll-top {
             color: <?php echo $theme_color; ?>;
         }
         
@@ -512,61 +514,65 @@ function karma_homepage_shop() {
                 ?>                
             </div>
             
-            <?php $i = 0; ?>
-            <?php while ($products->have_posts()) : $products->the_post(); ?>
-                    <div class="col-md-4 col-sm-6 col-xs-12 edd-product <?php echo $i%3==0 ? ' first' : '';?>">
-                        <div class="edd-product-inner">
-                            <div class="product-image">
-                                <div class="overlay">
-                                    <?php if ( function_exists( 'edd_price' ) ) { ?>
-                                        <div class="product-buttons animated fadeIn">
-                                            <div class="product-buttons-inner">
-                                                <?php if ( ! edd_has_variable_prices( get_the_ID() ) ) { ?>
-                                                    <?php echo edd_get_purchase_link( get_the_ID(), 'Add to Cart', 'button' ); ?>
-                                                <?php } ?>
-                                                <a href="<?php the_permalink(); ?>"><?php _e( 'Product details', 'karma' ); ?></a>                                                
-                                            </div>
-
-                                        </div><!--end .product-buttons-->
-                                    <?php } ?>                                    
-                                </div>
-                                <a href="<?php the_permalink(); ?>">
-                                    <?php if ( has_post_thumbnail() ) : ?>
-                                        <?php the_post_thumbnail( 'product-image' ); ?>
-                                    <?php else : ?>
-                                        <div class="edd-product-icon">
-                                            <span class="fa fa-download"></span>
-                                        </div>
-                                    <?php endif; ?>
-                                </a>
-
-                            </div>
-                            <div class="product-details">
-
-                                <a href="<?php the_permalink(); ?>">
-                                    <h3 class="product-title"><?php the_title(); ?></h3>
-                                </a>
-
-                                <?php if ( function_exists( 'edd_price' ) ) { ?>
-                                    <div class="product-price">
-                                        <?php
-                                        if ( edd_has_variable_prices( get_the_ID() ) ) {
-                                            echo 'Starting at: ';
-                                            edd_price( get_the_ID() );
-                                        } else {
-                                            edd_price( get_the_ID() );
-                                        }
-                                        ?>
-                                    </div><!--end .product-price-->
-                                <?php } ?>
-
-                            </div>
-                        </div>
-                    </div><!--end .product-->
-                    <?php $i+=1; ?>
-            <?php endwhile; ?>
-            <?php wp_reset_postdata(); ?>
+            <?php if ( get_theme_mod( Karma_Options::$products_toggle, Karma_Options::$products_toggle_default ) == 'on' ) : ?>
             
+                <?php $i = 0; ?>
+                <?php while ($products->have_posts()) : $products->the_post(); ?>
+                        <div class="col-md-4 col-sm-6 col-xs-12 edd-product <?php echo $i%3==0 ? ' first' : '';?>">
+                            <div class="edd-product-inner">
+                                <div class="product-image">
+                                    <div class="overlay">
+                                        <?php if ( function_exists( 'edd_price' ) ) { ?>
+                                            <div class="product-buttons animated fadeIn">
+                                                <div class="product-buttons-inner">
+                                                    <?php if ( ! edd_has_variable_prices( get_the_ID() ) ) { ?>
+                                                        <?php echo edd_get_purchase_link( get_the_ID(), 'Add to Cart', 'button' ); ?>
+                                                    <?php } ?>
+                                                    <a href="<?php the_permalink(); ?>"><?php _e( 'Product details', 'karma' ); ?></a>                                                
+                                                </div>
+
+                                            </div><!--end .product-buttons-->
+                                        <?php } ?>                                    
+                                    </div>
+                                    <a href="<?php the_permalink(); ?>">
+                                        <?php if ( has_post_thumbnail() ) : ?>
+                                            <?php the_post_thumbnail( 'product-image' ); ?>
+                                        <?php else : ?>
+                                            <div class="edd-product-icon">
+                                                <span class="fa fa-download"></span>
+                                            </div>
+                                        <?php endif; ?>
+                                    </a>
+
+                                </div>
+                                <div class="product-details">
+
+                                    <a href="<?php the_permalink(); ?>">
+                                        <h3 class="product-title"><?php the_title(); ?></h3>
+                                    </a>
+
+                                    <?php if ( function_exists( 'edd_price' ) ) { ?>
+                                        <div class="product-price">
+                                            <?php
+                                            if ( edd_has_variable_prices( get_the_ID() ) ) {
+                                                echo 'Starting at: ';
+                                                edd_price( get_the_ID() );
+                                            } else {
+                                                edd_price( get_the_ID() );
+                                            }
+                                            ?>
+                                        </div><!--end .product-price-->
+                                    <?php } ?>
+
+                                </div>
+                            </div>
+                        </div><!--end .product-->
+                        <?php $i+=1; ?>
+                <?php endwhile; ?>
+                <?php wp_reset_postdata(); ?>
+                        
+            <?php endif; ?>
+                        
         </div>
         
     </div>
@@ -661,10 +667,8 @@ function karma_render_footer(){ ?>
 
 
                 <div class="karma-copyright col-sm-6">
-                    <?php // karma_social_icons(); ?>
-                    
-                    <p><?php echo esc_html( get_theme_mod( Karma_Options::$copyright_text, get_bloginfo( 'name' ) . ' ' . date( 'Y' ) ) ); ?></p>
-                    
+                                       
+                                        
                     <div class="payment-icons">
 
                         <?php if ( get_theme_mod( Karma_Options::$visa_display, Karma_Options::$visa_display_default ) ) : ?>
@@ -693,18 +697,23 @@ function karma_render_footer(){ ?>
                 </div>
                 
                 <div class="col-sm-6">
-                    <?php karma_get_footer_nav(); ?>
+                    <?php karma_social_icons(); ?>
+                    <p><?php echo esc_html( get_theme_mod( Karma_Options::$copyright_text, get_bloginfo( 'name' ) . ' ' . date( 'Y' ) ) ); ?></p>
                 </div>
 
             </div>
             
+            <div class="row">
+                
+                <div class="col-sm-12 scroll-top-wrapper">
+                    
+                    <span class="scroll-top fa fa-chevron-up fa-2x"></span>
+                        
+                </div>
+                
+            </div>
+            
         </div>
-        
-        <div class="scroll-top alignright">
-            <span class="fa fa-chevron-up"></span>
-        </div>
-        
-
         
     </div><!-- .site-info -->
     
@@ -777,7 +786,7 @@ function karma_social_icons() { ?>
         </a>
         <?php endif; ?>
 
-        <?php if( get_theme_mod( Karma_Options::$spotify_url, Karma_Options::$spotify_url_url_default ) ) : ?>
+        <?php if( get_theme_mod( Karma_Options::$spotify_url, Karma_Options::$spotify_url_default ) ) : ?>
         <a href="<?php echo esc_url( get_theme_mod( Karma_Options::$spotify_url, Karma_Options::$spotify_url_default ) ); ?>" target="_BLANK" class="karma-spotify">
             <span class="fa fa-spotify"></span>
         </a>

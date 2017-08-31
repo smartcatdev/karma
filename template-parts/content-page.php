@@ -56,15 +56,16 @@
 
             </article><!-- #post-## -->
 
+            <?php if (comments_open() || get_comments_number()) : ?>
             <div class="karma-comments-section">
                 <?php
                 // If comments are open or we have at least one comment, load up the comment template.
-                if (comments_open() || get_comments_number()) :
+                
                     comments_template();
-                endif;
+                    
                 ?>    
-
             </div>
+            <?php endif; ?>
 
         </div>
 

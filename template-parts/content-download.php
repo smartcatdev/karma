@@ -8,22 +8,6 @@
  */
 ?>
 
-<!--<div id="karma-page-jumbotron" class="table-display">
-    <div id="karma-jumbo-js"></div>
-
-    <div class="cell-display">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-12">
-                    <header class="entry-header centered">
-                        <?php the_title('<h1 class="entry-title">', '</h1>'); ?>
-                    </header>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>-->
-
 <div class="container">
     <div class="row">
 
