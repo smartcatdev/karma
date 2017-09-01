@@ -5,42 +5,30 @@ $wp_customize->add_panel( 'appearance', array (
     'description'           => __( 'Customize your site colros, fonts and other appearance settings', 'karma' ),
     'priority'              => 10
 ) );
-    
-
-    
+        
     $wp_customize->add_section( 'color', array (
         'title'                 => __( 'Skin Color', 'karma' ),
         'panel'                 => 'appearance',
     ) );
-    
-        $wp_customize->add_setting( Karma_Options::$theme_color, array (
-            'default'               => Karma_Options::$theme_color_default,
-            'transport'             => 'refresh',
-            'sanitize_callback'     => 'sanitize_hex_color',
-        ) );
-
-        $wp_customize->add_control( 
-            new WP_Customize_Color_Control( $wp_customize, Karma_Options::$theme_color, array(
-                'label'      => __( 'Theme primary color', 'karma' ),
-                'section'    => 'color',
-                'settings'   => Karma_Options::$theme_color,
-            ) ) 
-        );
-
-        $wp_customize->add_setting( Karma_Options::$hover_color, array (
-            'default'               => Karma_Options::$hover_color_default,
-            'transport'             => 'refresh',
-            'sanitize_callback'     => 'sanitize_hex_color',
-        ) );
-
-        $wp_customize->add_control( 
-            new WP_Customize_Color_Control( $wp_customize, Karma_Options::$hover_color, array(
-                'label'      => __( 'Hover color', 'karma' ),
-                'section'    => 'color',
-                'settings'   => Karma_Options::$hover_color,
-            ) ) 
-        );
-
+        
+        if( ! function_exists( 'karma_pro_init') ) :
+            // Color Choice Family
+            $wp_customize->add_setting( Karma_Options::$theme_color, array (
+                'default'               => '4cef9e',
+                'transport'             => 'refresh',
+                'sanitize_callback'     => 'karma_sanatize_color'
+            ) );
+            $wp_customize->add_control( Karma_Options::$theme_color, array(
+                'type'                  => 'select',
+                'section'               => 'color',
+                'label'                 => __( 'Site Skin Color', 'karma' ),
+                'description'           => __( 'Select the color of the theme', 'karma' ),
+                'choices'               => array(
+                    '4cef9e' => 'Green',
+                    '178dc4' => 'Blue',
+                ),
+            ) );        
+        endif; 
         
     $wp_customize->add_section( 'font', array (
         'title'                 => __( 'Fonts', 'karma' ),
@@ -58,7 +46,7 @@ $wp_customize->add_panel( 'appearance', array (
             'section'               => 'font',
             'label'                 => __( 'Headers Font', 'karma' ),
             'description'           => __( 'Applies to the slider header, callouts headers, post page & widget titles etc..', 'karma' ),
-            'choices'               => karma_fonts()
+            'choices'               => Karma_Options::karma_fonts()
 
         ) );
 
@@ -72,7 +60,7 @@ $wp_customize->add_panel( 'appearance', array (
             'type'                  => 'select',
             'section'               => 'font',
             'label'                 => __( 'General font for the site body', 'karma' ),
-            'choices'               => karma_fonts()
+            'choices'               => Karma_Options::karma_fonts()
 
         ) );
 

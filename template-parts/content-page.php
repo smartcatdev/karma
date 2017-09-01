@@ -9,22 +9,6 @@
 
 ?>
 
-<!--<div id="karma-page-jumbotron" class="table-display">
-    <div id="karma-jumbo-js"></div>
-
-    <div class="cell-display">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-12">
-                    <header class="entry-header centered">
-                        <?php karma_entry_footer(); ?>
-                        <?php the_title('<h1 class="entry-title">', '</h1>'); ?>
-                    </header>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>-->
 
 <div class="container">
     <div class="row">
@@ -72,15 +56,16 @@
 
             </article><!-- #post-## -->
 
+            <?php if (comments_open() || get_comments_number()) : ?>
             <div class="karma-comments-section">
                 <?php
                 // If comments are open or we have at least one comment, load up the comment template.
-                if (comments_open() || get_comments_number()) :
+                
                     comments_template();
-                endif;
+                    
                 ?>    
-
             </div>
+            <?php endif; ?>
 
         </div>
 

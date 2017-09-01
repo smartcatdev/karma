@@ -7,6 +7,7 @@ function karma_customize_register( $wp_customize ) {
     require get_template_directory() . '/inc/customizer/frontpage.php';
     require get_template_directory() . '/inc/customizer/appearance.php';
     require get_template_directory() . '/inc/customizer/footer.php';
+    require get_template_directory() . '/inc/customizer/jumbotron.php';
     
     class KarmaCustomizerPanel extends WP_Customize_Control {
 
@@ -162,51 +163,6 @@ function karma_checkbox_sanitize($input) {
    }
 }
 
-function karma_product_count_list() {
-    
-    return array(
-        3   => 3,
-        6   => 6,
-        9   => 9,
-    );
-}
-
-
-function karma_fonts() {
-
-    $font_family_array = array(
-        'Bad Script, cursive' => 'Bad+Script',
-        'Lobster Two, cursive' => 'Lobster+Two',
-        'Josefin Sans, sans-serif' => 'Josefin',
-        'Open Sans, sans-serif' => 'Open Sans',
-        'Palatino Linotype, Book Antiqua, Palatino, serif' => 'Palatino Linotype',
-        'Source Sans Pro, sans-serif' => 'Source Sans Pro',
-        'Abel, sans-serif' => 'Abel',
-        'Bangers, cursive' => 'Bangers',
-        'Lobster Two, cursive' => 'Lobster+Two',
-        'Josefin Sans, sans-serif' => 'Josefin+Sans:300,400,600,700',
-        'Montserrat, sans-serif' => 'Montserrat:400,700',
-        'Poiret One, cursive' => 'Poiret+One',
-        'Source Sans Pro, sans-serif' => 'Source+Sans+Pro:200,400,600',
-        'Lato, sans-serif' => 'Lato:100,300,400,700,900,300italic,400italic',
-        'Raleway, sans-serif' => 'Raleway:400,300,500,700',
-        'Russo One, sans-serif' => 'Russo+One',
-        'Shadows Into Light, cursive' => 'Shadows+Into+Light',
-        'Orbitron, sans-serif' => 'Orbitron',
-        'Old Standard TT, serif' => 'Old+Standard+TT',
-        'Oswald, sans-serif' => 'Oswald',
-        'PT Sans Narrow, sans-serif' => 'PT+Sans+Narrow',
-        'Playfair Display, serif' => 'Playfair+Display:400,700',
-        'Lora, serif' => 'Lora',
-        'Abel, sans-serif' => 'Abel',
-        'Yellowtail, cursive' => 'Yellowtail',
-        'Corben, cursive' => 'Corben'
-    );
-
-    return $font_family_array;
-    
-
-}
 function karma_all_posts_array() {
 
     $posts = get_posts( array(
@@ -232,7 +188,7 @@ function karma_all_posts_array() {
 }
 
 function karma_sanitize_product_count( $input ) {
-    $valid_keys = karma_product_count_list();
+    $valid_keys = Karma_Options::karma_product_count_list();
     if ( array_key_exists( $input, $valid_keys ) ) {
      return $input;
    } else {
@@ -259,7 +215,7 @@ function karma_sanitize_post( $input ) {
 }
 
 function karma_sanitize_font( $input ){
-    $valid_keys = karma_fonts();
+    $valid_keys = Karma_Options::karma_fonts();
     if ( array_key_exists( $input, $valid_keys ) ) {
      return $input;
    } else {
@@ -286,4 +242,22 @@ function karma_sanitize_checkbox( $input ) {
 
 function karma_sanitize_integer( $input ) {
     return intval( $input );
+}
+
+function karma_sanitize( $input ) {
+    return $input;
+}
+
+function karma_sanatize_color( $input, $setting ) {
+    // Ensure input is a slug
+    $input = sanitize_key( $input );
+    
+    // Get list of choices from the control
+    // associated with the setting
+    $choices = $setting->manager->get_control( $setting->id )->choices;
+    // If the input is a valid key, return it;
+    // otherwise, return the default
+    $keys = array_map( 'sanitize_hex_color_no_hash', array_keys( $choices ) );
+    
+    return ( in_array( $input, $keys ) ? $input : $setting->default );
 }

@@ -29,7 +29,7 @@
         <div id="karma-mobile-wrapper">
             <?php karma_get_mobile_nav(); ?>
             <a href="#mobile-menu" id="menu-panel-close" class="menu-trigger">
-                <img src="http://gixo.com/wp-content/themes/gixo-us-site/inc/images/xmobile-menu-close.png.pagespeed.ic.kzx00XZ2DT.png">
+                <img src="<?php echo get_template_directory_uri() ?>/inc/images/xmobile-menu-close.png.pagespeed.ic.kzx00XZ2DT.png">
             </a>
         </div>
         

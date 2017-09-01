@@ -17,7 +17,7 @@ $front = get_option('show_on_front');
         <?php endif; ?>
         
         
-        <?php if( get_theme_mod( 'homepage_content_toggle', 'on' ) == 'on' ) : ?>
+        <?php if( get_theme_mod( Karma_Options::$homepage_content_toggle, Karma_Options::$homepage_content_toggle_default ) == 'on' ) : ?>
         
         <div class="container">
         

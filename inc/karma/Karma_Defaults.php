@@ -1,12 +1,10 @@
 <?php
 
-Class Karma_Options {
+if (! class_exists('Karma_Options') ) :
+    Class Karma_Options {
     
     public static $theme_color = 'karma_theme_color';
-    public static $theme_color_default = '#4cef9e';
-    
-    public static $hover_color = 'karma_theme_color_hover';
-    public static $hover_color_default = '#37ef93';
+    public static $theme_color_default = '4cef9e';
     
     public static $header_font = 'header_font';
     public static $header_font_default = 'Oswald, sans-serif';
@@ -67,8 +65,45 @@ Class Karma_Options {
     public static $vine_url = 'vine_url';
     public static $vine_url_default = '';
     
+    public static $featured_post = 'karma_the_featured_post';
+    public static $featured_post_default = 1;
     
+    public static $jumbotron_height = 'karma_jumbotron_height';
+    public static $jumbotron_height_default = 650;
     
+    public static $featured_post_toggle = 'karma_the_featured_post_toggle';
+    public static $featured_post_toggle_default = 'on';
+   
+    public static $featured_post_button = 'karma_the_featured_post_button';
+    public static $featured_post_button_default = 'Read More';
+   
+    public static $features_toggle = 'homepage_features_toggle';
+    public static $features_toggle_default = 'on';
+    
+    public static $homepage_feature = 'karma_homepage_feature_post';
+    public static $homepage_feature_default = 1;
+   
+    public static $homepage_feature_icon = 'karma_homepage_feature_icon';
+    public static $homepage_feature_icon_default = 'fa fa-desktop';
+        
+    public static $products_toggle = 'homepage_products_toggle';
+    public static $products_toggle_default = 'on';
+
+    public static $products_count = 'homepage_products_count';
+    public static $products_count_default = 6;
+    
+    public static $homepage_content_toggle = 'homepage_content_toggle';
+    public static $homepage_content_toggle_default = 'on';
+    
+    public static $custom_logo_height = 'custom_logo_height';
+    public static $custom_logo_height_default = 70;
+    
+    public static $mobile_logo_height = 'mobile_logo_height';
+    public static $mobile_logo_height_default = 70;
+    
+    public static $header_cart_bool = 'header_cart_bool';
+    public static $header_cart_bool_default = 'on';
+
     public static function font_sizes() {
  
         return array(
@@ -93,5 +128,50 @@ Class Karma_Options {
 
     }
     
-}
+    public static function karma_fonts() {
+
+        $font_family_array = array(
+            'Bad Script, cursive' => 'Bad+Script',
+            'Lobster Two, cursive' => 'Lobster+Two',
+            'Josefin Sans, sans-serif' => 'Josefin',
+            'Open Sans, sans-serif' => 'Open Sans',
+            'Palatino Linotype, Book Antiqua, Palatino, serif' => 'Palatino Linotype',
+            'Source Sans Pro, sans-serif' => 'Source Sans Pro',
+            'Abel, sans-serif' => 'Abel',
+            'Bangers, cursive' => 'Bangers',
+            'Lobster Two, cursive' => 'Lobster+Two',
+            'Josefin Sans, sans-serif' => 'Josefin+Sans:300,400,600,700',
+            'Montserrat, sans-serif' => 'Montserrat:400,700',
+            'Poiret One, cursive' => 'Poiret+One',
+            'Source Sans Pro, sans-serif' => 'Source+Sans+Pro:200,400,600',
+            'Lato, sans-serif' => 'Lato:100,300,400,700,900,300italic,400italic',
+            'Raleway, sans-serif' => 'Raleway:400,300,500,700',
+            'Russo One, sans-serif' => 'Russo+One',
+            'Shadows Into Light, cursive' => 'Shadows+Into+Light',
+            'Orbitron, sans-serif' => 'Orbitron',
+            'Old Standard TT, serif' => 'Old+Standard+TT',
+            'Oswald, sans-serif' => 'Oswald',
+            'PT Sans Narrow, sans-serif' => 'PT+Sans+Narrow',
+            'Playfair Display, serif' => 'Playfair+Display:400,700',
+            'Lora, serif' => 'Lora',
+            'Abel, sans-serif' => 'Abel',
+            'Yellowtail, cursive' => 'Yellowtail',
+            'Corben, cursive' => 'Corben'
+        );
+
+        return $font_family_array;
+
+
+    }
+        
+    public static function karma_product_count_list() {
     
+        return array(
+            3   => 3,
+            6   => 6,
+            9   => 9,
+        );
+    }
+    
+}
+endif; 
