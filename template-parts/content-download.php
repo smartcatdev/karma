@@ -74,6 +74,24 @@
                             }
                             ?>
                         </div>
+                    <?php if ( ( get_post_meta( get_the_ID(), 'karma_download_button_text', true ) ) ) : ?>
+
+                        <?php $button_text = esc_attr( get_post_meta( get_the_ID(), 'karma_download_button_text', true ) ) ?>
+                        <?php $button_url = esc_attr( get_post_meta( get_the_ID(), 'karma_download_button_url', true ) ) ?>
+                        <?php $button_blank_target = esc_attr( get_post_meta( get_the_ID(), 'karma_download_blank_target', true ) ) ?>
+                    
+                        <div class="additional-button">
+                            
+                            <a class="download-button edd-submit button" href="<?php echo $button_url ?>" <?php echo $button_blank_target == 'true' ? 'target="_blank"' : ''; ?>>
+                                
+                                <span><?php echo $button_text ?></span>
+                                
+                            </a>
+                            
+                        </div>
+
+                    <?php endif; ?>
+                    
                         <div class="buttons">
                             <div class="product-buttons">
                                 <?php if ( ! edd_has_variable_prices( get_the_ID() ) ) { ?>

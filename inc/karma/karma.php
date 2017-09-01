@@ -47,7 +47,7 @@ function karma_scripts() {
     wp_enqueue_script('jquery-sticky', get_template_directory_uri() . '/inc/js/jquery.sticky.js', array('jquery'), KARMA_VERSION, true);
     wp_enqueue_script('jquery-particles', get_template_directory_uri() . '/inc/js/particle.js', array('jquery'), KARMA_VERSION, true);
 //    wp_enqueue_script('jquery-easing', get_template_directory_uri() . '/inc/js/easing.js', array('jquery'), KARMA_VERSION, true);
-    wp_enqueue_script('jquery-slicknav', get_template_directory_uri() . '/inc/js/slicknav.min.js', array('jquery'), KARMA_VERSION, true);
+//    wp_enqueue_script('jquery-slicknav', get_template_directory_uri() . '/inc/js/slicknav.min.js', array('jquery'), KARMA_VERSION, true);
     wp_enqueue_script('jquery-wow', get_template_directory_uri() . '/inc/js/wow.min.js', array('jquery'), KARMA_VERSION, true);
     wp_enqueue_script('jquery-bigslide', get_template_directory_uri() . '/inc/js/bigslide.min.js', array('jquery'), KARMA_VERSION, true);
     wp_enqueue_script('karma-script', get_template_directory_uri() . '/inc/js/script.js', array('jquery', 'jquery-ui-core', 'jquery-masonry'), KARMA_VERSION, true );
@@ -644,22 +644,24 @@ function karma_render_footer(){ ?>
 
     
     <div class="site-info karma-footer">
+          
+        <?php if ( is_active_sidebar( 'sidebar-footer' ) ) : ?>
         
         <div class="container">
 
             <div class="row">
-
-                <?php if ( is_active_sidebar( 'sidebar-footer' ) ) : ?>
-                    <div class="sidebar-footer">
-                        <?php dynamic_sidebar('sidebar-footer'); ?>
-                    </div>
-                <?php endif; ?>
-
+              
+                <div class="sidebar-footer">
+                    <?php dynamic_sidebar('sidebar-footer'); ?>
+                </div>
+               
             </div>
             
         </div>
         
         <div class="seperator"></div>
+        
+        <?php endif; ?>
         
         <div class="container karma-post-footer">
             
@@ -667,28 +669,33 @@ function karma_render_footer(){ ?>
 
 
                 <div class="karma-copyright col-sm-6">
-                                       
+                       
+                    <?php if ( get_theme_mod( Karma_Options::$visa_display, Karma_Options::$visa_display_default ) ||
+                          get_theme_mod( Karma_Options::$mastercard_display, Karma_Options::$mastercard_display_default ) ||
+                          get_theme_mod( Karma_Options::$amex_display, Karma_Options::$amex_display_default ) ||
+                          get_theme_mod( Karma_Options::$paypal_display, Karma_Options::$paypal_display_default ) ) : ?>
                                         
-                    <div class="payment-icons">
+                        <div class="payment-icons">
 
-                        <?php if ( get_theme_mod( Karma_Options::$visa_display, Karma_Options::$visa_display_default ) ) : ?>
-                            <i class="fa fa-cc-visa"></i>
-                        <?php endif; ?>
+                            <?php if ( get_theme_mod( Karma_Options::$visa_display, Karma_Options::$visa_display_default ) ) : ?>
+                                <i class="fa fa-cc-visa"></i>
+                            <?php endif; ?>
 
-                        <?php if ( get_theme_mod( Karma_Options::$mastercard_display, Karma_Options::$mastercard_display_default ) ) : ?>
-                            <i class="fa fa-cc-mastercard"></i>
-                        <?php endif; ?>
+                            <?php if ( get_theme_mod( Karma_Options::$mastercard_display, Karma_Options::$mastercard_display_default ) ) : ?>
+                                <i class="fa fa-cc-mastercard"></i>
+                            <?php endif; ?>
 
-                        <?php if ( get_theme_mod( Karma_Options::$amex_display, Karma_Options::$amex_display_default ) ) : ?>
-                            <i class="fa fa-cc-amex"></i>
-                        <?php endif; ?>
+                            <?php if ( get_theme_mod( Karma_Options::$amex_display, Karma_Options::$amex_display_default ) ) : ?>
+                                <i class="fa fa-cc-amex"></i>
+                            <?php endif; ?>
 
-                        <?php if ( get_theme_mod( Karma_Options::$paypal_display, Karma_Options::$paypal_display_default ) ) : ?>
-                            <i class="fa fa-cc-paypal"></i>
-                        <?php endif; ?>
+                            <?php if ( get_theme_mod( Karma_Options::$paypal_display, Karma_Options::$paypal_display_default ) ) : ?>
+                                <i class="fa fa-cc-paypal"></i>
+                            <?php endif; ?>
 
-                    </div>
+                        </div>
                     
+                    <?php endif; ?>
                     <a href="https://smartcatdesign.net" rel="designer" style="display: inline-block !important" class="rel">
                         <?php printf( esc_html__( 'Karma Theme - Designed by ', 'karma' ), 'Smartcat' ); ?> 
                         <img src="<?php echo get_template_directory_uri() . '/inc/images/smartcat.png'?>" style="height: 20px;"/>
@@ -701,16 +708,6 @@ function karma_render_footer(){ ?>
                     <p><?php echo esc_html( get_theme_mod( Karma_Options::$copyright_text, get_bloginfo( 'name' ) . ' ' . date( 'Y' ) ) ); ?></p>
                 </div>
 
-            </div>
-            
-            <div class="row">
-                
-                <div class="col-sm-12 scroll-top-wrapper">
-                    
-                    <span class="scroll-top fa fa-chevron-up fa-2x"></span>
-                        
-                </div>
-                
             </div>
             
         </div>
@@ -740,6 +737,19 @@ function karma_hex2rgb( $hex ) {
 
 function karma_social_icons() { ?>
 
+<?php if ( get_theme_mod( Karma_Options::$facebook_url, Karma_Options::$facebook_url_default ) != '' ||
+           get_theme_mod( Karma_Options::$gplus_url, Karma_Options::$gplus_url_default ) != '' ||
+           get_theme_mod( Karma_Options::$instagram_url, Karma_Options::$instagram_url_default ) != '' ||
+           get_theme_mod( Karma_Options::$linkedin_url, Karma_Options::$linkedin_url_default ) != '' ||
+           get_theme_mod( Karma_Options::$pinterest_url, Karma_Options::$pinterest_url_default ) != '' ||
+           get_theme_mod( Karma_Options::$twitter_url, Karma_Options::$twitter_url_default ) != '' ||
+           get_theme_mod( Karma_Options::$vimeo_url, Karma_Options::$vimeo_url_default ) != '' ||
+           get_theme_mod( Karma_Options::$spotify_url, Karma_Options::$spotify_url_default ) != '' ||
+           get_theme_mod( Karma_Options::$apple_url, Karma_Options::$apple_url_default ) != '' ||
+           get_theme_mod( Karma_Options::$github_url, Karma_Options::$github_url_default ) != '' ||
+           get_theme_mod( Karma_Options::$vine_url, Karma_Options::$vine_url_default ) != ''
+        ) :?>
+    
     <div id="karma-social">
 
         <?php if( get_theme_mod( Karma_Options::$facebook_url, Karma_Options::$facebook_url_default ) != '' ) : ?>
@@ -774,44 +784,45 @@ function karma_social_icons() { ?>
         </a>
         <?php endif; ?>
 
-        <?php if( get_theme_mod( Karma_Options::$twitter_url, Karma_Options::$twitter_url_default ) ) : ?>
+        <?php if( get_theme_mod( Karma_Options::$twitter_url, Karma_Options::$twitter_url_default ) != '' ) : ?>
         <a href="<?php echo esc_url( get_theme_mod( Karma_Options::$twitter_url, Karma_Options::$twitter_url_default ) ); ?>" target="_BLANK" class="karma-twitter">
             <span class="fa fa-twitter"></span>
         </a>
         <?php endif; ?>
 
-        <?php if( get_theme_mod( Karma_Options::$vimeo_url, Karma_Options::$vimeo_url_default ) ) : ?>
+        <?php if( get_theme_mod( Karma_Options::$vimeo_url, Karma_Options::$vimeo_url_default ) != '' ) : ?>
         <a href="<?php echo esc_url( get_theme_mod( Karma_Options::$vimeo_url, Karma_Options::$vimeo_url_default ) ); ?>" target="_BLANK" class="karma-vimeo">
             <span class="fa fa-vimeo"></span>
         </a>
         <?php endif; ?>
 
-        <?php if( get_theme_mod( Karma_Options::$spotify_url, Karma_Options::$spotify_url_default ) ) : ?>
+        <?php if( get_theme_mod( Karma_Options::$spotify_url, Karma_Options::$spotify_url_default ) != '' ) : ?>
         <a href="<?php echo esc_url( get_theme_mod( Karma_Options::$spotify_url, Karma_Options::$spotify_url_default ) ); ?>" target="_BLANK" class="karma-spotify">
             <span class="fa fa-spotify"></span>
         </a>
         <?php endif; ?>
 
-        <?php if( get_theme_mod( Karma_Options::$apple_url, Karma_Options::$apple_url_default ) ) : ?>
+        <?php if( get_theme_mod( Karma_Options::$apple_url, Karma_Options::$apple_url_default ) != '' ) : ?>
         <a href="<?php echo esc_url( get_theme_mod( Karma_Options::$apple_url, Karma_Options::$apple_url_default ) ); ?>" target="_BLANK" class="karma-apple">
             <span class="fa fa-apple"></span>
         </a>
         <?php endif; ?>
 
-        <?php if( get_theme_mod( Karma_Options::$github_url, Karma_Options::$github_url_default ) ) : ?>
+        <?php if( get_theme_mod( Karma_Options::$github_url, Karma_Options::$github_url_default ) != '' ) : ?>
         <a href="<?php echo esc_url( get_theme_mod( Karma_Options::$github_url, Karma_Options::$github_url_default ) ); ?>" target="_BLANK" class="karma-github">
             <span class="fa fa-github"></span>
         </a>
         <?php endif; ?>
 
 
-        <?php if( get_theme_mod( Karma_Options::$vine_url, Karma_Options::$vine_url_default ) ) : ?>
+        <?php if( get_theme_mod( Karma_Options::$vine_url, Karma_Options::$vine_url_default ) != '' ) : ?>
         <a href="<?php echo esc_url( get_theme_mod( Karma_Options::$vine_url, Karma_Options::$vine_url_default ) ); ?>" target="_BLANK" class="karma-vine">
             <span class="fa fa-vine"></span>
         </a>
         <?php endif; ?>
 
     </div>
+    <?php endif; ?>
     
 <?php }
 
@@ -971,11 +982,60 @@ class Karma_Sidebar_Meta_Box {
                 'high'
             );            
         }
-        
+        add_meta_box(
+            'karma-services',
+            __( 'Additional Info', 'karma' ),
+            array( $this, 'render_featured_metabox' ),
+            'download',
+            'side',
+            'high'
+        );
+
 
 
     }
+    public function render_featured_metabox( $post ) {
+        // Add nonce for security and authentication.
+        wp_nonce_field( 'karma_nonce_action', 'karma_nonce' );
 
+        // Retrieve an existing value from the database.
+        $karma_download_button_text = get_post_meta( $post->ID, 'karma_download_button_text', true );
+        $karma_download_button_url = get_post_meta( $post->ID, 'karma_download_button_url', true );
+        $karma_download_blank_target = get_post_meta( $post->ID, 'karma_download_blank_target', true );
+
+        // Set default values.
+        if( empty( $karma_download_button_text ) ) $karma_download_button_text = '';
+        if( empty( $karma_download_button_url ) ) $karma_download_button_url = '';
+        if( empty( $karma_download_blank_target ) ) $karma_download_blank_target = '';
+
+        // Form fields.
+        echo '<table class="form-table">';
+
+        echo '	<tr>';
+        echo '		<th><label for="karma_services" class="karma_services_label">' . __( 'Button Text', 'karma' ) . '</label></th>';
+        echo '		<td>';
+        echo '			<input type="text" id="karma_download_button_text" name="karma_download_button_text" class="karma_download_button_text_field" placeholder="' . esc_attr__( 'Enter the button text', 'karma' ) . '" value="' . esc_attr( $karma_download_button_text ) . '">';
+        echo '		</td>';
+        echo '	</tr>';
+
+        echo '	<tr>';
+        echo '		<th><label for="karma_services" class="karma_services_label">' . __( 'Button URL', 'karma' ) . '</label></th>';
+        echo '		<td>';
+        echo '			<input type="text" id="karma_download_button_url" name="karma_download_button_url" class="karma_download_button_url_field" placeholder="' . esc_attr__( '', 'karma' ) . '" value="' . esc_attr( $karma_download_button_url ) . '">';
+        echo '		</td>';
+        echo '	</tr>';
+        
+        echo '	<tr>';
+        echo '		<th><label for="karma_services" class="karma_services_label">' . __( 'Button opens in new tab?', 'karma' ) . '</label></th>';
+        echo '		<td>';
+        echo '			<input type="radio" id="karma_download_blank_target" name="karma_download_blank_target" class="karma_download_blank_target_field"'; echo esc_attr( $karma_download_blank_target ) == true ? 'checked="checked"' : ''; echo ' placeholder="' . esc_attr__( '', 'karma' ) . '" value="true">Yes<br>';
+        echo '			<input type="radio" id="karma_download_blank_target" name="karma_download_blank_target" class="karma_download_blank_target_field"'; echo esc_attr( $karma_download_blank_target ) == true ? '' : 'checked="checked"'; echo ' placeholder="' . esc_attr__( '', 'karma' ) . '" value="false">No<br>';
+        echo '		</td>';
+        echo '	</tr>';
+
+        echo '</table>';
+    }
+    
     public function render_metabox( $post ) {
 
         // Add nonce for security and authentication.
@@ -1039,10 +1099,16 @@ class Karma_Sidebar_Meta_Box {
         // Sanitize user input.
         $karma_new_sidebar_location = isset( $_POST[ 'karma_sidebar_location' ] ) ? $_POST[ 'karma_sidebar_location' ] : '';
         $karma_new_bottom_widget_area = isset( $_POST[ 'karma_bottom_widget_area' ] ) ? $_POST[ 'karma_bottom_widget_area' ] : '';
+        $karma_download_button_text = isset( $_POST[ 'karma_download_button_text' ] ) ? $_POST[ 'karma_download_button_text' ] : '';
+        $karma_download_button_url = isset( $_POST[ 'karma_download_button_url' ] ) ? $_POST[ 'karma_download_button_url' ] : '';
+        $karma_download_blank_target = isset( $_POST[ 'karma_download_blank_target' ] ) ? $_POST[ 'karma_download_blank_target' ] : '';
 
         // Update the meta field in the database.
         update_post_meta( $post_id, 'karma_sidebar_location', $karma_new_sidebar_location );
         update_post_meta( $post_id, 'karma_bottom_widget_area', $karma_new_bottom_widget_area );
+        update_post_meta( $post_id, 'karma_download_button_text', $karma_download_button_text );
+        update_post_meta( $post_id, 'karma_download_button_url', $karma_download_button_url );
+        update_post_meta( $post_id, 'karma_download_blank_target', $karma_download_blank_target );
 
     }
 

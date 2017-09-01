@@ -654,11 +654,10 @@ ul.karma-mobile-nav li{
 
 .edd-product-inner .product-buttons{
     position: absolute;
-    top: 0;
+    top: 35%;
     text-align: center;
     width: 100%;
     height: 100%;
-    padding-top: 30%;
     z-index: 1;
     display: none;
 
@@ -1341,7 +1340,7 @@ input[type="submit"],
     padding-bottom: 15px !important;
     /*margin-bottom: 15px !important;*/
     /*list-style: none;*/
-}
+}   
 
 .site-info{
     background: #2B3136;
@@ -1352,6 +1351,7 @@ input[type="submit"],
 
 .site-info .seperator {
     border-bottom: dotted 1px #657280;
+    margin-bottom: 40px;
 }
 
 .site-info a,
@@ -1361,10 +1361,6 @@ input[type="submit"],
 
 .site-info h2.widget-title {
     color: #fff;
-}
-
-.karma-post-footer {
-    padding-top: 40px;
 }
 
 #footer-menu {
@@ -1382,7 +1378,7 @@ input[type="submit"],
 
 
 #karma-social{
-    margin: 10px 0 20px 0;
+    margin: 0 0 10px 0;
 }
 
 #karma-social a{
@@ -1424,6 +1420,10 @@ input[type="submit"],
 @media( max-width: 767px ) {
     #karma-sidebar {
         padding: 0 15px;
+    }
+    .karma-footer .col-sm-6:last-of-type {
+        text-align: left !important;
+        padding-top: 30px;
     }
 }
 
@@ -1888,7 +1888,8 @@ li.product a.ajax_add_to_cart{
 }
 
 .payment-icons{
-    margin: 15px auto;
+    margin: 10px auto;
+    margin-top: 0;
 }
 
 .payment-icons .fa {
@@ -1898,27 +1899,6 @@ li.product a.ajax_add_to_cart{
 #title_bread_wrap{
     margin-top: 15px;
 }
-
-@media( min-width: 320px ) and ( max-width: 400px ) {
-    
-    
-    
-    
-}
-
-
-@media( min-width: 401px ) and ( max-width: 600px ) {
-    
-    
-    
-}
-
-@media( min-width : 601px ) and ( max-width: 980px ) {
-    
-    
-    
-}
-
 @media( max-width: 991px ) {
     
     #karma-header .slicknav_menu{
@@ -2208,4 +2188,25 @@ ul.products li.product .woocommerce-loop-product__title {
 }
 .scroll-top-wrapper {
     text-align: center;
+}
+.karma-post-footer p {
+    margin-bottom: 0 !important;
+}
+.sidebar-footer .widget-title {
+    margin-top: 0;
+}
+#page {
+    min-height: 100vh;
+}
+.additional-button {
+    text-align: center;
+}
+#karma-sidebar .additional-button .edd-submit.button.download-button {
+    background-color: #2B3136 !important;
+    color: white !important;
+    border: 2px solid #2B3136 !important;
+}
+.entry-content img {
+    width: 100%;
+    height: auto;
 }
