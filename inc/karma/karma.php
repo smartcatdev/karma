@@ -982,59 +982,10 @@ class Karma_Sidebar_Meta_Box {
                 'high'
             );            
         }
-        add_meta_box(
-            'karma-services',
-            __( 'Additional Info', 'karma' ),
-            array( $this, 'render_featured_metabox' ),
-            'download',
-            'side',
-            'high'
-        );
-
-
-
-    }
-    public function render_featured_metabox( $post ) {
-        // Add nonce for security and authentication.
-        wp_nonce_field( 'karma_nonce_action', 'karma_nonce' );
-
-        // Retrieve an existing value from the database.
-        $karma_download_button_text = get_post_meta( $post->ID, 'karma_download_button_text', true );
-        $karma_download_button_url = get_post_meta( $post->ID, 'karma_download_button_url', true );
-        $karma_download_blank_target = get_post_meta( $post->ID, 'karma_download_blank_target', true );
-
-        // Set default values.
-        if( empty( $karma_download_button_text ) ) $karma_download_button_text = '';
-        if( empty( $karma_download_button_url ) ) $karma_download_button_url = '';
-        if( empty( $karma_download_blank_target ) ) $karma_download_blank_target = '';
-
-        // Form fields.
-        echo '<table class="form-table">';
-
-        echo '	<tr>';
-        echo '		<th><label for="karma_services" class="karma_services_label">' . __( 'Button Text', 'karma' ) . '</label></th>';
-        echo '		<td>';
-        echo '			<input type="text" id="karma_download_button_text" name="karma_download_button_text" class="karma_download_button_text_field" placeholder="' . esc_attr__( 'Enter the button text', 'karma' ) . '" value="' . esc_attr( $karma_download_button_text ) . '">';
-        echo '		</td>';
-        echo '	</tr>';
-
-        echo '	<tr>';
-        echo '		<th><label for="karma_services" class="karma_services_label">' . __( 'Button URL', 'karma' ) . '</label></th>';
-        echo '		<td>';
-        echo '			<input type="text" id="karma_download_button_url" name="karma_download_button_url" class="karma_download_button_url_field" placeholder="' . esc_attr__( '', 'karma' ) . '" value="' . esc_attr( $karma_download_button_url ) . '">';
-        echo '		</td>';
-        echo '	</tr>';
         
-        echo '	<tr>';
-        echo '		<th><label for="karma_services" class="karma_services_label">' . __( 'Button opens in new tab?', 'karma' ) . '</label></th>';
-        echo '		<td>';
-        echo '			<input type="radio" id="karma_download_blank_target" name="karma_download_blank_target" class="karma_download_blank_target_field"'; echo esc_attr( $karma_download_blank_target ) == true ? 'checked="checked"' : ''; echo ' placeholder="' . esc_attr__( '', 'karma' ) . '" value="true">Yes<br>';
-        echo '			<input type="radio" id="karma_download_blank_target" name="karma_download_blank_target" class="karma_download_blank_target_field"'; echo esc_attr( $karma_download_blank_target ) == true ? '' : 'checked="checked"'; echo ' placeholder="' . esc_attr__( '', 'karma' ) . '" value="false">No<br>';
-        echo '		</td>';
-        echo '	</tr>';
 
-        echo '</table>';
     }
+    
     
     public function render_metabox( $post ) {
 
@@ -1099,16 +1050,11 @@ class Karma_Sidebar_Meta_Box {
         // Sanitize user input.
         $karma_new_sidebar_location = isset( $_POST[ 'karma_sidebar_location' ] ) ? $_POST[ 'karma_sidebar_location' ] : '';
         $karma_new_bottom_widget_area = isset( $_POST[ 'karma_bottom_widget_area' ] ) ? $_POST[ 'karma_bottom_widget_area' ] : '';
-        $karma_download_button_text = isset( $_POST[ 'karma_download_button_text' ] ) ? $_POST[ 'karma_download_button_text' ] : '';
-        $karma_download_button_url = isset( $_POST[ 'karma_download_button_url' ] ) ? $_POST[ 'karma_download_button_url' ] : '';
-        $karma_download_blank_target = isset( $_POST[ 'karma_download_blank_target' ] ) ? $_POST[ 'karma_download_blank_target' ] : '';
+        
 
         // Update the meta field in the database.
         update_post_meta( $post_id, 'karma_sidebar_location', $karma_new_sidebar_location );
         update_post_meta( $post_id, 'karma_bottom_widget_area', $karma_new_bottom_widget_area );
-        update_post_meta( $post_id, 'karma_download_button_text', $karma_download_button_text );
-        update_post_meta( $post_id, 'karma_download_button_url', $karma_download_button_url );
-        update_post_meta( $post_id, 'karma_download_blank_target', $karma_download_blank_target );
 
     }
 

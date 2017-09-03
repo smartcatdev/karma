@@ -18,6 +18,21 @@ get_header();
 
         <?php endwhile; // End of the loop. ?>
 
+        <?php $bottom_widget = get_post_meta( get_the_ID(), 'karma_bottom_widget_area', true ); ?>
+        
+        <?php if ( $bottom_widget != 'karma_none' ): ?>
+
+            <div class="container">
+
+                <div class="row bottom-widget">
+
+                    <?php dynamic_sidebar( esc_attr( $bottom_widget ) ); ?>
+
+                </div>
+
+            </div>
+
+        <?php endif; ?>
         
     </main><!-- #main -->
 </div><!-- #primary -->
