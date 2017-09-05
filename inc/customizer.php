@@ -261,3 +261,11 @@ function karma_sanatize_color( $input, $setting ) {
     
     return ( in_array( $input, $keys ) ? $input : $setting->default );
 }
+
+function karma_sanitize_bool( $input ) {
+    if ( $input == true ) :
+        return $input;
+    elseif( $input == false ) :    
+        return $input;
+    endif;
+}

@@ -600,7 +600,7 @@ function karma_render_homepage() {
     
     
     
-    if( get_theme_mod( Karma_Options::$homepage_content_toggle, Karma_Options::$homepage_content_toggle_default ) == 'on' && class_exists( 'Easy_Digital_Downloads' ) ) :
+    if( get_theme_mod( Karma_Options::$products_toggle, Karma_Options::$products_toggle_default ) == 'on' && class_exists( 'Easy_Digital_Downloads' ) ) :
     
         karma_homepage_shop();
     
