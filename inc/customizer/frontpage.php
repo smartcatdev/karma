@@ -11,8 +11,7 @@ $wp_customize->add_panel( 'homepage', array (
         'panel'                 => 'homepage',
         'priority'              => 2
     ) );
-    
-    
+   
         $wp_customize->add_setting( Karma_Options::$features_toggle, array (
             'default'               => Karma_Options::$features_toggle_default,
             'transport'             => 'refresh',
@@ -125,6 +124,5 @@ $wp_customize->add_panel( 'homepage', array (
                 'off'    => __( 'No', 'karma' )
             )
         ));
-    
-       
+           
     $wp_customize->get_section( 'static_front_page' )->panel = 'homepage';

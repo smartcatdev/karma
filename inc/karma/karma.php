@@ -417,7 +417,8 @@ function karma_custom_css() {
         .entry-meta .post-category a,
         #karma-features .karma-feature:hover .icon-wrap,
         #karma-features h2:before,
-        #karma-homepage-shop h2:before{
+        #karma-homepage-shop h2:before,
+        #karma-cta {
             background: <?php echo $theme_color; ?>;
         }
         
@@ -616,7 +617,7 @@ function karma_render_homepage() {
     
     
     
-    if( get_theme_mod( Karma_Options::$homepage_content_toggle, Karma_Options::$homepage_content_toggle_default ) == 'on' && class_exists( 'Easy_Digital_Downloads' ) ) :
+    if( get_theme_mod( Karma_Options::$products_toggle, Karma_Options::$products_toggle_default ) == 'on' && class_exists( 'Easy_Digital_Downloads' ) ) :
     
         karma_homepage_shop();
     
@@ -666,11 +667,11 @@ function karma_render_footer(){ ?>
         <div class="container">
 
             <div class="row">
-              
+
                 <div class="sidebar-footer">
                     <?php dynamic_sidebar('sidebar-footer'); ?>
                 </div>
-               
+
             </div>
             
         </div>
