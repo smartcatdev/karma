@@ -10,7 +10,8 @@ $front = get_option('show_on_front');
 ?>
 
 <div id="primary" class="content-area">
-    <main id="main" class="site-main frontpage-main" role="main">
+    
+    <main id="main" class="site-main frontpage-main <?php echo get_theme_mod( Karma_Options::$features_toggle, Karma_Options::$features_toggle_default ) == 'off' ? 'no-features' : ''; ?>" role="main">
         
         <?php if( $front != 'posts' ) : //frontpage ?>
             <?php do_action('karma_homepage'); ?>
