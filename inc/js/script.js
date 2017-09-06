@@ -2,7 +2,7 @@ jQuery(document).ready(function ($) {
     
     // Mobile nav
     $('.menu-trigger').bigSlide({
-        menu : '#mobile-menu',
+        menu : '#karma-mobile-wrapper',
         push : '#page',
         easyClose : false,
         speed : 400,

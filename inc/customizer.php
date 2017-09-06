@@ -163,7 +163,7 @@ function karma_checkbox_sanitize($input) {
    }
 }
 
-function karma_all_posts_array() {
+function karma_all_posts_array( $add_empty_item = false ) {
 
     $posts = get_posts( array(
         'post_type'        => array( 'post', 'page' ),
@@ -174,6 +174,10 @@ function karma_all_posts_array() {
     ));
 
     $posts_array = array();
+    
+    if ( $add_empty_item ) :
+        $posts_array[] = __( 'Please select a post', 'karma' );
+    endif;
 
     foreach ( $posts as $post ) :
 

@@ -20,14 +20,26 @@ get_header();
 
         <?php $bottom_widget = get_post_meta( get_the_ID(), 'karma_bottom_widget_area', true ); ?>
         
-        <?php if ( $bottom_widget != 'karma_none' ): ?>
+        <?php if ( !empty( $bottom_widget ) && $bottom_widget != 'karma_none' && is_active_sidebar( $bottom_widget ) ): ?>
 
             <div class="container">
 
-                <div class="row bottom-widget">
+                <div class="row">
+                    
+                    <div class="col-sm-12">
 
-                    <?php dynamic_sidebar( esc_attr( $bottom_widget ) ); ?>
+                        <div class="bottom-widget">
+                        
+                            <div class="row">
 
+                                <?php dynamic_sidebar( esc_attr( $bottom_widget ) ); ?>
+
+                            </div>
+                            
+                        </div>
+                        
+                    </div>
+                    
                 </div>
 
             </div>

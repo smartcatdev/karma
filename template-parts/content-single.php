@@ -13,7 +13,7 @@
 
         <?php
 
-        if( karma_has_left_sidebar( get_the_ID() ) ) :
+        if ( is_active_sidebar( 'sidebar-left' ) && karma_has_left_sidebar( get_the_ID() ) ) :
             get_sidebar('left');
         endif;
 
@@ -81,7 +81,7 @@
 
         <?php
 
-        if( karma_has_right_sidebar( get_the_ID() ) ) :
+        if ( is_active_sidebar( 'sidebar-right' ) && karma_has_right_sidebar( get_the_ID() ) ) :
             get_sidebar('right');
         endif;
 

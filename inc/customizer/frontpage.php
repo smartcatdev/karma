@@ -33,7 +33,7 @@ $wp_customize->add_panel( 'homepage', array (
         for( $i = 0; $i <= 3; $i++ ) :
        
         $wp_customize->add_setting( 'karma_homepage_feature[' . $i . ']', array (
-            'default'               => 1,
+            'default'               => 0,
             'transport'             => 'refresh',
             'sanitize_callback'     => 'karma_sanitize_post',
         ) );
@@ -42,7 +42,7 @@ $wp_customize->add_panel( 'homepage', array (
             'section'               => 'homepage_features',
             'label'                 => sprintf( __( 'Feature #%s: Select a page or post', 'karma' ), $i+1 ),
             'description'           => __( 'This is a list of your posts & pages. The feature will link directly to your selection. The title of your post will be the feature name.', 'karma' ),
-            'choices'               => karma_all_posts_array(),
+            'choices'               => karma_all_posts_array( true ),
         ) );
     
         $wp_customize->add_setting( 'karma_homepage_feature_icon[' . $i . ']', array (

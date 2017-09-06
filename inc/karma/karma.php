@@ -209,17 +209,16 @@ function karma_main_width( $post_id ){
     
     $width = 12;
     
-    
-    if( karma_has_left_sidebar( $post_id ) && karma_has_right_sidebar( $post_id ) ) :
+    if( karma_has_left_sidebar( $post_id ) && karma_has_right_sidebar( $post_id ) && is_active_sidebar( 'sidebar-left' ) && is_active_sidebar( 'sidebar-right' ) ) :
         $width = 6;
-    elseif( karma_has_left_sidebar( $post_id ) || karma_has_right_sidebar( $post_id ) ) :
+    elseif( ( is_active_sidebar( 'sidebar-left' ) && karma_has_left_sidebar( $post_id ) ) || ( is_active_sidebar( 'sidebar-right' ) && karma_has_right_sidebar( $post_id ) ) ) :
         $width = 9;
     else:
         $width = 12;
     endif;
     
-    
     return $width;
+    
 }
 
 
@@ -393,7 +392,6 @@ function karma_custom_css() {
             background: <?php echo $theme_color; ?> !important;
             color: #fff !important;
             outline: none;
-            
         }
 
         #karma-featured,
@@ -528,7 +526,7 @@ function karma_homepage_shop() {
                                                     <?php if ( ! edd_has_variable_prices( get_the_ID() ) ) { ?>
                                                         <?php echo edd_get_purchase_link( get_the_ID(), 'Add to Cart', 'button' ); ?>
                                                     <?php } ?>
-                                                    <a href="<?php the_permalink(); ?>"><?php _e( 'Product details', 'karma' ); ?></a>                                                
+                                                    <a class="button primary" href="<?php the_permalink(); ?>"><?php _e( 'Product details', 'karma' ); ?></a>                                                
                                                 </div>
 
                                             </div><!--end .product-buttons-->
@@ -838,7 +836,7 @@ function karma_get_main_nav() {
     else :
 
         if( current_user_can( 'edit_theme_options' ) ) :
-            echo '<div id="karma-add-menu"><a class="karma-cart" href="' . esc_url( admin_url( 'nav-menus.php' ) ) . '">' . __( 'Add a Primary Menu', 'karma' ) . '</a></div>';
+            echo '<div id="karma-add-menu"><a class="karma-cart" href="' . esc_url( admin_url( 'nav-menus.php' ) ) . '">' . __( 'Add a Primary Menu?', 'karma' ) . '</a></div>';
         endif;
     endif;
     
@@ -869,6 +867,7 @@ function karma_get_mobile_nav() {
             'container' => '',
             
         ));
+    
     elseif( has_nav_menu( 'primary' ) ) :
 
         $menu = wp_nav_menu(array(
@@ -877,21 +876,24 @@ function karma_get_mobile_nav() {
             'menu_class' => 'karma-mobile-nav',
             'container' => '',
         ));
+    
     else :
 
-        if( current_user_can( 'edit_theme_options' ) ) :
-            echo '<div id="karma-add-menu"><a class="karma-cart" href="' . esc_url( admin_url( 'nav-menus.php' ) ) . '">' . __( 'Add a Primary Menu', 'karma' ) . '</a></div>';
-        endif;
+        if( current_user_can( 'edit_theme_options' ) ) : ?>
+            <div id="karma-add-menu">
+                <a class="karma-cart" href="<?php echo esc_url( admin_url( 'nav-menus.php' ) ); ?>"><?php _e( 'Add a Mobile Menu?', 'karma' ); ?></a>
+            </div>
+        <?php endif;
+        
     endif;
     
 }
 
 function karma_has_left_sidebar( $post_id ) {
     
-    $sidebar_location = get_post_meta( $post_id, 'karma_sidebar_location', true ) ? get_post_meta( $post_id, 'karma_sidebar_location', true ) : '';
+    $sidebar_location = get_post_meta( $post_id, 'karma_sidebar_location', true ) ? get_post_meta( $post_id, 'karma_sidebar_location', true ) : 'karma_default';
 
-    
-    if( $sidebar_location == 'karma_default' || $sidebar_location == 'karma_left' || $sidebar_location == 'karma_leftright' || $sidebar_location == '' ) :
+    if( $sidebar_location == 'karma_default' || $sidebar_location == 'karma_left' || $sidebar_location == 'karma_leftright' ) :
         
         return true;
     
@@ -903,9 +905,9 @@ function karma_has_left_sidebar( $post_id ) {
 
 function karma_has_right_sidebar( $post_id ) {
     
-    $sidebar_location = get_post_meta( $post_id, 'karma_sidebar_location', true ) ? get_post_meta( $post_id, 'karma_sidebar_location', true ) : '';
+    $sidebar_location = get_post_meta( $post_id, 'karma_sidebar_location', true ) ? get_post_meta( $post_id, 'karma_sidebar_location', true ) : 'karma_default';
     
-    if( $sidebar_location == 'karma_default' || $sidebar_location == 'karma_right' || $sidebar_location == 'karma_leftright' || $sidebar_location == '' ) :
+    if( $sidebar_location == 'karma_default' || $sidebar_location == 'karma_right' || $sidebar_location == 'karma_leftright' ) :
         
         return true;
     

@@ -18,6 +18,7 @@ if(class_exists( 'SmartcatTeamPlugin' ) ) :
 endif;
 
 ?>
+
 <div class="sc-single-wrapper">
 
     <?php while (have_posts()) : the_post(); ?>

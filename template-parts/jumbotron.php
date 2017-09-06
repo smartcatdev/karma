@@ -1,4 +1,4 @@
-<div id="karma-featured-post">
+<div id="karma-featured-post" class="<?php echo get_theme_mod( Karma_Options::$features_toggle, Karma_Options::$features_toggle_default ) == 'off' ? 'no-features' : ''; ?>">
 
     <div id="karma-slider" class="hero">
         
