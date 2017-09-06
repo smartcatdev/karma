@@ -1343,15 +1343,12 @@ input[type="submit"],
 
 .site-info{
     background: #2B3136;
-    color: #b5bdc3;
-    padding: 40px 0;
+    color: #b5bdc3; 
     position: relative;
 }
 
 .site-info .seperator {
     border-bottom: dotted 1px #657280;
-    margin-bottom: 40px;
-    margin-top: 40px;
 }
 
 .site-info a,
@@ -2215,4 +2212,21 @@ ul.products li.product .woocommerce-loop-product__title {
 .entry-content img {
     width: 100%;
     height: auto;
+}
+.karma-post-footer {
+    padding-top: 40px;
+    padding-bottom: 40px;
+}
+.site-info.karma-footer > .container {
+    padding-bottom: 40px;
+    padding-top: 40px;
+}
+.container > .row > .sidebar-footer > aside > .container > section > .cta-wrapper .contianer {
+    background-color: white; 
+}
+#karma-cta ul {
+    list-style: none;
+}
+#karma-cta a {
+    color: white !important;
 }

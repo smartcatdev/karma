@@ -401,7 +401,8 @@ function karma_custom_css() {
         .entry-meta .post-category a,
         #karma-features .karma-feature:hover .icon-wrap,
         #karma-features h2:before,
-        #karma-homepage-shop h2:before{
+        #karma-homepage-shop h2:before,
+        #karma-cta {
             background: <?php echo $theme_color; ?>;
         }
         
@@ -650,11 +651,11 @@ function karma_render_footer(){ ?>
         <div class="container">
 
             <div class="row">
-              
+
                 <div class="sidebar-footer">
                     <?php dynamic_sidebar('sidebar-footer'); ?>
                 </div>
-               
+
             </div>
             
         </div>
