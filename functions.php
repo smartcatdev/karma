@@ -7,8 +7,6 @@
  * @package Karma
  */
 
-remove_action( 'shutdown', 'wp_ob_end_flush_all', 1 );
-
 if ( ! function_exists( 'karma_setup' ) ) :
 /**
  * Sets up theme defaults and registers support for various WordPress features.
