@@ -6,10 +6,10 @@ if ( is_tax( 'download_category' ) || is_tax( 'download_tag' ) ) :
     $the_query = $wp_query;
 else :
     $args = array (
-        'post_type' => 'download',
-        'post_status' => 'publish',
-        'posts_per_page' => 9,
-        'paged' => get_query_var( 'paged' ) ? get_query_var( 'paged' ) : 1
+        'post_type'         => 'download',
+        'post_status'       => 'publish',
+        'posts_per_page'    => get_option( 'posts_per_page' ),
+        'paged'             => get_query_var( 'paged' ) ? get_query_var( 'paged' ) : 1
     );
 
     $the_query = new WP_Query( $args );
@@ -58,7 +58,7 @@ get_header();
                                                     <?php if ( !edd_has_variable_prices( get_the_ID() ) ) { ?>
                                                         <?php echo edd_get_purchase_link( get_the_ID(), 'Add to Cart', 'button' ); ?>
                                                     <?php } ?>
-                                                    <a href="<?php the_permalink(); ?>"><?php _e( 'Product details', 'karma' ); ?></a>                                                
+                                                    <a class="button primary" href="<?php the_permalink(); ?>"><?php _e( 'Product details', 'karma' ); ?></a>                                                
                                                 </div>
 
                                             </div><!--end .product-buttons-->
@@ -89,8 +89,6 @@ get_header();
                             <?php $i += 1; ?>
                         <?php endwhile; ?>
 
-                        <?php wp_reset_postdata(); ?>
-
                     <?php else : ?>
 
                         <?php get_template_part( 'template-parts/content', 'none' ); ?>
@@ -99,20 +97,27 @@ get_header();
 
                 </div>
 
-
-
             </div>
+            
         </div>
+        
         <div class="clear"></div>
-
-        <div class="karma-pagination">
-            <div>
-                <div class="pagination-links"> 
-                    <?php the_posts_pagination(); ?>
+        
+        <?php if ( $the_query->max_num_pages ) : ?> 
+        
+            <div class="karma-pagination">
+                <div>
+                    <div class="pagination-links"> 
+                        <?php echo get_next_posts_link( __( 'Next page', 'karma' ), $the_query->max_num_pages ); ?>
+                        <?php echo get_previous_posts_link( __( 'Previous page', 'karma' ), $the_query->max_num_pages ); ?>
+                    </div>
                 </div>
             </div>
-        </div>
 
+        <?php endif; ?>
+        
+        <?php wp_reset_postdata(); ?>
+        
     </main><!-- #main -->
 </div><!-- #primary -->
 

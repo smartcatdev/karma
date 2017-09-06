@@ -33,7 +33,7 @@
                                         </a>
 
                                         <a href="<?php echo get_the_permalink( $post_id ) ? esc_url( get_the_permalink( $post_id ) ) : null; ?>" 
-                                           class="animated fadeIn delay1 karma-jumbotron-button-primary">
+                                           class="animated fadeIn delay1 karma-jumbotron-button-primary button hollow">
                                                <?php echo esc_attr( get_theme_mod( Karma_Options::$featured_post_button, Karma_Options::$featured_post_button_default ) ); ?>
                                         </a>
 

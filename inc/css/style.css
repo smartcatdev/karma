@@ -669,7 +669,7 @@ ul.karma-mobile-nav li{
 
 .edd-product-inner .product-buttons a:hover {
     color: #fff !important;
-    border: 2px solid #fff !important;
+    /*border: 2px solid #fff !important;*/
 }
 
 .edd-product .product-title {
@@ -1129,11 +1129,11 @@ ul.karma-nav > li.menu-item.menu-item-has-children > a:after{
 }
 
 #karma-featured-post a.karma-jumbotron-button-primary{
-    margin-bottom: 10px;
+/*    margin-bottom: 10px;
     border-radius: 2px;
     border: 2px solid #fff;
     color: #fff;
-    padding: 10px 18px;
+    padding: 10px 18px;*/
 }
 
 #karma-jumbotron .overlay{
@@ -1277,7 +1277,7 @@ ul.karma-nav > li.menu-item.menu-item-has-children > a:after{
 
 /*-- ## Buttons --*/
 
-.button,
+/*.button,
 .karma-button,
 a.karma-button,
 button, 
@@ -1293,7 +1293,7 @@ input[type="submit"],
     color: #545454 !important;
     text-decoration: none !important;
     font-size: 16px;
-}
+}*/
 
 .karma-button.large{
     padding: 15px 25px;
@@ -1343,12 +1343,16 @@ input[type="submit"],
     /*padding-left: 0;*/
 }
 
-.karma-footer ul li{
+.karma-footer ul li {
     /*border-bottom: dotted 1px #657280;*/
     padding-bottom: 15px !important;
     /*margin-bottom: 15px !important;*/
     /*list-style: none;*/
 }   
+
+.karma-footer ul.children li {
+    padding-bottom: 0 !important;
+}
 
 .site-info{
     background: #2B3136;
@@ -2252,12 +2256,24 @@ body #karma-page-jumbotron {
 main#main.karma-page,
 main#main.karma-blog-page,
 main#main.karma-post,
-main#main.karma-store-page {
+main#main.karma-store-page,
+main#main.karma-single-product{
     padding-top: 30px;
+}
+
+.widget a {
+    transition: 0.2s all ease-in-out;
+    -moz-transition: 0.2s all ease-in-out;
+    -webkit-transition: 0.2s all ease-in-out;
 }
 
 #karma-cta .widget ul {
     list-style: none;
+}
+
+#karma-cta .widget ul.children {
+    margin: 0;
+    padding: 0;
 }
 
 div#karma-mobile-wrapper {
@@ -2284,16 +2300,50 @@ ul.karma-nav > li.menu-item a:focus {
     color: #fff !important;
 }
 
-a.button {
+button,
+a.button,
+.karma-pagination .pagination-links a {
     margin-bottom: 10px;
     border-radius: 2px;
     border: 2px solid;
     padding: 10px 18px;
     display: inline-block;
+    transition: 0.25s all ease-in-out;
+    -moz-transition: 0.25s all ease-in-out;
+    -webkit-transition: 0.25s all ease-in-out;
 }
 
-a.button.primary {
-    background-color: red;
+.karma-pagination .pagination-links a {
+    margin-bottom: 30px;
+    border-radius: 2px;
+}
+
+input[type="reset"]:hover,
+input[type="button"]:hover,
+input[type="submit"] {
+    margin-bottom: 10px;
+    border-radius: 2px;
+    border: 2px solid;
+    padding: 10px 18px;
+    display: inline-block;
+    transition: 0.25s all ease-in-out;
+    -moz-transition: 0.25s all ease-in-out;
+    -webkit-transition: 0.25s all ease-in-out;
+    color: #fff; 
+}
+
+/*button:hover,
+input[type="reset"]:hover,
+input[type="button"]:hover,
+input[type="submit"]:hover {
+    opacity: .85;
+}*/
+
+button,
+a.edd-add-to-cart.button.edd-submit,
+a.button.primary,
+.karma-pagination .pagination-links a{
+   color: #fff; 
 }
     
 a.button.hollow {
@@ -2302,4 +2352,15 @@ a.button.hollow {
     color: #fff;
     padding: 10px 18px;
 }
+
+a.button.hollow:hover {
+    background-color: rgba(255,255,255,0.2);
+}
     
+.product-image img.wp-post-image {
+    margin-bottom: 0;
+}
+
+.karma-pagination .pagination-links a:hover {
+    color: #fff !important;
+}

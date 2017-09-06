@@ -52,7 +52,7 @@
     
     <?php if ('post' === get_post_type()) : ?>
     <div class="continue-reading">
-        <a class="karma-button primary" href="<?php echo esc_url( get_the_permalink() ); ?>"><?php _e( 'Continue Reading', 'karma' ); ?></a>
+        <a class="karma-button button primary" href="<?php echo esc_url( get_the_permalink() ); ?>"><?php _e( 'Continue Reading', 'karma' ); ?></a>
     </div>
     <?php endif; ?>
 

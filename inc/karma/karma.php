@@ -375,7 +375,25 @@ function karma_custom_css() {
             color: <?php echo $theme_color; ?>;
         }
         
-        .button,
+        button {
+            background: <?php echo $theme_color; ?>;
+            border-color: <?php echo $theme_color; ?>;
+        }
+        
+        input[type="submit"],
+        a.edd-add-to-cart.button.edd-submit,
+        a.edd-add-to-cart.button.edd-submit:hover,
+        a.edd_go_to_checkout.button.edd-submit,
+        a.edd_go_to_checkout.button.edd-submit:hover,
+        a.button.primary,
+        .karma-pagination .pagination-links a,
+        #edd-purchase-button,
+        input[type="submit"].edd-submit {
+            background-color: <?php echo $theme_color; ?>;
+            border-color: <?php echo $theme_color; ?>;
+        }
+        
+/*        .button,
         button,
         .edd-product-inner .product-buttons a,
         input[type="button"], 
@@ -392,7 +410,7 @@ function karma_custom_css() {
             background: <?php echo $theme_color; ?> !important;
             color: #fff !important;
             outline: none;
-        }
+        }*/
 
         #karma-featured,
         .woocommerce span.onsale,
