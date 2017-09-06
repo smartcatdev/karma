@@ -14,27 +14,7 @@
         <div class="col-sm-8 karma-post-container">
 
             <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-                <header class="entry-header">
-                    <div class="entry-meta">
-                        <div class="meta-detail">
-
-                            <?php the_title('<h1 class="text-left entry-title">', '</h1>'); ?>
-
-                            <div class="single-post-thumbnail">
-                            <?php 
-                            if( has_post_thumbnail() ) :
-                                the_post_thumbnail( 'large' );
-                            endif;
-
-                            ?>                            
-                            </div>
-
-                        </div>
-
-                    </div><!-- .entry-meta -->
-
-                </header><!-- .entry-header -->
-
+                
                 <div class="entry-content">
                     <?php the_content(); ?>
                     <?php

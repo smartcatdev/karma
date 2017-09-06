@@ -163,7 +163,7 @@ function karma_checkbox_sanitize($input) {
    }
 }
 
-function karma_all_posts_array() {
+function karma_all_posts_array( $add_empty_item = false ) {
 
     $posts = get_posts( array(
         'post_type'        => array( 'post', 'page' ),
@@ -174,6 +174,10 @@ function karma_all_posts_array() {
     ));
 
     $posts_array = array();
+    
+    if ( $add_empty_item ) :
+        $posts_array[] = __( 'Please select a post', 'karma' );
+    endif;
 
     foreach ( $posts as $post ) :
 
@@ -260,4 +264,12 @@ function karma_sanatize_color( $input, $setting ) {
     $keys = array_map( 'sanitize_hex_color_no_hash', array_keys( $choices ) );
     
     return ( in_array( $input, $keys ) ? $input : $setting->default );
+}
+
+function karma_sanitize_bool( $input ) {
+    if ( $input == true ) :
+        return $input;
+    elseif( $input == false ) :    
+        return $input;
+    endif;
 }
