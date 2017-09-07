@@ -852,6 +852,10 @@ ul.karma-nav ul li:not(:last-of-type){
     width: 100%;
 }
 
+ul.karma-nav ul li{
+    width: 100%;
+}
+
 ul.karma-nav ul ul li {
     border-bottom: none;
 }
