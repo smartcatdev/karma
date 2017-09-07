@@ -519,19 +519,7 @@ function karma_homepage_shop() {
     
     ?>
     
-    <div id="karma-homepage-shop">
-        
-        <div class="container">
-            
-            <div class="row text-center">
-                <?php
-                    if ( is_active_sidebar( 'sidebar-fp-shop' ) ) {
-                        dynamic_sidebar( 'sidebar-fp-shop' );
-                    } 
-                ?>                
-            </div>
-            
-            <?php if ( get_theme_mod( Karma_Options::$products_toggle, Karma_Options::$products_toggle_default ) == 'on' ) : ?>
+    <?php if ( get_theme_mod( Karma_Options::$products_toggle, Karma_Options::$products_toggle_default ) == 'on' ) : ?>
             
                 <?php $i = 0; ?>
                 <?php while ($products->have_posts()) : $products->the_post(); ?>
@@ -589,11 +577,7 @@ function karma_homepage_shop() {
                 <?php wp_reset_postdata(); ?>
                         
             <?php endif; ?>
-                        
-        </div>
-        
-    </div>
-    
+               
     
 <?php }
 
@@ -613,19 +597,35 @@ function karma_render_homepage() {
     
         karma_homepage_features();
     
-    endif;
+    endif; ?>
     
-    
-    
-    if( get_theme_mod( Karma_Options::$products_toggle, Karma_Options::$products_toggle_default ) == 'on' && class_exists( 'Easy_Digital_Downloads' ) ) :
-    
-        karma_homepage_shop();
-    
-    endif;
-    
-    
-}
+    <?php if( ( get_theme_mod( Karma_Options::$products_toggle, Karma_Options::$products_toggle_default ) == 'on' && class_exists( 'Easy_Digital_Downloads' ) ) || is_active_sidebar( 'sidebar-fp-shop' ) ) : ?>
+                        
+        <div id="karma-homepage-shop">
 
+            <div class="container">
+
+                <div class="row text-center">
+                    <?php
+                        if ( is_active_sidebar( 'sidebar-fp-shop' ) ) {
+                            dynamic_sidebar( 'sidebar-fp-shop' );
+                        } 
+                    ?>                
+                </div>
+
+                <?php if( get_theme_mod( Karma_Options::$products_toggle, Karma_Options::$products_toggle_default ) == 'on' && class_exists( 'Easy_Digital_Downloads' ) ) :
+
+                    karma_homepage_shop();
+
+                endif; ?>
+
+            </div>
+
+        </div>
+                        
+    <?php endif; ?>
+        
+<?php }
 add_action( 'karma_homepage', 'karma_render_homepage' );
 
 

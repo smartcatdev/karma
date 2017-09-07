@@ -433,7 +433,7 @@ ul.karma-mobile-nav li{
 
 #karma-features {
     background: #fff;
-    padding: 60px 0 60px 0;
+    padding: 50px 0 0px 0;
     position: relative;
     overflow: hidden;
 }
@@ -513,7 +513,7 @@ ul.karma-mobile-nav li{
     background: #fbfbfb;
     color: #000;
     font-size: 60px;
-    line-height: 174px;
+    line-height: 165px;
     text-align: center;
     box-shadow: 0 4px 4px rgba(0,0,0,.1);
     -moz-box-shadow: 0 4px 4px rgba(0,0,0,.1);
@@ -557,25 +557,30 @@ ul.karma-mobile-nav li{
     display: inline-block;
     color: #777;
     font-size: 60px;
-    line-height: 174px;
+    line-height: 165px;
     text-align: center;
 
     
 }
 #karma-features .karma-feature h3.feature-title {
-    font-size: 18px !important;
+    font-size: 20px !important;
     margin: 0;
     color: #fff;
     font-weight: 400;
     color: #444;
     text-transform: uppercase;
     line-height: 1.25;
-    padding-top: 25px;
+/*    padding-top: 25px;*/
     margin-bottom: 25px;
+    display: table;
+    width: 100%;
+    min-height: 56px;
 }
 
 #karma-features .karma-feature h3.feature-title a {
     color: #545454;
+    display: table-cell;
+    vertical-align: middle;
 }
 
 #karma-features .feature-wrapper > a {
@@ -675,6 +680,7 @@ ul.karma-mobile-nav li{
 .edd-product .product-title {
     font-size: 20px;
     font-weight: 600;
+    margin-bottom: 5px;
 }
 
 .edd-product .product-title,
@@ -915,6 +921,10 @@ ul.karma-nav > li.menu-item > a {
     border-bottom: none;
 }
 
+.main-navigation ul ul li {
+    width: 100%;
+}
+
 .main-navigation ul ul li.menu-item-has-children > a {
 
 }
@@ -1023,7 +1033,8 @@ ul.karma-nav > li.menu-item.menu-item-has-children > a:after{
 #karma-featured-post #slide1 p{
     font-size: 22px;
     color: #fff;
-    margin: 25px auto 32px auto;
+    margin: 15px auto 30px auto;
+    padding-right: 30px;
 } 
 
 #karma-featured-post #karma-jumbo-js,
@@ -1043,11 +1054,22 @@ ul.karma-nav > li.menu-item.menu-item-has-children > a:after{
         display: none;
     }
     
+}
+
+@media( max-width: 767px ) {
+    
     #karma-featured-post #slide1 h2 {
         font-size: 28px !important;
         line-height: 32px !important;
         margin-bottom: 15px !important;
+        padding-right: 0 !important;
     }
+
+    #karma-featured-post #slide1 p {
+        padding-right: 0 !important;
+        margin-bottom: 15px;
+    }
+    
 }
 
 #karma-featured-post #slide1 span.header-inner{
@@ -1077,6 +1099,7 @@ ul.karma-nav > li.menu-item.menu-item-has-children > a:after{
     line-height: 56px;
     color: #fff;
     margin: 0;
+    padding-right: 15px;
 }
 
 #karma-featured-post #karma-social {
@@ -2012,7 +2035,7 @@ li.product a.ajax_add_to_cart{
     }
 
     #karma-page-jumbotron {
-        /*height: 120px;*/
+        height: 120px;
     }
 
     #karma-page-jumbotron .cell-display{
@@ -2284,6 +2307,7 @@ div#karma-mobile-wrapper {
     z-index: 9999;
     padding: 40px;
     right: -15.625em;
+    position: fixed;
 }
 
 main#main.frontpage-main.no-features,
@@ -2360,7 +2384,7 @@ a.button.hollow {
 }
 
 a.button.hollow:hover {
-    background-color: rgba(255,255,255,0.2);
+    background-color: rgba(255,255,255,0.2) !important;
 }
     
 .product-image img.wp-post-image {
@@ -2396,4 +2420,49 @@ a.button.hollow:hover {
 #karma-homepage-shop .row.project-row {
     margin-top: 30px;
     margin-bottom: 30px;
+}
+
+/* Fine Tuning */
+
+@media screen and ( min-width:768px ) and ( max-width:991px ) {
+    #karma-featured-post #slide1 .slide-details p {
+        font-size: 15px;
+    }
+}
+
+@media screen and ( max-width:767px ) {
+    #karma-featured-post #slide1 .owl-item p {
+        font-size: 15px;
+    }
+    
+    #karma-featured-post #slide1 .col-sm-6:last-of-type {
+/*        display: table;
+        width: 50%;
+        float: left;*/
+    }
+    
+    #karma-featured-post #slide1 .slide-vert-inner img {
+        top: 0 !important;
+    }
+    
+/*    .owl-wrapper .owl-item .col-sm-6 {
+        width: 100%;
+        display: block;
+    }*/
+}
+
+#karma-featured-post #slide1 .static-jumbotron .col-sm-6 {
+    float: left;
+    width: 50%;
+}
+
+
+@media (max-width:767px) {
+    #karma-featured-post #slide1 .static-jumbotron p {
+        font-size: 15px;
+    }
+    #karma-featured-post #slide1 .static-jumbotron .slide-details {
+        text-align: center;
+    }
+
 }
