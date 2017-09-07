@@ -12,7 +12,7 @@
 
                     <div class="overlay"></div>
 
-                    <div class="container">
+                    <div class="container static-jumbotron">
 
                         <div class="row">
 
