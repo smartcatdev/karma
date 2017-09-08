@@ -107,6 +107,13 @@ jQuery(document).ready(function ($) {
     });
 
     karmaWow.init();
+
+    $('ul#mobile-menu.karma-mobile-nav > li.menu-item-has-children').prepend( '<span class="fa fa-chevron-right"></span>' );
+
+    $( 'ul.karma-mobile-nav > li.menu-item-has-children' ).on( 'click', function() {
+        $(this).find( 'span' ).stop().toggleClass('submenu-rotated');
+        $(this).find( '> ul.sub-menu' ).stop().slideToggle( 400 );
+    });
     
 
 });

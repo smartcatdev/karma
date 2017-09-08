@@ -99,6 +99,10 @@ body.admin-bar{
     margin-top: 0;
 }
 
+#karma-featured-post a.karma-jumbotron-button-primary {
+    color: #fff !important;
+}
+
 #main.karma-blog{
     margin-top: 85px;   
 }
@@ -118,10 +122,35 @@ ul{
     padding-left: 15px;
 }
 
-ul.karma-mobile-nav li{
-    list-style: none;
-    padding-left: 0;
+ul.karma-mobile-nav > li.menu-item-has-children > ul.sub-menu ul.sub-menu {
+    display: block;
+    border-left: none; 
 }
+
+ul.karma-mobile-nav li {
+    list-style: none;
+    padding: 7.5px 0;
+}
+
+ul.karma-mobile-nav > li {
+    border-bottom: thin dotted #989898;
+}
+
+ul#mobile-menu.karma-mobile-nav > li.menu-item-has-children span {
+    color: #ffffff;
+    margin-right: 8px;
+    margin-left: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: 0.2s all ease-in-out;
+    -moz-transition: 0.2s all ease-in-out;
+    -webkit-transition: 0.2s all ease-in-out;
+}
+
+ul#mobile-menu.karma-mobile-nav > li.menu-item-has-children span.submenu-rotated {
+    transform: rotate(90deg);
+}
+
 .delay1{
     -webkit-animation-delay: 0.1s;
     -moz-animation-delay: 0.1s;
@@ -412,6 +441,26 @@ ul.karma-mobile-nav li{
     animation-duration: 0.75s !important;
 }
 
+div#karma-mobile-wrapper ul.karma-mobile-nav {
+    margin-top: 30px;
+}
+
+.karma-mobile-nav ul.sub-menu {
+    border-left: thin dotted #989898;
+    margin-left: 0;
+    margin: 5px 0;
+    padding-left: 15px;
+    padding-top: 0;
+    display: none;
+}
+
+.karma-mobile-nav ul.sub-menu li {
+    padding: 0;
+}
+
+.karma-mobile-nav ul.sub-menu li a {
+    font-size: 13px !important;
+}
 
 .karma-mobile-nav ul {
     padding-left: 0;
@@ -421,7 +470,8 @@ ul.karma-mobile-nav li{
 }
 
 .karma-mobile-nav a {
-    font-size: 20px;
+    font-weight: 300;
+    font-size: 16px;
     transition: 0.2s all ease-in-out;
     -moz-transition: 0.2s all ease-in-out;
     -webkit-transition: 0.2s all ease-in-out;
@@ -1037,9 +1087,16 @@ ul.karma-nav > li.menu-item.menu-item-has-children > a:after{
 #karma-featured-post #slide1 p{
     font-size: 22px;
     color: #fff;
-    margin: 15px auto 30px auto;
+    margin: 15px auto 30px 0;
     padding-right: 30px;
 } 
+
+@media (max-width: 767px) {
+    #karma-featured-post #slide1 p {
+        margin-left: auto; 
+        margin-right: auto; 
+    }
+}
 
 #karma-featured-post #karma-jumbo-js,
 #karma-page-jumbotron #karma-jumbo-js {
@@ -2170,7 +2227,7 @@ ul.products li.product .woocommerce-loop-product__title {
 }
 
 .karma-mobile-nav {
-    position: fixed;
+/*    position: fixed;*/
     /*left: -15.625em; left or right and the width of your navigation panel*/
     /*width: 15.625em; should match the above value*/
 }
@@ -2336,7 +2393,7 @@ main#main.karma-single-product{
 div#karma-mobile-wrapper {
     background: #2C3E50;
     z-index: 9999;
-    padding: 40px;
+    padding: 40px 40px 40px 20px;
     right: -15.625em;
     position: fixed;
 }

@@ -68,6 +68,12 @@ if (! class_exists('Karma_Options') ) :
     public static $featured_post = 'karma_the_featured_post';
     public static $featured_post_default = 1;
     
+    public static $jumbotron_drag_toggle = 'karma_jumbotron_drag';
+    public static $jumbotron_drag_toggle_default = 'on';
+    
+    public static $jumbotron_loop_toggle = 'karma_jumbotron_loop';
+    public static $jumbotron_loop_toggle_default = 'on';
+    
     public static $jumbotron_height = 'karma_jumbotron_height';
     public static $jumbotron_height_default = 650;
     
