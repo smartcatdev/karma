@@ -382,8 +382,10 @@ function karma_custom_css() {
         
         input[type="submit"],
         a.edd-add-to-cart.button.edd-submit,
+        a.edd-add-to-cart.button.edd-submit:focus,
         a.edd-add-to-cart.button.edd-submit:hover,
         a.edd_go_to_checkout.button.edd-submit,
+        a.edd_go_to_checkout.button.edd-submit:focus,
         a.edd_go_to_checkout.button.edd-submit:hover,
         a.button.primary,
         .karma-pagination .pagination-links a,
@@ -1104,3 +1106,12 @@ register_sidebar(array(
     'before_title' => '<h3>',
     'after_title' => '</h3>',
   ));
+
+if ( class_exists( 'Easy_Digital_Downloads' ) ) : 
+    
+    add_filter( 'edd_checkout_image_size', 'karma_filter_edd_checkout_image_size', 10, 1 );
+    function karma_filter_edd_checkout_image_size( $array ) {
+        return array( 0, 200 );
+    }
+    
+endif; 

@@ -99,6 +99,10 @@ body.admin-bar{
     margin-top: 0;
 }
 
+#karma-featured-post a.karma-jumbotron-button-primary {
+    color: #fff !important;
+}
+
 #main.karma-blog{
     margin-top: 85px;   
 }
@@ -118,10 +122,35 @@ ul{
     padding-left: 15px;
 }
 
-ul.karma-mobile-nav li{
-    list-style: none;
-    padding-left: 0;
+ul.karma-mobile-nav > li.menu-item-has-children > ul.sub-menu ul.sub-menu {
+    display: block;
+    border-left: none; 
 }
+
+ul.karma-mobile-nav li {
+    list-style: none;
+    padding: 7.5px 0;
+}
+
+ul.karma-mobile-nav > li {
+    border-bottom: thin dotted #989898;
+}
+
+ul#mobile-menu.karma-mobile-nav > li.menu-item-has-children span {
+    color: #ffffff;
+    margin-right: 8px;
+    margin-left: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: 0.2s all ease-in-out;
+    -moz-transition: 0.2s all ease-in-out;
+    -webkit-transition: 0.2s all ease-in-out;
+}
+
+ul#mobile-menu.karma-mobile-nav > li.menu-item-has-children span.submenu-rotated {
+    transform: rotate(90deg);
+}
+
 .delay1{
     -webkit-animation-delay: 0.1s;
     -moz-animation-delay: 0.1s;
@@ -412,6 +441,26 @@ ul.karma-mobile-nav li{
     animation-duration: 0.75s !important;
 }
 
+div#karma-mobile-wrapper ul.karma-mobile-nav {
+    margin-top: 30px;
+}
+
+.karma-mobile-nav ul.sub-menu {
+    border-left: thin dotted #989898;
+    margin-left: 0;
+    margin: 5px 0;
+    padding-left: 15px;
+    padding-top: 0;
+    display: none;
+}
+
+.karma-mobile-nav ul.sub-menu li {
+    padding: 0;
+}
+
+.karma-mobile-nav ul.sub-menu li a {
+    font-size: 13px !important;
+}
 
 .karma-mobile-nav ul {
     padding-left: 0;
@@ -421,7 +470,8 @@ ul.karma-mobile-nav li{
 }
 
 .karma-mobile-nav a {
-    font-size: 20px;
+    font-weight: 300;
+    font-size: 16px;
     transition: 0.2s all ease-in-out;
     -moz-transition: 0.2s all ease-in-out;
     -webkit-transition: 0.2s all ease-in-out;
@@ -1037,9 +1087,16 @@ ul.karma-nav > li.menu-item.menu-item-has-children > a:after{
 #karma-featured-post #slide1 p{
     font-size: 22px;
     color: #fff;
-    margin: 15px auto 30px auto;
+    margin: 15px auto 30px 0;
     padding-right: 30px;
 } 
+
+@media (max-width: 767px) {
+    #karma-featured-post #slide1 p {
+        margin-left: auto; 
+        margin-right: auto; 
+    }
+}
 
 #karma-featured-post #karma-jumbo-js,
 #karma-page-jumbotron #karma-jumbo-js {
@@ -1347,7 +1404,7 @@ input[type="submit"],
     background: #242e3e;
     text-align: center;
     color: #fff;
-    padding: 84px 0 30px 0;
+    padding: 60px 0 40px 0;
 }
 
 #karma-cta .widget-title,
@@ -1356,13 +1413,33 @@ input[type="submit"],
 #karma-cta h3,
 #karma-cta h4 {
     font-size: 36px;
-    line-height: 44px;
+    /*line-height: 44px;*/
+}
+
+#karma-cta .cta-wrapper a.button {
+    background: none;
+    border: 2px solid #fff;
+    color: #fff !important;
+}
+
+#karma-cta .cta-wrapper a.button:hover {
+    background-color: rgba(255,255,255,0.2) !important;
+    border: 2px solid #fff !important;
+    color: #fff !important;
+}
+    
+.cta-wrapper .cta-content p {
+    margin: 0;
+}
+
+.cta-wrapper h2 {
+    margin: 0;
 }
 
 #karma-cta div,
 #karma-cta p {
-    margin-bottom: 25px;
-    margin-top: 12px;
+/*    margin-bottom: 25px;
+    margin-top: 12px;*/
 }
 
 .karma-footer ul {
@@ -1511,6 +1588,7 @@ input[type="submit"],
 
 #karma-sidebar .edd_price_options {
     text-align: left;
+    margin: 40px 0 25px;
 }
 
 .edd_download_purchase_form .edd_price_options li {
@@ -2149,7 +2227,7 @@ ul.products li.product .woocommerce-loop-product__title {
 }
 
 .karma-mobile-nav {
-    position: fixed;
+/*    position: fixed;*/
     /*left: -15.625em; left or right and the width of your navigation panel*/
     /*width: 15.625em; should match the above value*/
 }
@@ -2181,6 +2259,7 @@ ul.products li.product .woocommerce-loop-product__title {
     list-style: none;
     padding-left: 0;
     margin-bottom: 30px;
+    text-align: center;
 }
 
 #edd-categories-bar li.cat-item {
@@ -2195,6 +2274,10 @@ ul.products li.product .woocommerce-loop-product__title {
     transition: 0.2s all ease-in-out;
     -moz-transition: 0.2s all ease-in-out;
     -webkit-transition: 0.2s all ease-in-out;
+}
+
+#edd-categories-bar li.cat-item:last-of-type a {
+    margin-right: 0;
 }
 
 #edd-categories-bar li.cat-item a:hover,
@@ -2251,6 +2334,7 @@ ul.products li.product .woocommerce-loop-product__title {
     background-color: #2B3136 !important;
     color: white !important;
     border: 2px solid #2B3136 !important;
+    margin-bottom: 0;
 }
 .entry-content img {
     width: 100%;
@@ -2309,7 +2393,7 @@ main#main.karma-single-product{
 div#karma-mobile-wrapper {
     background: #2C3E50;
     z-index: 9999;
-    padding: 40px;
+    padding: 40px 40px 40px 20px;
     right: -15.625em;
     position: fixed;
 }
@@ -2378,6 +2462,13 @@ a.edd-add-to-cart.button.edd-submit,
 a.button.primary,
 .karma-pagination .pagination-links a{
    color: #fff; 
+}
+
+a.button.primary,
+a.edd_go_to_checkout.button.edd-submit:hover,
+a.edd_go_to_checkout.button.edd-submit:focus,
+.karma-pagination .pagination-links a:focus {
+    color: #fff !important;
 }
     
 a.button.hollow {

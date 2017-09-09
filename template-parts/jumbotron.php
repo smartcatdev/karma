@@ -22,15 +22,13 @@
 
                                     <div class="slide-vert-inner">
 
-                                        <a href="<?php echo get_the_permalink( $post_id ) ? esc_url( get_the_permalink( $post_id ) ) : null; ?>">
-                                            <h2 class="header-text slide1-header animated fadeIn delay1">
-                                                <span class="header-inner"><?php echo ( get_the_title( $post_id ) ? esc_attr( get_the_title( $post_id ) ) : '' ); ?></span>
-                                            </h2>
+                                        <h2 class="header-text slide1-header animated fadeIn delay1">
+                                            <span class="header-inner"><?php echo ( get_the_title( $post_id ) ? esc_attr( get_the_title( $post_id ) ) : '' ); ?></span>
+                                        </h2>
 
-                                            <p class="animated fadeIn delay1">
-                                                <?php echo esc_html( wp_trim_words( strip_tags( get_post_field( 'post_content', $post_id ) ), 25 ) ); ?>
-                                            </p>
-                                        </a>
+                                        <p class="animated fadeIn delay1">
+                                            <?php echo esc_html( wp_trim_words( strip_tags( get_post_field( 'post_content', $post_id ) ), 25 ) ); ?>
+                                        </p>
 
                                         <a href="<?php echo get_the_permalink( $post_id ) ? esc_url( get_the_permalink( $post_id ) ) : null; ?>" 
                                            class="animated fadeIn delay1 karma-jumbotron-button-primary button hollow">
